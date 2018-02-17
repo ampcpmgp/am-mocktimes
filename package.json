@@ -1,6 +1,6 @@
 {
-  "name": "parcel-riot-coffee-time-starter",
-  "version": "1.0.0",
+  "name": "am-coffee-time",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {

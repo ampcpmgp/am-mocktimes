@@ -1,26 +1,11 @@
-# parcel-riot-coffee-time-starter
+# am-coffee-time
+モック生成や最小限のテストを自動化して、コーヒー時間を作りましょ☕
 
+repository
+https://github.com/ampcpmgp/am-coffee-time
 
-## for use as starter-kit
+sample page (Japanese)
+TODO:
 
-```
-git clone https://github.com/ampcpmgp/parcel-riot-coffee-time-starter
-```
-delete `.git` directory
-```
-git init
-```
-
-edit `package.json` `name` and `version` property
-
-```
-npm i
-npm start
-```
-start server, access http://localhost:1235
-
-
-
-## for developer of this repository
-
+# Overview
 TODO:
