@@ -1,9 +1,11 @@
+import riot from 'riot'
+
 <app-root>
-  <h2>{ title }</h2>
+  <parts-header></parts-header>
+  <svg data-is="parts-question"></svg>
 
   <script>
-    import riot from 'riot'
-    window.riot = riot
-    this.title = 'Hello, World'
+    import './parts/question'
+    import './parts/header'
   </script>
 </app-root>
