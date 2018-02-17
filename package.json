@@ -1,0 +1,26 @@
+{
+  "name": "parcel-riot-coffee-time-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "TODO: dist": "uglify js",
+    "dist": "cross-env NODE_ENV=production parcel build src/index.html",
+    "prestart": "run-s build:riot",
+    "start": "run-p watch:**",
+    "build:riot": "riot src/app/ --ext html src/app/root.js",
+    "watch:riot": "riot -w src/app/ --ext html src/app/root.js",
+    "watch:parcel:pattern": "parcel -p 1235 -d .dev mock/__pattern__.html",
+    "watch:parcel": "parcel -d .dev mock/__index__.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "am-coffee-time": "^0.9.16",
+    "cross-env": "^5.1.3",
+    "npm-run-all": "^4.1.2",
+    "parcel-bundler": "^1.3.1",
+    "riot": "^3.7.4"
+  }
+}
