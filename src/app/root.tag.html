@@ -3,9 +3,23 @@ import riot from 'riot'
 <app-root>
   <parts-header></parts-header>
   <svg data-is="parts-question"></svg>
+  <parts-help if={isHelpOpen}></parts-help>
 
   <script>
     import './parts/question'
     import './parts/header'
+    import './parts/help'
+    import state from '~/src/state'
+    import { observe } from 'dob'
+
+    const {
+      help
+    } = state
+
+    this.isHelpOpen = help.isOpen
+
+    observe(() => {
+      this.update({isHelpOpen: help.isOpen})
+    })
   </script>
 </app-root>

@@ -1,1 +1,2 @@
-pattern1: "hello world(http://localhost:9998/)"
+トップページを開く: http://localhost:9998
+ヘルプを開く: http://localhost:9998

@@ -33,8 +33,12 @@ import riot from 'riot'
   </style>
 
   <script>
+    import state from '~/src/state'
+
+    const {help} = state
+
     this.showHelp = () => {
-      console.warn('showHelp')
+      help.open()
     }
   </script>
 </parts-header>
