@@ -1,7 +1,7 @@
 import Test from 'am-coffee-time/browser/Test'
 import './setup'
 import '../src/main'
-import sleep from '~/src/util/sleep'
+import sleep from '~/src/utils/sleep'
 
 if (module.hot) {
   module.hot.accept(() => {
