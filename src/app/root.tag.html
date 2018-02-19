@@ -2,8 +2,8 @@ import riot from 'riot'
 
 <app-root>
   <parts-header></parts-header>
-  <svg data-is="parts-question"></svg>
   <parts-help if={isHelpOpen}></parts-help>
+  <parts-mockbox patterns={mockPatterns}></parts-mockbox>
   <parts-iframe-mock if={mockUrl} data-src={mockUrl}></parts-iframe-mock>
 
   <script>
@@ -11,6 +11,7 @@ import riot from 'riot'
     import './parts/header'
     import './parts/help'
     import './parts/iframe-mock'
+    import './parts/mockbox'
     import state from '../state'
     import { observe } from 'dob'
 
@@ -21,6 +22,7 @@ import riot from 'riot'
 
     this.isHelpOpen = false
     this.mockUrl = ''
+    this.mockPatterns = mock.getPatterns()
 
     this.on('mount', () => {
       observe(() => {
