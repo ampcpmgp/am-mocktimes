@@ -11,7 +11,7 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "watch:riot": "chokidar \"src/app/**/*.tag.html\" -c \"riot {path} --ext tag.html\"",
+    "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\"",
     "watch:parcel:pattern": "parcel --open -p 9999 -d .dev mock/__pattern__.html",
     "watch:parcel": "parcel -p 9998 -d .dev mock/__index__.html"
   },
