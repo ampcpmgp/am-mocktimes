@@ -1,5 +1,5 @@
 # am-coffee-time
-モック生成や最小限のテストを自動化して、コーヒー時間を作りましょ☕
+モック生成・簡単なUIテストを楽にして、コーヒー休憩時間を増やそう☕
 
 repository
 https://github.com/ampcpmgp/am-coffee-time

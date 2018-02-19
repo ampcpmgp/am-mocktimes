@@ -16,5 +16,3 @@ Test.start({
     el.dispatchEvent(evt)
   }
 })
-
-console.info('finished')

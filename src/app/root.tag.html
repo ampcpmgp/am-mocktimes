@@ -4,11 +4,13 @@ import riot from 'riot'
   <parts-header></parts-header>
   <svg data-is="parts-question"></svg>
   <parts-help if={isHelpOpen}></parts-help>
+  <parts-iframe-mock data-src="http://example.com"></parts-iframe-mock>
 
   <script>
     import './parts/question'
     import './parts/header'
     import './parts/help'
+    import './parts/iframe-mock'
     import state from '~/src/state'
     import { observe } from 'dob'
 

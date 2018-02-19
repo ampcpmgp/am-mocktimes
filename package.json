@@ -11,7 +11,7 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "watch:riot": "riot -w src/app --ext tag.html",
+    "watch:riot": "chokidar \"src/app/**/*.tag.html\" -c \"riot {path} --ext tag.html\"",
     "watch:parcel:pattern": "parcel --open -p 9999 -d .dev mock/__pattern__.html",
     "watch:parcel": "parcel -p 9998 -d .dev mock/__index__.html"
   },
@@ -20,6 +20,7 @@
   "devDependencies": {
     "am-coffee-time": "^0.9.16",
     "babel-polyfill": "^6.26.0",
+    "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
     "dob": "^2.5.8",
     "eslint-plugin-riot": "^0.1.7",
