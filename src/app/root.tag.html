@@ -4,7 +4,7 @@ import riot from 'riot'
   <parts-header></parts-header>
   <svg data-is="parts-question"></svg>
   <parts-help if={isHelpOpen}></parts-help>
-  <parts-iframe-mock data-src="http://example.com"></parts-iframe-mock>
+  <parts-iframe-mock if={mockUrl} data-src={mockUrl}></parts-iframe-mock>
 
   <script>
     import './parts/question'
@@ -15,13 +15,20 @@ import riot from 'riot'
     import { observe } from 'dob'
 
     const {
+      mock,
       help
     } = state
 
-    this.isHelpOpen = help.isOpen
+    this.isHelpOpen = false
+    this.mockUrl = ''
 
-    observe(() => {
-      this.update({isHelpOpen: help.isOpen})
+    this.on('mount', () => {
+      observe(() => {
+        this.update({
+          isHelpOpen: help.isOpen,
+          mockUrl: mock.url
+        })
+      })
     })
   </script>
 </app-root>

@@ -1,6 +1,9 @@
 import { observable } from 'dob'
 
 const state = observable({
+  mock: {
+    url: ''
+  },
   help: {
     isOpen: false,
     open () {
