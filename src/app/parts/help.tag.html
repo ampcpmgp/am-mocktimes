@@ -80,10 +80,14 @@ import './overlay'
     }
   </style>
   <script>
-    import state from '../../state'
+    import {
+      closeHelp
+    } from '../../actions'
     import octocat from '../../images/octocat.svg'
 
-    this.closeHelp = state.help.close
-    this.octocat = octocat
+    Object.assign(this, {
+      closeHelp,
+      octocat
+    })
   </script>
 </parts-help>
