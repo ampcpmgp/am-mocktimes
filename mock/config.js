@@ -1,6 +1,8 @@
 import Test from 'am-coffee-time/browser/Test'
 import patterns from './data/patterns'
-import state from '../src/state'
+import {
+  setPatterns
+} from '../src/actions'
 import sleep from '../src/utils/sleep'
 
 Test.start({
@@ -11,6 +13,6 @@ Test.start({
     el.dispatchEvent(evt)
   },
   フル設定 () {
-    state.mock.setPatterns(patterns)
+    setPatterns(patterns)
   }
 })

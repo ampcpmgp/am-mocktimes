@@ -15,21 +15,19 @@ import riot from 'riot'
     import state from '../state'
     import { observe } from 'dob'
 
-    const {
-      mock,
-      help
-    } = state
+    // const {
+    //   mock,
+    //   help
+    // } = state
 
     this.isHelpOpen = false
     this.mockUrl = ''
-    this.mockPatterns = mock.getPatterns()
 
-    this.on('mount', () => {
-      observe(() => {
-        this.update({
-          isHelpOpen: help.isOpen,
-          mockUrl: mock.url
-        })
+    observe(() => {
+      this.update({
+        isHelpOpen: state.help.isOpen,
+        mockUrl: state.mock.url,
+        mockPatterns: state.mock.patterns
       })
     })
   </script>
