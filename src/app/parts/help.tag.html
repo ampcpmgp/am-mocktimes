@@ -1,5 +1,6 @@
 import riot from 'riot'
 import './overlay'
+import './icons/octocat'
 
 <parts-help>
   <parts-overlay onclick={closeHelp}></parts-overlay>
@@ -18,7 +19,7 @@ import './overlay'
     </div>
     <footer>
       <a href="https://github.com/ampcpmgp/am-coffee-time" target="_blank">
-        <img src={octocat} alt="">
+        <parts-icons-octocat></parts-icons-octocat>
       </a>
     </footer>
   </section>
@@ -83,11 +84,9 @@ import './overlay'
     import {
       closeHelp
     } from '../../actions'
-    import octocat from '../../images/octocat.svg'
 
     Object.assign(this, {
-      closeHelp,
-      octocat
+      closeHelp
     })
   </script>
 </parts-help>
