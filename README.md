@@ -4,43 +4,99 @@
 # repository
 https://github.com/ampcpmgp/am-coffee-time
 
-# sample page (Japanese)
+# sample page
 TODO:
 
-# Overview
-TODO:
+# start
+以下のコマンドで、パターンリストを表示するサーバーを作れます。
 
-# pattern js object
+`am-coffee-time mock/pattern.yml --watch`
 
-## sample code
-```js
-{
-  url: '/test-page.html',
-  'full settings': {
-    action () {
-      // set full settings
-    },
-    'login': async () {
-      // click login button
-      // and wait api callback
-    }
-  },
-  'min settings': {
-    action () {
-      // set minimum settings
-    }
-  },
-  'forbidden': {
-    url: '/403.html'
-  }
-}
+モックを動かすページは、別途用意する必要がありますが、 `parcel` を利用すると楽に構築可能です。
+
+# config pattern list
+モックパターン一覧の表示に利用し、yamlとjsonに対応しています。  
+
+以下が設定例です。
+```yaml
+url: './accout'
+Plan A:
+  func: [setPlan, plan/a.json]
+  view statistics:
+    func: [click, statistics]
+Plan B:
+  func: [setPlan, plan/b.json]
+plan C:
+  funcs:
+   - [setPlan, plan/c.json]
+   - [waitForElement, error-modal]
+   - [assert, 403]
 ```
 
 ## reserved property
-
 ### url
-設定したobject配下に適用されるリンク先URL
+実際に動作するモックURLを指定します。  
+設定されたobject配下に対して、リンク先のURLを設定します。
+default値は、 `/` になります。
+他ドメインURLの設定も可能です。
 
-### action
-定義した親propertyの紐づく実行処理  
-property に直接 function を設定することでも設定可能
+### func
+配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
+後述するactionを呼び出すトリガーになります。
+
+
+### funcs
+`func` を複数定義できます。
+
+## other property
+pattern list表示用に利用されます。
+後述する個別actionを呼び出すトリガーにもなります。
+
+# config action js
+モックで呼び出される、アクション定義を設定します。
+
+以下が設定例です。
+```js
+import { mock } from 'am-coffee-time'
+import { start } from 'app-src' // your web application entry file
+
+const action = {
+  click (selector) {
+    // click selector, and assert
+  },
+  setPlan (planFile) {
+    // set api callback to planFile object
+  },
+  waitForElement: async (selector) {
+    // await for specified selector
+  }
+}
+
+const treeAction = {
+  'Plan A': {
+    action () {
+      // special function
+    },
+    'view statistics' () {
+      // special function
+    }
+  }
+}
+
+mock(action, treeAction)
+start()
+```
+
+## mock(action: MockAction, [treeAction: MockAction])
+この関数を呼び出すことで、モック状態を生成します。
+
+第一引数は、`func`で定義した関数名を持つobjectとなり、
+第二引数は、`pattern list` の階層と同一な、特別なactionを定義します。
+第一引数のactionのあとに呼び出されます。
+
+## MockAction
+
+### reserved property
+#### action
+このpropertyにcallbackを指定できます。async関数も利用可能で、後続のactionはその処理を待ちます。
+actionは省略でき、その場合は、keyに直接関数を指定します。
