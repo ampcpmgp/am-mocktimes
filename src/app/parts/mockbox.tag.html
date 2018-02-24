@@ -4,4 +4,9 @@ import riot from 'riot'
   <div>
     {JSON.stringify(opts.patterns)}
   </div>
+
+  <script>
+    console.log(JSON.stringify(this.opts.patterns))
+    console.log(Object.keys(this.opts.patterns))
+  </script>
 </parts-mockbox>

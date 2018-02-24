@@ -8,11 +8,12 @@ https://github.com/ampcpmgp/am-coffee-time
 TODO:
 
 # start
-以下のコマンドで、パターンリストを表示するサーバーを作れます。
+パターン表示用のサーバーと、モック実行用サーバーの２種類を用意する必要がありますが、
+[parcel](https://github.com/parcel-bundler/parcel) を利用すると楽に構築が出来ます。
 
-`am-coffee-time mock/pattern.yml --watch`
+以下 starter-kit が参考になります。
+https://github.com/ampcpmgp/parcel-riot-coffee-time-starter
 
-モックを動かすページは、別途用意する必要がありますが、 `parcel` を利用すると楽に構築可能です。
 
 # config pattern list
 モックパターン一覧の表示に利用し、yamlとjsonに対応しています。  

@@ -1,5 +1,5 @@
 import Test from 'am-coffee-time/browser/Test'
-import patterns from './data/patterns'
+import patterns from './data/patterns.yml'
 import {
   setPatterns
 } from '../src/actions'
