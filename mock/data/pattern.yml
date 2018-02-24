@@ -1,4 +1,4 @@
-url: './accout'
+url: './account'
 Plan A:
   func: [setPlan, plan/a.json]
   view statistics:

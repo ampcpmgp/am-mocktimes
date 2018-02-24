@@ -3,7 +3,7 @@ import riot from 'riot'
 <app-root>
   <parts-header></parts-header>
   <parts-help if={isHelpOpen}></parts-help>
-  <parts-mockbox patterns={mockPatterns}></parts-mockbox>
+  <parts-mockbox></parts-mockbox>
   <parts-iframe-mock if={mockUrl} data-src={mockUrl}></parts-iframe-mock>
 
   <script>
@@ -16,13 +16,11 @@ import riot from 'riot'
     import { observe } from 'dob'
 
     this.isHelpOpen = false
-    this.mockUrl = ''
 
     observe(() => {
       this.update({
         isHelpOpen: state.help.isOpen,
-        mockUrl: state.mock.url,
-        mockPatterns: state.mock.patterns
+        mockUrl: state.mock.url
       })
     })
   </script>

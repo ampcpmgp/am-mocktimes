@@ -1,0 +1,19 @@
+import riot from 'riot'
+
+<parts-tree>
+  <icon>icon</icon>
+  <section each={actionPattern}>
+    {key}
+    {pattern}
+  </section>
+  <script>
+    import state from '../../state'
+    import {
+      getActionPatternList
+    } from '../../utils/pattern'
+
+    this.actionPattern = getActionPatternList(this.opts.pattern)
+    console.log(this.actionPattern[0].pattern);
+    console.log(state.mock.patternInfo.get(this.actionPattern[0].pattern));
+  </script>
+</parts-tree>

@@ -1,7 +1,7 @@
 import Test from 'am-coffee-time/browser/Test'
-import patterns from './data/patterns.yml'
+import pattern from './data/pattern.yml'
 import {
-  setPatterns
+  setPattern
 } from '../src/actions'
 import sleep from '../src/utils/sleep'
 
@@ -13,6 +13,6 @@ Test.start({
     el.dispatchEvent(evt)
   },
   フル設定 () {
-    setPatterns(patterns)
+    setPattern(pattern)
   }
 })

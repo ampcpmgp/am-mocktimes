@@ -1,12 +1,12 @@
 import riot from 'riot'
 
 <parts-mockbox>
-  <div>
-    {JSON.stringify(opts.patterns)}
-  </div>
+  <parts-tree pattern={pattern} name="" url={pattern.url}></parts-tree>
 
   <script>
-    console.log(JSON.stringify(this.opts.patterns))
-    console.log(Object.keys(this.opts.patterns))
+    import './tree'
+    import state from '../../state'
+
+    this.pattern = state.mock.pattern
   </script>
 </parts-mockbox>
