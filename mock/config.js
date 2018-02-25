@@ -5,14 +5,16 @@ import {
 } from '../src/actions'
 import sleep from '../src/utils/sleep'
 
-Test.start({
-  ヘルプを開く: async () => {
-    await sleep(1000)
-    const el = document.querySelector('parts-header > .question')
-    const evt = new window.MouseEvent('click')
-    el.dispatchEvent(evt)
-  },
-  フル設定 () {
-    setPattern(pattern)
-  }
-})
+export default () => {
+  Test.start({
+    ヘルプを開く: async () => {
+      await sleep(1000)
+      const el = document.querySelector('parts-header > .question')
+      const evt = new window.MouseEvent('click')
+      el.dispatchEvent(evt)
+    },
+    フル設定 () {
+      setPattern(pattern)
+    }
+  })
+}

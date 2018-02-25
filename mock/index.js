@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import './config'
+import config from './config'
 import { generateList } from '../src/main'
 
 if (module.hot) {
@@ -9,4 +9,5 @@ if (module.hot) {
 }
 
 console.clear()
+config()
 generateList()
