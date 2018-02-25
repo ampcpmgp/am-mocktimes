@@ -8,4 +8,5 @@ if (module.hot) {
   })
 }
 
+console.clear()
 generateList()

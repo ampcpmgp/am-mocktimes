@@ -43,14 +43,20 @@ default値は、 `/` になります。
 
 ### func
 配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
-後述するactionを呼び出すトリガーになります。
+後述するactionを呼び出すトリガーになります。  
+action propertyに直接、値を定義することで、省略できます。
 
 
 ### funcs
-`func` を複数定義できます。
+`func` を複数定義できます。  
+funcと同様、省略可能です。
 
-## other property
-pattern list表示用に利用されます。
+### switch
+スイッチボタンによる、モック切り替えが可能です。  
+action propertyと同様に設定可能。
+
+## action property
+reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 後述する個別actionを呼び出すトリガーにもなります。
 
 # config action js

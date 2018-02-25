@@ -1,10 +1,15 @@
 url: './account'
 Plan A:
   func: [setPlan, plan/a.json]
+  planet:
+    switch:
+      Earth:
+          func: [setLang, js]
+      Mars: [setLang, rust]
+      Sun: [setLang, go]
   view statistics:
     func: [click, statistics]
-Plan B:
-  func: [setPlan, plan/b.json]
+Plan B: [setPlan, plan/b.json]
 plan C:
   funcs:
    - [setPlan, plan/c.json]
