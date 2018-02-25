@@ -1,18 +1,66 @@
 import riot from 'riot'
+import './icons/open-close'
 
 <parts-tree>
-  <icon>icon</icon>
-  <section each={actionPattern}>
-    {key}
-    {pattern}
-  </section>
-  <script>
-    import state from '../../state'
-    import {
-      getActionPatternList
-    } from '../../utils/pattern'
 
-    this.actionPattern = getActionPatternList(this.opts.pattern)
-    console.log(this.actionPattern[0].pattern);
+  <section if={opts.mdAction.level > 0}>
+    <parts-icons-open-close
+      is-plus={opts.mdAction.isOpen}
+      onclick={toggleActionBox}
+      />
+    <a href={opts.mdAction.mockUrl} onclick={openIframe}>
+      {opts.mdAction.name}
+    </a>
+    <small if={opts.mdAction.description}>{opts.mdAction.description}</small>
+  </section>
+  <section each={mdAction in opts.mdAction.actions}>
+    <parts-tree md-action={mdAction}></parts-tree>
+  </section>
+  <style type="less">
+    > section {
+      display: flex;
+      align-items: center;
+
+      > parts-icons-open-close {
+        margin-right: 6px;
+      }
+
+      > a {
+        text-decoration: none;
+
+        &:hover {
+          opacity: 0.4;
+        }
+      }
+
+      > small {
+        white-space: pre-line;
+        margin-left: 10px;
+      }
+    }
+  </style>
+  <script>
+    import { observe } from 'dob'
+    import * as Actions from '../../actions'
+
+    const openIframe = e => {
+      console.log(e.currentTarget.getAttribute('href'))
+      e.preventDefault()
+    }
+    const toggleActionBox = () => {
+      Actions.toggleActionBox(opts.mdAction)
+    }
+
+    Object.assign(this, {
+      openIframe,
+      toggleActionBox
+    })
+
+    observe(() => {
+      void (
+        opts.mdAction.isOpen
+      )
+      this.update()
+    })
   </script>
 </parts-tree>

@@ -55,6 +55,9 @@ funcと同様、省略可能です。
 スイッチボタンによる、モック切り替えが可能です。  
 action propertyと同様に設定可能。
 
+### description
+モック一覧の、横に表示するもの。改行ありです。
+
 ## action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 後述する個別actionを呼び出すトリガーにもなります。

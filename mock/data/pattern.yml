@@ -1,10 +1,14 @@
 url: './account'
 Plan A:
   func: [setPlan, plan/a.json]
+  description: |
+    top plan
+    most expensive plan
   planet:
     switch:
       Earth:
           func: [setLang, js]
+          description: less capacity
       Mars: [setLang, rust]
       Sun: [setLang, go]
   view statistics:

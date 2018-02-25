@@ -1,12 +1,12 @@
 import riot from 'riot'
 
 <parts-mockbox>
-  <parts-tree pattern={pattern} name="" url={pattern.url}></parts-tree>
+  <parts-tree md-action={mdAction}></parts-tree>
 
   <script>
     import './tree'
     import state from '../../state'
 
-    this.pattern = state.mock.pattern
+    this.mdAction = state.mock.mdAction
   </script>
 </parts-mockbox>

@@ -1,8 +1,21 @@
 import { Action } from 'dob'
 import state from '../state'
 import {
-  isReservedKey
+  isReservedKey,
+  getMockUrl
 } from '../utils/pattern'
+
+export const openActionBox = action => {
+  action.isOpen = true
+}
+
+export const closeActionBox = action => {
+  action.isOpen = false
+}
+
+export const toggleActionBox = action => {
+  action.isOpen = !action.isOpen
+}
 
 const setRecursivelyMdAction = ({
   name,
@@ -14,12 +27,14 @@ const setRecursivelyMdAction = ({
   level = 0
 }) => {
   const {
+    description,
     func,
     funcs
   } = pattern
 
   Object.assign(mdAction, {
     url,
+    description,
     func,
     funcs,
     switch: pattern.switch,
@@ -42,6 +57,8 @@ const setRecursivelyMdAction = ({
     name,
     func: (pattern.switch ? pattern.switch[mdAction.isSelectedSwitchName] : mdAction).func
   }])
+
+  mdAction.mockUrl = getMockUrl(url, mdAction.coffeeTimeActions)
 
   for (const key of Object.keys(pattern)) {
     const currentPattern = pattern[key]
