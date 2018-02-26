@@ -1,7 +1,9 @@
 import { Action } from 'dob'
 import state from '../state'
 import {
-  isReservedKey,
+  getActionKeys,
+  getPatternInfo,
+  getSwitchAction,
   getMockUrl
 } from '../utils/pattern'
 
@@ -17,7 +19,7 @@ export const toggleActionBox = action => {
   action.isOpen = !action.isOpen
 }
 
-const setRecursivelyMdAction = ({
+export const setRecursivelyMdAction = ({
   name,
   url,
   mdAction,
@@ -30,7 +32,7 @@ const setRecursivelyMdAction = ({
     description,
     func,
     funcs
-  } = pattern
+  } = getPatternInfo(pattern)
 
   const levelName = `level-${level}`
 
@@ -39,7 +41,7 @@ const setRecursivelyMdAction = ({
     description,
     func,
     funcs,
-    switch: pattern.switch,
+    switchs: getSwitchAction(pattern.switch),
     isOpen: level === 0,
     level,
     levelName,
@@ -63,21 +65,22 @@ const setRecursivelyMdAction = ({
 
   mdAction.mockUrl = getMockUrl(url, mdAction.coffeeTimeActions)
 
-  for (const key of Object.keys(pattern)) {
-    const currentPattern = pattern[key]
-    if (typeof currentPattern !== 'object' || isReservedKey(key)) continue
+  if (typeof pattern !== 'object' || Array.isArray(pattern)) return
+
+  getActionKeys(pattern).forEach(actionKey => {
+    const currentPattern = pattern[actionKey]
     mdAction.actions.push({})
     const currentAction = mdAction.actions[mdAction.actions.length - 1]
 
     setRecursivelyMdAction({
-      name: key,
+      name: actionKey,
       url: currentPattern.url || url,
       mdAction: currentAction,
       level: level + 1,
       coffeeTimeActions: mdAction.coffeeTimeActions,
       pattern: currentPattern
     })
-  }
+  })
 }
 
 export const setPattern = pattern => Action(() => {

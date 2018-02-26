@@ -1,8 +1,7 @@
 import Test from 'am-coffee-time/browser/Test'
 import pattern from './data/pattern.yml'
-import {
-  setPattern
-} from '../src/actions'
+import * as Actions from '../src/actions'
+import state from '../src/state'
 import sleep from '../src/utils/sleep'
 
 export default () => {
@@ -14,7 +13,10 @@ export default () => {
       el.dispatchEvent(evt)
     },
     フル設定 () {
-      setPattern(pattern)
+      Actions.setPattern(pattern)
+    },
+    '１個目を開く' () {
+      Actions.openActionBox(state.mock.mdAction.actions[0])
     }
   })
 }
