@@ -2,9 +2,9 @@ import riot from 'riot'
 import './icons/open-close'
 
 <parts-tree>
-
-  <section if={opts.mdAction.level > 0}>
+  <section class="list-line" if={opts.mdAction.level > 0}>
     <parts-icons-open-close
+     style={getOpenCloseIconStyle()}
       is-plus={opts.mdAction.isOpen}
       onclick={toggleActionBox}
       />
@@ -13,19 +13,29 @@ import './icons/open-close'
     </a>
     <small if={opts.mdAction.description}>{opts.mdAction.description}</small>
   </section>
-  <section each={mdAction in opts.mdAction.actions}>
-    <parts-tree md-action={mdAction}></parts-tree>
+  <section class='child-tree' style={getChildTreeStyle()}>
+    <virtual each={mdAction in opts.mdAction.actions}>
+      <parts-tree md-action={mdAction} class={mdAction.levelName}></parts-tree>
+    </virtual>
   </section>
   <style type="less">
-    > section {
+    :scope {
+      margin-left: 12px;
+      display: block;
+      border-left: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    > section.list-line {
       display: flex;
       align-items: center;
 
       > parts-icons-open-close {
-        margin-right: 6px;
+        margin-left: 6px;
       }
 
       > a {
+        margin-left: 8px;
         text-decoration: none;
 
         &:hover {
@@ -36,6 +46,14 @@ import './icons/open-close'
       > small {
         white-space: pre-line;
         margin-left: 10px;
+      }
+    }
+
+    > section.child-tree {
+      > parts-tree {
+        &.level-1 {
+          border: none;
+        }
       }
     }
   </style>
@@ -51,7 +69,17 @@ import './icons/open-close'
       Actions.toggleActionBox(opts.mdAction)
     }
 
+    const getOpenCloseIconStyle = () => opts.mdAction.actions.length === 0 && {
+      visibility: 'hidden'
+    }
+
+    const getChildTreeStyle = () => !opts.mdAction.isOpen && {
+      display: 'none'
+    }
+
     Object.assign(this, {
+      getOpenCloseIconStyle,
+      getChildTreeStyle,
       openIframe,
       toggleActionBox
     })

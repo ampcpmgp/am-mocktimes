@@ -32,6 +32,8 @@ const setRecursivelyMdAction = ({
     funcs
   } = pattern
 
+  const levelName = `level-${level}`
+
   Object.assign(mdAction, {
     url,
     description,
@@ -40,6 +42,7 @@ const setRecursivelyMdAction = ({
     switch: pattern.switch,
     isOpen: level === 0,
     level,
+    levelName,
     name,
     actions: []
   })

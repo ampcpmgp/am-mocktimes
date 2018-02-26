@@ -3,6 +3,13 @@ import riot from 'riot'
 <parts-mockbox>
   <parts-tree md-action={mdAction}></parts-tree>
 
+  <style type="less">
+    > parts-tree {
+      border-left: none;
+      margin-left: 0px;
+    }
+  </style>
+
   <script>
     import './tree'
     import state from '../../state'

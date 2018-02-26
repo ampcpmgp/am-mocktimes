@@ -1,5 +1,5 @@
 url: './account'
-Plan A:
+Travel Plan A:
   func: [setPlan, plan/a.json]
   description: |
     top plan
@@ -13,8 +13,8 @@ Plan A:
       Sun: [setLang, go]
   view statistics:
     func: [click, statistics]
-Plan B: [setPlan, plan/b.json]
-plan C:
+Travel Plan B: [setPlan, plan/b.json]
+Travel Plan Z:
   funcs:
    - [setPlan, plan/c.json]
    - [waitForElement, error-modal]
