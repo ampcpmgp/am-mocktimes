@@ -14,6 +14,8 @@ TODO:
 以下 starter-kit が参考になります。
 https://github.com/ampcpmgp/parcel-riot-coffee-time-starter
 
+※version 1.0 に向けて、コマンドから一発で起動出来るよう調整中。
+
 
 # config pattern list
 モックパターン一覧の表示に利用し、yamlとjsonに対応しています。  
@@ -37,7 +39,7 @@ plan C:
 ## reserved property
 ### url
 実際に動作するモックURLを指定します。  
-設定されたobject配下に対して、リンク先のURLを設定します。
+設定されたobject配下に対して、リンク先のURLを設定できます。
 default値は、 `/` になります。
 他ドメインURLの設定も可能です。
 
@@ -53,10 +55,10 @@ funcと同様、省略可能です。
 
 ### switch
 スイッチボタンによる、モック切り替えが可能です。  
-action propertyと同様に設定可能。
+switch配下の設定も他と同様で、新しく何かを覚える必要がありません。
 
 ### description
-モック一覧の、横に表示するもの。改行ありです。
+モック一覧の、横に表示するもの。改行ありです。yaml改行を使うと綺麗に書けます。  
 
 ## action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
