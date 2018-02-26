@@ -13,7 +13,7 @@ export const getActionKeys = pattern => Object.keys(pattern).filter(isActionKey)
 
 export const isFunc = actionValue => Array.isArray(actionValue) && !Array.isArray(actionValue[0])
 
-export const isFuncs = actionValue => isFunc(actionValue) && isFunc(actionValue[0])
+export const isFuncs = actionValue => Array.isArray(actionValue) && isFunc(actionValue[0])
 
 export const getPatternInfo = pattern => {
   if (isFuncs(pattern)) {

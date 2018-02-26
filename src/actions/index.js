@@ -1,4 +1,7 @@
-import { Action } from 'dob'
+import {
+  Action,
+  observe
+} from 'dob'
 import state from '../state'
 import {
   getActionKeys,
@@ -6,6 +9,23 @@ import {
   getSwitchAction,
   getMockUrl
 } from '../utils/pattern'
+
+export const setSelectedSwitchName = (action, selectedSwitchName) => Action(() => {
+  action.selectedSwitchName = selectedSwitchName
+
+  const actionLength = action.coffeeTimeActions.length - 1
+  const {
+    func,
+    funcs
+  } = action.switchs
+    .find(switchItem => switchItem.name === selectedSwitchName)
+
+  Object.assign(action.coffeeTimeActions[actionLength], {
+    selectedSwitchName,
+    func,
+    funcs
+  })
+})
 
 export const openActionBox = action => {
   action.isOpen = true
@@ -24,7 +44,7 @@ export const setRecursivelyMdAction = ({
   url,
   mdAction,
   pattern,
-  isSelectedSwitchName,
+  selectedSwitchName,
   coffeeTimeActions = [],
   level = 0
 }) => {
@@ -50,20 +70,26 @@ export const setRecursivelyMdAction = ({
   })
 
   // set selected switch name
-  if (isSelectedSwitchName) {
-    mdAction.isSelectedSwitchName = isSelectedSwitchName
+  if (selectedSwitchName) {
+    mdAction.selectedSwitchName = selectedSwitchName
   } else if (pattern.switch) {
-    mdAction.isSelectedSwitchName = Object.keys(pattern.switch)[0]
+    mdAction.selectedSwitchName = Object.keys(pattern.switch)[0]
   } else {
-    mdAction.isSelectedSwitchName = null
+    mdAction.selectedSwitchName = null
   }
+
+  const thisCoffeeTimeAction = pattern.switch ? getPatternInfo(pattern.switch[mdAction.selectedSwitchName]) : mdAction
 
   mdAction.coffeeTimeActions = coffeeTimeActions.concat([{
     name,
-    func: (pattern.switch ? pattern.switch[mdAction.isSelectedSwitchName] : mdAction).func
+    selectedSwitchName: mdAction.selectedSwitchName,
+    func: thisCoffeeTimeAction.func,
+    funcs: thisCoffeeTimeAction.funcs
   }])
 
-  mdAction.mockUrl = getMockUrl(url, mdAction.coffeeTimeActions)
+  observe(() => {
+    mdAction.mockUrl = getMockUrl(url, mdAction.coffeeTimeActions)
+  })
 
   if (typeof pattern !== 'object' || Array.isArray(pattern)) return
 

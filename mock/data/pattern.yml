@@ -7,10 +7,13 @@ Travel Plan A:
   planet:
     switch:
       Earth:
-          func: [setLang, js]
+          func: [setPlanet, earth]
           description: less capacity
-      Mars: [setLang, rust]
-      Sun: [setLang, go]
+      Mars:
+        - [setPlanet, mars]
+        - [moveSpace]
+      Sun: [setPlanet, sun]
+    go planet: [goPlanet]
   view statistics:
     func: [click, statistics]
 Travel Plan B: [setPlan, plan/b.json]

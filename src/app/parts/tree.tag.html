@@ -1,8 +1,6 @@
 import riot from 'riot'
 import './icons/open-close'
 
-<parts-tree-label></parts-tree-label>
-
 <parts-tree>
   <section class="list-line" if={opts.mdAction.level > 0}>
     <parts-icons-open-close
@@ -13,11 +11,14 @@ import './icons/open-close'
     <a href={opts.mdAction.mockUrl} onclick={openIframe}>
       {opts.mdAction.name}
     </a>
-    {JSON.stringify(opts.mdAction.switchs)}
-    <!-- <virtual each={opts.mdAction.switch}
-    <label class="switch" each={}>
-      {JSON.stringify(opts.mdAction.switch)}
-    </label> -->
+    <virtual each={switchData in opts.mdAction.switchs}>
+      <label
+        class={parent.getLabelClass(switchData.name)}
+        onclick={() => parent.switchLabel(switchData.name)}
+        >
+        {switchData.name}
+      </label>
+    </virtual>
     <small if={opts.mdAction.description}>{opts.mdAction.description}</small>
   </section>
   <section class='child-tree' style={getChildTreeStyle()}>
@@ -41,8 +42,25 @@ import './icons/open-close'
         margin-left: 6px;
       }
 
+      > label {
+        cursor: pointer;
+        border: 1px solid rgba(255,128,0,0.6);
+        padding: 0 6px;
+        text-align: center;
+        display: inline-block;
+
+        &.focus {
+          background: rgba(255, 255, 0, 1);
+        }
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
       > a {
         margin-left: 8px;
+        margin-right: 8px;
         text-decoration: none;
 
         &:hover {
@@ -84,16 +102,27 @@ import './icons/open-close'
       display: 'none'
     }
 
+    const getLabelClass = (name) => ({
+      focus: name === opts.mdAction.selectedSwitchName
+    })
+
+    const switchLabel = (name) => {
+      Actions.setSelectedSwitchName(opts.mdAction, name)
+    }
+
     Object.assign(this, {
       getOpenCloseIconStyle,
       getChildTreeStyle,
       openIframe,
+      switchLabel,
+      getLabelClass,
       toggleActionBox
     })
 
     observe(() => {
       void (
-        opts.mdAction.isOpen
+        opts.mdAction.isOpen,
+        opts.mdAction.selectedSwitchName
       )
       this.update()
     })
