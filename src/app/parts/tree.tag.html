@@ -1,6 +1,23 @@
 import riot from 'riot'
 import './icons/open-close'
 
+<parts-tree-descripion>
+  <small>{opts.description}</small>
+  <style type="less">
+    > small {
+      white-space: pre-line;
+      margin-left: 10px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+  </style>
+  <script>
+    this.on('update', () => {
+      this.root.style.display = opts.description ? '' : 'none'
+    })
+  </script>
+</parts-tree-descripion>
+
 <parts-tree>
   <section class="list-line" if={opts.mdAction.level > 0}>
     <parts-icons-open-close
@@ -11,15 +28,15 @@ import './icons/open-close'
     <a href={opts.mdAction.mockUrl} onclick={openIframe}>
       {opts.mdAction.name}
     </a>
-    <virtual each={switchData in opts.mdAction.switchs}>
+    <virtual each={switchItem in opts.mdAction.switchs}>
       <label
-        class={parent.getLabelClass(switchData.name)}
-        onclick={() => parent.switchLabel(switchData.name)}
+        class={parent.getLabelClass(switchItem.name)}
+        onclick={() => parent.switchLabel(switchItem.name)}
         >
-        {switchData.name}
+        {switchItem.name}
       </label>
     </virtual>
-    <small if={opts.mdAction.description}>{opts.mdAction.description}</small>
+    <parts-tree-descripion description={getDescription()}></parts-tree-descripion>
   </section>
   <section class='child-tree' style={getChildTreeStyle()}>
     <virtual each={mdAction in opts.mdAction.mdActions}>
@@ -37,9 +54,13 @@ import './icons/open-close'
     > section.list-line {
       display: flex;
       align-items: center;
+      position: relative;
 
       > parts-icons-open-close {
-        margin-left: 6px;
+        position: absolute;
+        top: 50%;
+        left: -8px;
+        transform: translateY(-50%);
       }
 
       > label {
@@ -59,18 +80,15 @@ import './icons/open-close'
       }
 
       > a {
-        margin-left: 8px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        margin-left: 12px;
         margin-right: 8px;
         text-decoration: none;
 
         &:hover {
           opacity: 0.4;
         }
-      }
-
-      > small {
-        white-space: pre-line;
-        margin-left: 10px;
       }
     }
 
@@ -110,7 +128,21 @@ import './icons/open-close'
       Actions.setSelectedSwitchName(opts.mdAction, name)
     }
 
+    const getDescription = () => {
+      const {
+        selectedSwitchName,
+        description,
+        switchs
+      } = opts.mdAction
+
+      if (selectedSwitchName) {
+        return switchs.find(switchItem => switchItem.name === selectedSwitchName).description
+      }
+      return description
+    }
+
     Object.assign(this, {
+      getDescription,
       getOpenCloseIconStyle,
       getChildTreeStyle,
       openIframe,
