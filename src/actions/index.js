@@ -9,6 +9,15 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
+export const openAll = () => Action(() => {
+  // 全部isOpen: trueにする。イベント、UI.
+  console.log(state.mock.mdAction)
+})
+
+export const closeAll = () => Action(() => {
+  console.log(123)
+})
+
 export const setMockUrl = (mdAction) => {
   mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.coffeeTimeActions)
 }
