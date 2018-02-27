@@ -1,0 +1,131 @@
+import riot from 'riot'
+import './icons/open-close'
+
+<parts-tree>
+  <section class="list-line" if={opts.mdAction.level > 0}>
+    <parts-icons-open-close
+     style={getOpenCloseIconStyle()}
+      is-plus={opts.mdAction.isOpen}
+      onclick={toggleActionBox}
+      />
+    <a href={opts.mdAction.mockUrl} onclick={openIframe}>
+      {opts.mdAction.name}
+    </a>
+    <virtual each={switchData in opts.mdAction.switchs}>
+      <label
+        class={parent.getLabelClass(switchData.name)}
+        onclick={() => parent.switchLabel(switchData.name)}
+        >
+        {switchData.name}
+      </label>
+    </virtual>
+    <small if={opts.mdAction.description}>{opts.mdAction.description}</small>
+  </section>
+  <section class='child-tree' style={getChildTreeStyle()}>
+    <virtual each={mdAction in opts.mdAction.mdActions}>
+      <parts-tree md-action={mdAction} class={mdAction.levelName}></parts-tree>
+    </virtual>
+  </section>
+  <style type="less">
+    :scope {
+      margin-left: 12px;
+      display: block;
+      border-left: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    > section.list-line {
+      display: flex;
+      align-items: center;
+
+      > parts-icons-open-close {
+        margin-left: 6px;
+      }
+
+      > label {
+        cursor: pointer;
+        border: 1px solid rgba(255, 128, 0, 0.6);
+        padding: 0 6px;
+        text-align: center;
+        display: inline-block;
+
+        &.focus {
+          background: rgba(255, 255, 0, 1);
+        }
+
+        &:hover {
+          border: 1px solid rgba(255, 64, 0, 1);
+        }
+      }
+
+      > a {
+        margin-left: 8px;
+        margin-right: 8px;
+        text-decoration: none;
+
+        &:hover {
+          opacity: 0.4;
+        }
+      }
+
+      > small {
+        white-space: pre-line;
+        margin-left: 10px;
+      }
+    }
+
+    > section.child-tree {
+      > parts-tree {
+        &.level-1 {
+          border: none;
+        }
+      }
+    }
+  </style>
+  <script>
+    import { observe } from 'dob'
+    import * as Actions from '../../actions'
+
+    const openIframe = e => {
+      console.log(e.currentTarget.getAttribute('href'))
+      e.preventDefault()
+    }
+    const toggleActionBox = () => {
+      Actions.toggleActionBox(opts.mdAction)
+    }
+
+    const getOpenCloseIconStyle = () => opts.mdAction.mdActions.length === 0 && {
+      visibility: 'hidden'
+    }
+
+    const getChildTreeStyle = () => !opts.mdAction.isOpen && {
+      display: 'none'
+    }
+
+    const getLabelClass = (name) => ({
+      focus: name === opts.mdAction.selectedSwitchName
+    })
+
+    const switchLabel = (name) => {
+      Actions.setSelectedSwitchName(opts.mdAction, name)
+    }
+
+    Object.assign(this, {
+      getOpenCloseIconStyle,
+      getChildTreeStyle,
+      openIframe,
+      switchLabel,
+      getLabelClass,
+      toggleActionBox
+    })
+
+    observe(() => {
+      void (
+        opts.mdAction.isOpen,
+        opts.mdAction.selectedSwitchName,
+        opts.mdAction.mockUrl
+      )
+      this.update()
+    })
+  </script>
+</parts-tree>

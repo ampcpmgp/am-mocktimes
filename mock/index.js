@@ -1,9 +1,13 @@
 import 'babel-polyfill'
-import './config'
-import '../src/main'
+import config from './config'
+import { generateList } from '../src/main'
 
 if (module.hot) {
   module.hot.accept(() => {
-    window.location.reload()
+    // window.location.reload()
   })
 }
+
+console.clear()
+config()
+generateList()

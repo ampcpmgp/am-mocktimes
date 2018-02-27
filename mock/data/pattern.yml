@@ -1,0 +1,24 @@
+url: './account'
+Travel Plan A:
+  func: [setPlan, plan/a.json]
+  description: |
+    top plan
+    most expensive plan
+  planet:
+    switch:
+      Earth:
+          func: [setPlanet, earth]
+          description: less capacity
+      Mars:
+        - [setPlanet, mars]
+        - [moveSpace]
+      Sun: [setPlanet, sun]
+    go planet: [goPlanet]
+  view statistics:
+    func: [click, statistics]
+Travel Plan B: [setPlan, plan/b.json]
+Travel Plan Z:
+  funcs:
+   - [setPlan, plan/c.json]
+   - [waitForElement, error-modal]
+   - [assert, 403]

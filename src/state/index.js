@@ -3,7 +3,8 @@ import { observable } from 'dob'
 const state = observable({
   mock: {
     url: '',
-    patterns: {}
+    pattern: {},
+    mdAction: {}
   },
   help: {
     isOpen: false
