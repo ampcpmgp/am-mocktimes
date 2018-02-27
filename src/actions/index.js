@@ -9,13 +9,24 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
+export const handleMdActionRecursively = (mdAction, handler) => {
+  handler(mdAction)
+  mdAction.mdActions.forEach(mdAction => {
+    handleMdActionRecursively(mdAction, handler)
+  })
+}
+
 export const openAll = () => Action(() => {
-  // 全部isOpen: trueにする。イベント、UI.
-  console.log(state.mock.mdAction)
+  handleMdActionRecursively(state.mock.mdAction, mdAction => {
+    mdAction.isOpen = true
+  })
 })
 
 export const closeAll = () => Action(() => {
-  console.log(123)
+  console.log(123);
+  handleMdActionRecursively(state.mock.mdAction, mdAction => {
+    if (mdAction.level !== 0) mdAction.isOpen = false
+  })
 })
 
 export const setMockUrl = (mdAction) => {
