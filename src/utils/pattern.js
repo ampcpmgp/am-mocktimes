@@ -28,22 +28,22 @@ export const getPatternInfo = pattern => {
   return pattern
 }
 
-export const getMockUrl = (url, actions) => {
+export const getMockUrl = (url, mdActions) => {
   const parsed = queryString.parseUrl(url)
-  parsed.query.__amCoffeeTime__ = encodeURIComponent(JSON.stringify(actions))
+  parsed.query.__amCoffeeTime__ = encodeURIComponent(JSON.stringify(mdActions))
   return `${parsed.url}?${queryString.stringify(parsed.query)}`
 }
 
-export const getSwitchAction = switchData => {
-  if (!switchData) return
+export const getSwitchAction = switchItem => {
+  if (!switchItem) return
 
-  return getActionKeys(switchData).filter(isActionKey).map(name => {
+  return getActionKeys(switchItem).filter(isActionKey).map(name => {
     const {
       func,
       funcs,
       url,
       description
-    } = getPatternInfo(switchData[name])
+    } = getPatternInfo(switchItem[name])
 
     return {
       name,

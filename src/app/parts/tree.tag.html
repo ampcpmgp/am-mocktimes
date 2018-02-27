@@ -22,7 +22,7 @@ import './icons/open-close'
     <small if={opts.mdAction.description}>{opts.mdAction.description}</small>
   </section>
   <section class='child-tree' style={getChildTreeStyle()}>
-    <virtual each={mdAction in opts.mdAction.actions}>
+    <virtual each={mdAction in opts.mdAction.mdActions}>
       <parts-tree md-action={mdAction} class={mdAction.levelName}></parts-tree>
     </virtual>
   </section>
@@ -94,7 +94,7 @@ import './icons/open-close'
       Actions.toggleActionBox(opts.mdAction)
     }
 
-    const getOpenCloseIconStyle = () => opts.mdAction.actions.length === 0 && {
+    const getOpenCloseIconStyle = () => opts.mdAction.mdActions.length === 0 && {
       visibility: 'hidden'
     }
 

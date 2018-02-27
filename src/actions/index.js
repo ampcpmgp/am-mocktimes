@@ -1,6 +1,5 @@
 import {
-  Action,
-  observe
+  Action
 } from 'dob'
 import state from '../state'
 import {
@@ -10,44 +9,81 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
-export const setSelectedSwitchName = (action, selectedSwitchName) => Action(() => {
-  action.selectedSwitchName = selectedSwitchName
+export const setMockUrl = (mdAction) => {
+  mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.coffeeTimeActions)
+}
 
-  const actionLength = action.coffeeTimeActions.length - 1
+export const setCoffeeTimeAction = (mdAction, coffeeTimeActions) => {
+  const { name, selectedSwitchName, switchs } = mdAction
+
+  mdAction.coffeeTimeActions = coffeeTimeActions.concat([{
+    name,
+    func: mdAction.func,
+    funcs: mdAction.funcs
+  }])
+  if (selectedSwitchName) {
+    const selectedCoffeeTimeAction = getPatternInfo(
+      switchs.find(switchItem => switchItem.name === selectedSwitchName)
+    )
+    mdAction.coffeeTimeActions.push({
+      name: mdAction.selectedSwitchName,
+      func: selectedCoffeeTimeAction.func,
+      funcs: selectedCoffeeTimeAction.funcs
+    })
+  }
+}
+
+export const setSwitchNameRecursively = (mdAction, coffeeTimeActions) => {
+  mdAction.mdActions.forEach(mdAction => {
+    setCoffeeTimeAction(mdAction, coffeeTimeActions)
+    setMockUrl(mdAction)
+    setSwitchNameRecursively(mdAction, mdAction.coffeeTimeActions)
+  })
+}
+
+export const setSelectedSwitchName = (mdAction, selectedSwitchName) => Action(() => {
+  mdAction.selectedSwitchName = selectedSwitchName
+
   const {
     func,
     funcs
-  } = action.switchs
+  } = mdAction.switchs
     .find(switchItem => switchItem.name === selectedSwitchName)
 
-  Object.assign(action.coffeeTimeActions[actionLength], {
+  // 現状、switchActionは、配列最後に入るため、この取得方法で良いが、今後特定方法を考えたほうが良い
+  const mdActionLength = mdAction.coffeeTimeActions.length - 1
+  Object.assign(mdAction.coffeeTimeActions[mdActionLength], {
     selectedSwitchName,
     func,
     funcs
   })
+
+  mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.coffeeTimeActions)
+
+  setSwitchNameRecursively(mdAction, mdAction.coffeeTimeActions)
 })
 
-export const openActionBox = action => {
-  action.isOpen = true
+export const openActionBox = mdAction => {
+  mdAction.isOpen = true
 }
 
-export const closeActionBox = action => {
-  action.isOpen = false
+export const closeActionBox = mdAction => {
+  mdAction.isOpen = false
 }
 
-export const toggleActionBox = action => {
-  action.isOpen = !action.isOpen
+export const toggleActionBox = mdAction => {
+  mdAction.isOpen = !mdAction.isOpen
 }
 
 export const setRecursivelyMdAction = ({
-  name,
-  url,
-  mdAction,
-  pattern,
-  selectedSwitchName,
-  coffeeTimeActions = [],
-  level = 0
-}) => {
+    name,
+    url,
+    mdAction,
+    pattern,
+    selectedSwitchName,
+    coffeeTimeActions = [],
+    level = 0
+  }) => {
   const {
     description,
     func,
@@ -66,7 +102,7 @@ export const setRecursivelyMdAction = ({
     level,
     levelName,
     name,
-    actions: []
+    mdActions: []
   })
 
   // set selected switch name
@@ -78,28 +114,19 @@ export const setRecursivelyMdAction = ({
     mdAction.selectedSwitchName = null
   }
 
-  const thisCoffeeTimeAction = pattern.switch ? getPatternInfo(pattern.switch[mdAction.selectedSwitchName]) : mdAction
-
-  mdAction.coffeeTimeActions = coffeeTimeActions.concat([{
-    name,
-    selectedSwitchName: mdAction.selectedSwitchName,
-    func: thisCoffeeTimeAction.func,
-    funcs: thisCoffeeTimeAction.funcs
-  }])
-
-  observe(() => {
-    mdAction.mockUrl = getMockUrl(url, mdAction.coffeeTimeActions)
-  })
+  // set coffee time mdActions
+  setCoffeeTimeAction(mdAction, coffeeTimeActions)
+  setMockUrl(mdAction)
 
   if (typeof pattern !== 'object' || Array.isArray(pattern)) return
 
-  getActionKeys(pattern).forEach(actionKey => {
-    const currentPattern = pattern[actionKey]
-    mdAction.actions.push({})
-    const currentAction = mdAction.actions[mdAction.actions.length - 1]
+  getActionKeys(pattern).forEach(mdActionKey => {
+    const currentPattern = pattern[mdActionKey]
+    mdAction.mdActions.push({})
+    const currentAction = mdAction.mdActions[mdAction.mdActions.length - 1]
 
     setRecursivelyMdAction({
-      name: actionKey,
+      name: mdActionKey,
       url: currentPattern.url || url,
       mdAction: currentAction,
       level: level + 1,
