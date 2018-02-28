@@ -23,9 +23,15 @@ export const openAll = () => Action(() => {
 })
 
 export const closeAll = () => Action(() => {
-  console.log(123);
   handleMdActionRecursively(state.mock.mdAction, mdAction => {
     if (mdAction.level !== 0) mdAction.isOpen = false
+  })
+})
+
+export const closeByLevel = (level) => Action(() => {
+  handleMdActionRecursively(state.mock.mdAction, mdAction => {
+    if (mdAction.level === level) mdAction.isOpen = false
+    else mdAction.isOpen = true
   })
 })
 
