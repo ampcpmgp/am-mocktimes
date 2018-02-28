@@ -3,6 +3,9 @@ import pattern from './data/pattern.yml'
 import * as Actions from '../src/actions'
 import state from '../src/state'
 import sleep from '../src/utils/sleep'
+import { removeEvent } from '../src/tools/keyboard'
+
+removeEvent()
 
 export default () => {
   Test.start({

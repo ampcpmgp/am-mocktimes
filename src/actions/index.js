@@ -9,6 +9,32 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
+export const handleMdActionRecursively = (mdAction, handler) => {
+  handler(mdAction)
+  mdAction.mdActions.forEach(mdAction => {
+    handleMdActionRecursively(mdAction, handler)
+  })
+}
+
+export const openAll = () => Action(() => {
+  handleMdActionRecursively(state.mock.mdAction, mdAction => {
+    mdAction.isOpen = true
+  })
+})
+
+export const closeAll = () => Action(() => {
+  handleMdActionRecursively(state.mock.mdAction, mdAction => {
+    if (mdAction.level !== 0) mdAction.isOpen = false
+  })
+})
+
+export const closeByLevel = (level) => Action(() => {
+  handleMdActionRecursively(state.mock.mdAction, mdAction => {
+    if (mdAction.level === level) mdAction.isOpen = false
+    else mdAction.isOpen = true
+  })
+})
+
 export const setMockUrl = (mdAction) => {
   mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.coffeeTimeActions)
 }
