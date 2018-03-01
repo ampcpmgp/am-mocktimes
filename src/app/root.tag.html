@@ -5,15 +5,15 @@ import riot from 'riot'
   <parts-mockbox></parts-mockbox>
   <parts-help if={isHelpOpen}></parts-help>
   <parts-iframe-mock if={mockUrl} data-src={mockUrl}></parts-iframe-mock>
-
   <script>
+    import { observe } from 'dob'
+    import route from 'riot-route'
     import './parts/question'
     import './parts/header'
     import './parts/help'
     import './parts/iframe-mock'
     import './parts/mockbox'
     import state from '../state'
-    import { observe } from 'dob'
 
     this.isHelpOpen = false
 
@@ -23,5 +23,11 @@ import riot from 'riot'
         mockUrl: state.mock.url
       })
     })
+
+    // クリック→router変更→↓でキャッチ→mockUrlがあれば、iframe/set
+    route('mock-url/*', (name) => {
+      console.log('hayatake', name);
+    })
+    route.start()
   </script>
 </app-root>
