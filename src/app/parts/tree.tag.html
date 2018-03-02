@@ -109,9 +109,10 @@ import './icons/open-close'
     import { observe } from 'dob'
     import route from 'riot-route'
     import * as Actions from '../../actions'
+    import { getRoutePath } from '../../utils/pattern'
 
     const openIframe = (e) => {
-      route(encodeURIComponent(JSON.stringify({mockUrl: opts.mdAction.mockUrl})))
+      route(getRoutePath(opts.mdAction.mockUrl))
       e.preventDefault()
     }
 

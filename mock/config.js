@@ -22,6 +22,14 @@ export default () => {
     フル設定 () {
       Actions.setPattern(pattern)
     },
+    '1~2階層の１個目を開く' () {
+      Actions.openActionBox(state.mock.mdAction.mdActions[0])
+      Actions.openActionBox(state.mock.mdAction.mdActions[0].mdActions[0])
+    },
+    '3階層の1個目のリンクを開く' () {
+      const mockUrl = state.mock.mdAction.mdActions[0].mdActions[0].mdActions[0].mockUrl
+      Actions.setCurrentUrl(mockUrl)
+    },
     '１個目を開く' () {
       Actions.openActionBox(state.mock.mdAction.mdActions[0])
     }

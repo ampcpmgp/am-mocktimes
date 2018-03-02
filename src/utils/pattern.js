@@ -54,3 +54,7 @@ export const getSwitchAction = switchItem => {
     }
   })
 }
+
+export const getRoutePath = (mockUrl) => {
+  return encodeURIComponent(JSON.stringify({mockUrl}))
+}
