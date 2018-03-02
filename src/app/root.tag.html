@@ -39,6 +39,23 @@ import riot from 'riot'
       Actions.setCurrentUrl(null)
     })
 
+    const getMockUrl = () => {
+      const hashTag = location.hash.replace(/^#/, '')
+      try {
+        const {mockUrl} = JSON.parse(decodeURIComponent(hashTag))
+        return mockUrl
+      } catch (e) {
+        return null
+      }
+    }
+
+    const mockUrl = getMockUrl()
+
+    if (mockUrl) {
+      const initialUrl = location.href
+      history.replaceState(null, null, location.href.replace(location.hash, ''))
+      history.pushState(null, null, initialUrl)
+    }
     route.start()
   </script>
 </app-root>
