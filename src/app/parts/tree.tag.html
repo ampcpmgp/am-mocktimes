@@ -101,12 +101,14 @@ import './icons/open-close'
   </style>
   <script>
     import { observe } from 'dob'
+    import route from 'riot-route'
     import * as Actions from '../../actions'
 
-    const openIframe = e => {
-      console.log(e.currentTarget.getAttribute('href'))
+    const openIframe = (e) => {
+      route(encodeURIComponent(JSON.stringify({mockUrl: opts.mdAction.mockUrl})))
       e.preventDefault()
     }
+
     const toggleActionBox = () => {
       Actions.toggleActionBox(opts.mdAction)
     }

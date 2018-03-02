@@ -4,24 +4,36 @@ import riot from 'riot'
   <parts-header></parts-header>
   <parts-mockbox></parts-mockbox>
   <parts-help if={isHelpOpen}></parts-help>
-  <parts-iframe-mock if={mockUrl} data-src={mockUrl}></parts-iframe-mock>
-
+  <parts-iframe-mock if={currentUrl} data-src={currentUrl}></parts-iframe-mock>
   <script>
+    import { observe } from 'dob'
+    import route from 'riot-route'
     import './parts/question'
     import './parts/header'
     import './parts/help'
     import './parts/iframe-mock'
     import './parts/mockbox'
     import state from '../state'
-    import { observe } from 'dob'
+    import * as Actions from '../actions'
 
     this.isHelpOpen = false
 
     observe(() => {
       this.update({
         isHelpOpen: state.help.isOpen,
-        mockUrl: state.mock.url
+        currentUrl: state.mock.currentUrl
       })
     })
+
+    route('*', (routerStr) => {
+      try {
+        const routerObj = JSON.parse(decodeURIComponent(routerStr))
+        const {mockUrl} = routerObj
+        Actions.setCurrentUrl(mockUrl)
+      } catch (e) {
+        state.mock.currentUrl = null
+      }
+    })
+    route.start()
   </script>
 </app-root>

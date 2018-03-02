@@ -9,6 +9,10 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
+export const setCurrentUrl = url => {
+  state.mock.currentUrl = url
+}
+
 export const handleMdActionRecursively = (mdAction, handler) => {
   handler(mdAction)
   mdAction.mdActions.forEach(mdAction => {
