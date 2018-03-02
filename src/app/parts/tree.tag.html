@@ -27,14 +27,14 @@ import './icons/open-close'
     <a href={opts.mdAction.mockUrl} onclick={openIframe}>
       {opts.mdAction.name}
     </a>
-    <virtual each={switchItem in opts.mdAction.switchs}>
-      <label
+    <section class="labels">
+      <label each={switchItem in opts.mdAction.switchs}
         class={parent.getLabelClass(switchItem.name)}
         onclick={() => parent.switchLabel(switchItem.name)}
         >
         {switchItem.name}
       </label>
-    </virtual>
+    </section>
     <parts-tree-descripion description={getDescription()}></parts-tree-descripion>
   </section>
   <section class='child-tree' style={getChildTreeStyle()}>
@@ -62,19 +62,25 @@ import './icons/open-close'
         transform: translateY(-50%);
       }
 
-      > label {
-        cursor: pointer;
-        border: 1px solid rgba(255, 128, 0, 0.6);
-        padding: 0 6px;
-        text-align: center;
-        display: inline-block;
+      > section.labels {
+        > label {
+          cursor: pointer;
+          border: 1px solid rgba(255, 128, 0, 0.6);
+          padding: 0 6px;
+          text-align: center;
+          display: inline-block;
 
-        &.focus {
-          background: rgba(255, 255, 0, 1);
-        }
+          &.focus {
+            background: rgba(255, 255, 0, 1);
+          }
 
-        &:hover {
-          border: 1px solid rgba(255, 64, 0, 1);
+          &:hover {
+            border: 1px solid rgba(255, 64, 0, 1);
+          }
+
+          &:last-child {
+            margin-right: 4px;
+          }
         }
       }
 
