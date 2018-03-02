@@ -1,4 +1,4 @@
-url: './account'
+url: 'http://localhost:9997'
 Travel Plan A:
   func: [setPlan, plan/a.json]
   description: |

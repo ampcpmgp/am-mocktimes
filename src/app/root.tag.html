@@ -31,9 +31,14 @@ import riot from 'riot'
         const {mockUrl} = routerObj
         Actions.setCurrentUrl(mockUrl)
       } catch (e) {
-        state.mock.currentUrl = null
+        Actions.setCurrentUrl(null)
       }
     })
+
+    route('..', () => {
+      Actions.setCurrentUrl(null)
+    })
+
     route.start()
   </script>
 </app-root>
