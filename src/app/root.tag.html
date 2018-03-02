@@ -25,7 +25,6 @@ import riot from 'riot'
       })
     })
 
-    // クリック→router変更→↓でキャッチ→mockUrlがあれば、iframe/set
     route('*', (routerStr) => {
       try {
         const routerObj = JSON.parse(decodeURIComponent(routerStr))
