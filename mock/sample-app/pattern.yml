@@ -12,11 +12,9 @@ Travel Plan A:
       Mars:
         - [setLocation, mars]
       Sun: [setLocation, sun]
-    go planet: [goLocation]
-  view statistics:
-    func: [click, statistics]
+    view statistics: [displayStatistics]
 Travel Plan B: [setPlan, B]
-Travel Plan Z:
+Travel Plan Z and set Special Location:
   funcs:
    - [setPlan, Z]
    - [setLocation, Cell Game, true]

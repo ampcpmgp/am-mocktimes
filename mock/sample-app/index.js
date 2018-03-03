@@ -28,17 +28,23 @@ const setPlan = async (planName) => {
   window.planName.textContent = planName
   window.locationBox.innerHTML =
     locations[planName].reduce((html, location) =>
-    `${html}<div onclick='setLocation("${location}")'>${location}</div>`,
+    `${html}
+      <section>
+        <span class='location' onclick='setLocation("${location}")'>${location}</span>
+        <span class='statistics'></span>
+      </section>`,
     '')
+}
+
+window.displayStatistics = () => {
+  const elementList = document.querySelectorAll('.statistics')
+  elementList.forEach(element => {
+    element.textContent = `visitors: ${Math.floor(Math.random() * 100)}`
+  })
 }
 
 mock({
   setPlan,
   setLocation: window.setLocation,
-  goLocation () {
-    console.warn('go location')
-  },
-  click (selector) {
-    console.warn('click', selector)
-  }
+  displayStatistics: window.displayStatistics
 })
