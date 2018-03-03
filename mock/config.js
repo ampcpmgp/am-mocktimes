@@ -1,5 +1,5 @@
 import Test from 'am-coffee-time/browser/Test'
-import pattern from './data/pattern.yml'
+import pattern from './sample-app/pattern.yml'
 import * as Actions from '../src/actions'
 import state from '../src/state'
 import sleep from '../src/utils/sleep'
