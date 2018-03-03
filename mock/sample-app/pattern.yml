@@ -12,7 +12,7 @@ Travel Plan A:
       Mars:
         - [setLocation, mars]
       Sun: [setLocation, sun]
-    view statistics: [displayStatistics]
+    view statistics: [view.displayStatistics]
 Travel Plan B: [setPlan, B]
 Travel Plan Z and set Special Location:
   funcs:

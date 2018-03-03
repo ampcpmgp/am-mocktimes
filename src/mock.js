@@ -10,7 +10,7 @@ export default async (mockAction) => {
     try {
       actionFunc = eval(`mockAction.${actionName}`) // eslint-disable-line
     } catch (e) {
-      const errorMsg = `cannot use "${actionName}" `
+      const errorMsg = `cannot use action - "${actionName}" `
       throw errorMsg
     }
     if (!actionFunc) {

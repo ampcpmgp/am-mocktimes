@@ -46,5 +46,7 @@ window.displayStatistics = () => {
 mock({
   setPlan,
   setLocation: window.setLocation,
-  displayStatistics: window.displayStatistics
+  view: {
+    displayStatistics: window.displayStatistics
+  }
 })
