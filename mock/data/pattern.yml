@@ -7,18 +7,16 @@ Travel Plan A:
   planet:
     switch:
       Earth:
-          func: [setPlanet, earth]
-          description: less capacity
+          func: [setLocation, earth, rotation]
+          description: less capacity, fullfilled water
       Mars:
-        - [setPlanet, mars]
-        - [moveSpace]
-      Sun: [setPlanet, sun]
-    go planet: [goPlanet]
+        - [setLocation, mars]
+      Sun: [setLocation, sun]
+    go planet: [goLocation]
   view statistics:
     func: [click, statistics]
 Travel Plan B: [setPlan, plan/b.json]
 Travel Plan Z:
   funcs:
-   - [setPlan, plan/c.json]
-   - [waitForElement, error-modal]
-   - [assert, 403]
+   - [setPlan, plan/z.json]
+   - [setLocation, Cell Game]

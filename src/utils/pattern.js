@@ -28,9 +28,9 @@ export const getPatternInfo = pattern => {
   return pattern
 }
 
-export const getMockUrl = (url, mdActions) => {
+export const getMockUrl = (url, coffeeTimeActions) => {
   const parsed = queryString.parseUrl(url)
-  parsed.query.__amCoffeeTime__ = encodeURIComponent(JSON.stringify(mdActions))
+  parsed.query.__amCoffeeTime__ = encodeURIComponent(JSON.stringify(coffeeTimeActions))
   return `${parsed.url}?${queryString.stringify(parsed.query)}`
 }
 
@@ -57,4 +57,10 @@ export const getSwitchAction = switchItem => {
 
 export const getRoutePath = (mockUrl) => {
   return encodeURIComponent(JSON.stringify({mockUrl}))
+}
+
+export const getActions = () => {
+  const {__amCoffeeTime__} = queryString.parse(location.search)
+  if (!__amCoffeeTime__) return []
+  return JSON.parse(decodeURIComponent(__amCoffeeTime__))
 }
