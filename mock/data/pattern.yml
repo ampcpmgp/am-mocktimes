@@ -1,13 +1,13 @@
 url: 'http://localhost:9997'
 Travel Plan A:
-  func: [setPlan, plan/a.json]
+  func: [setPlan, A]
   description: |
     top plan
     most expensive plan
   planet:
     switch:
       Earth:
-          func: [setLocation, earth, rotation]
+          func: [setLocation, earth]
           description: less capacity, fullfilled water
       Mars:
         - [setLocation, mars]
@@ -15,8 +15,8 @@ Travel Plan A:
     go planet: [goLocation]
   view statistics:
     func: [click, statistics]
-Travel Plan B: [setPlan, plan/b.json]
+Travel Plan B: [setPlan, B]
 Travel Plan Z:
   funcs:
-   - [setPlan, plan/z.json]
-   - [setLocation, Cell Game]
+   - [setPlan, Z]
+   - [setLocation, Cell Game, true]

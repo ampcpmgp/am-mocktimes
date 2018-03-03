@@ -18,13 +18,23 @@
       #locationBox {
         border: 1px solid #ccffff;
       }
+      #locationBox > div {
+        cursor: pointer;
+        color: blue;
+      }
+
+      @keyframes spin {
+      	0% {transform: rotate(0deg);}
+      	100% {transform: rotate(360deg);}
+      }
     </style>
   </head>
   <body>
     <div id="planBox">
-      Plan Name: <span id="planName"></span>
+      Plan Name: <span id="planName">loading...</span>
     </div>
     <div id="locationBox"></div>
+    <img id="catSaysLocation"></img>
     <script src="index.js"></script>
   </body>
 </html>
