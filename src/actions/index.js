@@ -9,6 +9,17 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
+export const getParentMdAction = (mdAction) => {
+  let parentAction
+  handleMdActionRecursively(state.mock.mdAction, (currentMdAction) => {
+    currentMdAction.mdActions.forEach(currentChildMdAction => {
+      if (mdAction === currentChildMdAction) parentAction = currentMdAction
+    })
+  })
+
+  return parentAction
+}
+
 export const setCurrentUrl = url => {
   state.mock.currentUrl = url
 }
@@ -61,37 +72,25 @@ export const setCoffeeTimeAction = (mdAction, parentCoffeeTimeActions) => {
     addCoffeeTimeFuncs(currentCoffeeTimeActions, selectedCoffeeTimeAction)
   }
 
-  mdAction.coffeeTimeActions = parentCoffeeTimeActions.concat(currentCoffeeTimeActions)
+  mdAction.coffeeTimeActions = parentCoffeeTimeActions
+    ? parentCoffeeTimeActions.concat(currentCoffeeTimeActions)
+    : currentCoffeeTimeActions
 }
 
-export const setSwitchNameRecursively = (mdAction, coffeeTimeActions) => {
-  mdAction.mdActions.forEach(mdAction => {
-    setCoffeeTimeAction(mdAction, coffeeTimeActions)
-    setMockUrl(mdAction)
-    setSwitchNameRecursively(mdAction, mdAction.coffeeTimeActions)
+export const setSwitchNameRecursively = (currentMdAction, parentCoffeeTimeActions) => {
+  setCoffeeTimeAction(currentMdAction, parentCoffeeTimeActions)
+  setMockUrl(currentMdAction)
+
+  currentMdAction.mdActions.forEach(childMdAction => {
+    setSwitchNameRecursively(childMdAction, currentMdAction.coffeeTimeActions)
   })
 }
 
 export const setSelectedSwitchName = (mdAction, selectedSwitchName) => Action(() => {
   mdAction.selectedSwitchName = selectedSwitchName
+  const parentMdAction = getParentMdAction(mdAction)
 
-  const {
-    func,
-    funcs
-  } = mdAction.switchs
-    .find(switchItem => switchItem.name === selectedSwitchName)
-
-  // 現状、switchActionは、配列最後に入るため、この取得方法で良いが、今後特定方法を考えたほうが良い
-  const mdActionLength = mdAction.coffeeTimeActions.length - 1
-  Object.assign(mdAction.coffeeTimeActions[mdActionLength], {
-    selectedSwitchName,
-    func,
-    funcs
-  })
-
-  mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.coffeeTimeActions)
-
-  setSwitchNameRecursively(mdAction, mdAction.coffeeTimeActions)
+  setSwitchNameRecursively(mdAction, parentMdAction.coffeeTimeActions)
 })
 
 export const openActionBox = mdAction => {

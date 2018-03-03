@@ -9,6 +9,7 @@ const locations = {
 
 window.setLocation = async (location, animation) => {
   const message = `This is ${location}`
+  window.catSaysLocation.src = ''
   window.catSaysLocation.src = `https://cataas.com/cat/says/${message}`
   window.catSaysLocation.alt = `Image loading...`
   window.catSaysLocation.onerror = () => {
