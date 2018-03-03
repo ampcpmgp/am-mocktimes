@@ -13,9 +13,9 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "watch:parcel:pattern": "parcel --open -p 9999 -d .dev mock/__src__/pattern.html",
-    "watch:parcel:mock": "parcel -p 9998 -d .dev mock/__src__/index.html",
-    "watch:parcel:sample": "parcel -p 9997 -d .dev docs-src/sample.html",
+    "watch:parcel:pattern": "parcel --open -p 9999 -d .dev/pattern mock/__src__/pattern.html",
+    "watch:parcel:mock": "parcel -p 9998 -d .dev/mock mock/__src__/index.html",
+    "watch:parcel:sample": "parcel -p 9997 -d .dev/sample mock/sample-app/index.html",
     "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\""
   },
   "author": "",
@@ -41,6 +41,8 @@
   },
   "standard": {
     "globals": [
+      "history",
+      "location",
       "opts"
     ],
     "plugins": [

@@ -27,13 +27,12 @@ Plan A:
   func: [setPlan, plan/a.json]
   view statistics:
     func: [click, statistics]
-Plan B:
-  func: [setPlan, plan/b.json]
+Plan B: [setPlan, plan/b.json]
 plan C:
   funcs:
-   - [setPlan, plan/c.json]
-   - [waitForElement, error-modal]
-   - [assert, 403]
+    - [setPlan, plan/c.json]
+    - [waitForElement, error-modal]
+    - [modal.close]
 ```
 
 ## reserved property
@@ -62,7 +61,6 @@ switch配下の設定も他と同様で、新しく何かを覚える必要が�
 
 ## action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
-後述する個別actionを呼び出すトリガーにもなります。
 
 # config action js
 モックで呼び出される、アクション定義を設定します。
@@ -81,34 +79,24 @@ const action = {
   },
   waitForElement: async (selector) {
     // await for specified selector
-  }
-}
-
-const treeAction = {
-  'Plan A': {
-    action () {
-      // special function
+  },
+  modal: {
+    open () {
+      // open modal action
     },
-    'view statistics' () {
-      // special function
+    close () {
+      // close modal action
     }
   }
 }
 
-mock(action, treeAction)
+mock(action)
 start()
 ```
 
-## mock(action: MockAction, [treeAction: MockAction])
+## mock(action: MockAction)
 この関数を呼び出すことで、モック状態を生成します。
 
-第一引数は、`func`で定義した関数名を持つobjectとなり、
-第二引数は、`pattern list` の階層と同一な、特別なactionを定義します。
-第一引数のactionのあとに呼び出されます。
-
-## MockAction
-
-### reserved property
-#### action
-このpropertyにcallbackを指定できます。async関数も利用可能で、後続のactionはその処理を待ちます。
-actionは省略でき、その場合は、keyに直接関数を指定します。
+### MockAction
+`func`で定義した関数名を、keyで持つobjectとなります。  
+objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。

@@ -5,3 +5,6 @@
   １個目を開く:
       default: http://localhost:9998
       Marsを選択: http://localhost:9998
+  1~2階層の１個目を開く:
+    default: http://localhost:9998
+    3階層の1個目のリンクを開く: http://localhost:9998
