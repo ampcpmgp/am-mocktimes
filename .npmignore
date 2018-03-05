@@ -1,5 +1,5 @@
 .cache/
 .dev/
 .git/
-dist/
+src/
 mock/
