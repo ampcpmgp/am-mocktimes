@@ -31,12 +31,12 @@ src/
 
 以下の初期化コマンドで、 `.am-coffee-time/` にモック用ファイルを生成します。
 ```shell
-am-coffee-time init
+npx am-coffee-time init
 ```
 
 最後にparcelを起動すれば開発可能になります。
 ```shell
-parcel .am-coffee-time/index.html
+npx parcel .am-coffee-time/index.html
 ```
 
 # config mock/pattern.yml
