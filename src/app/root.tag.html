@@ -55,8 +55,11 @@ import riot from 'riot'
       const initialUrl = location.href
       history.replaceState(null, null, location.href.replace(location.hash, ''))
       history.pushState(null, null, initialUrl)
+      this.one('mount', () => {
+        Actions.setCurrentUrl(mockUrl)
+      })
     }
 
-    route.start(true)
+    route.start()
   </script>
 </app-root>
