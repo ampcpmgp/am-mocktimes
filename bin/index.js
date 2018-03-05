@@ -13,6 +13,7 @@ const {
 } = require('./const')
 
 const argv = require('yargs')
+  .command('init', 'Output pattern & mock pages.')
   .option('p', {
     alias: 'pattern',
     default: 'mock/pattern.yml',
