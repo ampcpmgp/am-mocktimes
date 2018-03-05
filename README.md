@@ -44,7 +44,6 @@ parcel .am-coffee-time/index.html
 
 以下が設定例です。
 ```yaml
-url: './accout'
 Plan A:
   func: [setPlan, plan/a.json]
   view statistics:
@@ -58,12 +57,6 @@ plan C:
 ```
 
 ## reserved property
-### url
-実際に動作するモックURLを指定します。  
-設定されたobject配下に対して、リンク先のURLを設定できます。
-default値は、 `/` になります。
-他ドメインURLの設定も可能です。
-
 ### func
 配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
 後述するactionを呼び出すトリガーになり、関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  

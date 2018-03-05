@@ -3,6 +3,7 @@ import {
 } from 'dob'
 import state from '../state'
 import {
+  getInitialPath,
   getActionKeys,
   getPatternInfo,
   getSwitchAction,
@@ -123,7 +124,7 @@ export const setRecursivelyMdAction = ({
   const levelName = `level-${level}`
 
   Object.assign(mdAction, {
-    url,
+    url: url || getInitialPath(),
     description,
     func,
     funcs,
