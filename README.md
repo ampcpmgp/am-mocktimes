@@ -15,7 +15,7 @@ npm i am-coffee-time parcel -D
 ```
 
 サンプルでは以下の形式で用意します。  
-(一旦は全て空ファイルも問題有りません)
+(一旦は `src/index.html` 以外は、空ファイルも問題有りません)
 
 ```shell
 # モック
@@ -25,7 +25,7 @@ mock/
 
 # アプリケーション本体
 src/
-  index.html
+  index.html # 後述しますが、 `<script src="app.js"></script>` の1行だけは入れてください。
   app.js
 ```
 
@@ -117,10 +117,11 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 
 # config src/index.html
 こちらは、アプリケーション本体を配置します。  
-実プロダクトで動くSPAにしてください。  
-parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考にどうぞ。
-
+parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
+本体のアプリにモックアクション定義jsをinjectするため、 以下1行は最低入れておいてください。
+```
+<script src="app.js"></script>
+```
 
 # config src/index.js
-こちらも上記同様に、実プロダクトで動くコードにしてください。  
 am-coffee-timeでは、このjsに、モックアクションをinjectします。  

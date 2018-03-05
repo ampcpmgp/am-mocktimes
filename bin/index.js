@@ -90,7 +90,7 @@ const generateMockHtml = async () => {
     html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
     html = html.replace(`src="./${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
 
-    if (baseHtml === html) console.warn(`warning: --script-src '${scriptSrc}', not found.`)
+    if (baseHtml === html) throw new Error(`warning: --script-src '${scriptSrc}', not found.`)
 
     fs.outputFile(path.join(process.cwd(), outputDir, MOCK_HTML), html)
   } catch (e) {
