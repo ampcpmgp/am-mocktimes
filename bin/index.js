@@ -77,10 +77,13 @@ const generatePatternJs = async () => {
 
 const generateMockHtml = async () => {
   try {
-    const baseHtml = await fs.readFile(appFile, 'utf-8')
-    if (!baseHtml) {
+    const appFilePath = path.join(process.cwd(), appFile)
+    const isExistsFile = await fs.pathExists(appFilePath)
+    if (!isExistsFile) {
       throw new Error(`--app '${appFile}', file not found.`)
     }
+
+    const baseHtml = await fs.readFile(appFilePath, 'utf-8')
     let html = baseHtml.replace(`src='${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
     html = html.replace(`src='./${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
     html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
