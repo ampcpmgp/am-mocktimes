@@ -11,7 +11,6 @@
     "dist:main": "microbundle --entry src/main.js --sourcemap false -o lib/main.js -f cjs",
     "dist:mock": "microbundle --entry src/mock.js --sourcemap false -o lib/mock.js -f cjs",
     "lint": "standard --verbose | snazzy src && standard src/app/**/*.tag.html --verbose | snazzy",
-    "prerelease": "npm run dist && npm version prerelease && npm publish",
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
