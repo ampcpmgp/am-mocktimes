@@ -54,8 +54,7 @@ const outputDir = argv.outDir
 const [ command ] = argv._
 
 if (command !== 'init') {
-  const commandErrMsg = `command not support: '${command}'`
-  throw commandErrMsg
+  throw new Error(`command not support: '${command}'`)
 }
 
 const generatePatternHtml = async () => {
@@ -79,6 +78,9 @@ const generatePatternJs = async () => {
 const generateMockHtml = async () => {
   try {
     const baseHtml = await fs.readFile(appFile, 'utf-8')
+    if (!baseHtml) {
+      throw new Error(`--app '${appFile}', file not found.`)
+    }
     let html = baseHtml.replace(`src='${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
     html = html.replace(`src='./${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
     html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
@@ -100,6 +102,8 @@ const generateMockJs = async () => {
     throw e
   }
 }
+
+process.on('unhandledRejection', console.dir)
 
 generatePatternHtml()
 generatePatternJs()
