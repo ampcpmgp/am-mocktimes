@@ -78,11 +78,14 @@ const generatePatternJs = async () => {
 
 const generateMockHtml = async () => {
   try {
-    let html = await fs.readFile(appFile, 'utf-8')
-    html = html.replace(`src='${scriptSrc}'`, `src="${MOCK_JS}"`)
-    html = html.replace(`src='./${scriptSrc}'`, `src="${MOCK_JS}"`)
-    html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}"`)
-    html = html.replace(`src="./${scriptSrc}"`, `src="${MOCK_JS}"`)
+    const baseHtml = await fs.readFile(appFile, 'utf-8')
+    let html = baseHtml.replace(`src='${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
+    html = html.replace(`src='./${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
+    html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
+    html = html.replace(`src="./${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
+
+    if (baseHtml === html) console.warn(`warning: --script-src '${scriptSrc}', not found.`)
+
     fs.outputFile(path.join(process.cwd(), outputDir, MOCK_HTML), html)
   } catch (e) {
     throw e

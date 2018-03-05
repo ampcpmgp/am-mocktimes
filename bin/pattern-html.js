@@ -1,6 +1,6 @@
 const Const = require('./const')
 const {
-  APP_HTML,
+  MOCK_HTML,
   PATTERN_JS
 } = Const
 
@@ -16,7 +16,7 @@ module.exports = (appFile) => {
     ${appFile
     ? (
       `<!-- don't remove next line, until parcel support multiple entry points. -->
-    <a href="${APP_HTML}" style="display: none;"></a>`
+    <a href="${MOCK_HTML}" style="display: none;"></a>`
     )
     : ''}
     <script src="${PATTERN_JS}" charset="utf-8"></script>
