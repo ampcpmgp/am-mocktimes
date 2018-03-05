@@ -25,20 +25,6 @@ import riot from 'riot'
       })
     })
 
-    route('*', (routerStr) => {
-      try {
-        const routerObj = JSON.parse(decodeURIComponent(routerStr))
-        const {mockUrl} = routerObj
-        Actions.setCurrentUrl(mockUrl)
-      } catch (e) {
-        Actions.setCurrentUrl(null)
-      }
-    })
-
-    route('..', () => {
-      Actions.setCurrentUrl(null)
-    })
-
     const getMockUrl = () => {
       const hashTag = location.hash.replace(/^#/, '')
       try {
@@ -49,15 +35,21 @@ import riot from 'riot'
       }
     }
 
+    route('*', (routerStr) => {
+      Actions.setCurrentUrl(getMockUrl())
+    })
+
+    route('..', () => {
+      Actions.setCurrentUrl(null)
+    })
+
     const mockUrl = getMockUrl()
 
     if (mockUrl) {
       const initialUrl = location.href
       history.replaceState(null, null, location.href.replace(location.hash, ''))
       history.pushState(null, null, initialUrl)
-      this.one('mount', () => {
-        Actions.setCurrentUrl(mockUrl)
-      })
+      Actions.setCurrentUrl(getMockUrl())
     }
 
     route.start()
