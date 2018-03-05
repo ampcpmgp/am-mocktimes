@@ -13,7 +13,7 @@ export default () => {
       const mdAction = state.mock.mdAction.mdActions[0].mdActions[0]
       Actions.setSelectedSwitchName(mdAction, mdAction.switchs[1].name)
     },
-    ヘルプを開く: async () => {
+    async ヘルプを開く () {
       await sleep(1000)
       const el = document.querySelector('parts-header > .question')
       const evt = new window.MouseEvent('click')

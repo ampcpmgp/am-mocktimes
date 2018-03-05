@@ -7,17 +7,39 @@ https://github.com/ampcpmgp/am-coffee-time
 # sample page
 TODO:
 
-# start
-パターン表示用のサーバーと、モック実行用サーバーの２種類を用意する必要がありますが、
-[parcel](https://github.com/parcel-bundler/parcel) を利用すると楽に構築が出来ます。
+# start with parcel
+以下をインストール。  
 
-以下 starter-kit が参考になります。
-https://github.com/ampcpmgp/parcel-riot-coffee-time-starter
+```
+npm i am-coffee-time parcel -D
+```
 
-※version 1.0 に向けて、コマンドから一発で起動出来るよう調整中。
+サンプルでは以下の形式で用意します。  
+(一旦は全て空ファイルも問題有りません)
 
+```shell
+# モック
+mock/
+  pattern.yml # パターンリスト表示用
+  config.js # アプリケーションモック設定用
 
-# config pattern list
+# アプリケーション本体
+src/
+  index.html
+  app.js
+```
+
+以下の初期化コマンドで、 `.am-coffee-time/` にモック用ファイルを生成します。
+```shell
+am-coffee-time init
+```
+
+最後にparcelを起動すれば開発可能になります。
+```shell
+parcel .am-coffee-time/index.html
+```
+
+# config mock/pattern.yml
 モックパターン一覧の表示に利用し、yamlとjsonに対応しています。  
 
 以下が設定例です。
@@ -44,8 +66,8 @@ default値は、 `/` になります。
 
 ### func
 配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
-後述するactionを呼び出すトリガーになります。  
-action propertyに直接、値を定義することで、省略できます。
+後述するactionを呼び出すトリガーになり、関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  
+[action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
 
 
 ### funcs
@@ -62,22 +84,22 @@ switch配下の設定も他と同様で、新しく何かを覚える必要が�
 ## action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
-# config action js
+# config mock/config.js
 モックで呼び出される、アクション定義を設定します。
 
 以下が設定例です。
 ```js
 import { mock } from 'am-coffee-time'
-import { start } from 'app-src' // your web application entry file
 
 const action = {
-  click (selector) {
-    // click selector, and assert
+  async click (selector) {
+    // wait selector
+    // click selector
   },
   setPlan (planFile) {
     // set api callback to planFile object
   },
-  waitForElement: async (selector) {
+  async waitForElement (selector) {
     // await for specified selector
   },
   modal: {
@@ -91,7 +113,6 @@ const action = {
 }
 
 mock(action)
-start()
 ```
 
 ## mock(action: MockAction)
@@ -100,3 +121,13 @@ start()
 ### MockAction
 `func`で定義した関数名を、keyで持つobjectとなります。  
 objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。
+
+# config src/index.html
+こちらは、アプリケーション本体を配置します。  
+実プロダクトで動くSPAにしてください。  
+parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考にどうぞ。
+
+
+# config src/index.js
+こちらも上記同様に、実プロダクトで動くコードにしてください。  
+am-coffee-timeでは、このjsに、モックアクションをinjectします。  
