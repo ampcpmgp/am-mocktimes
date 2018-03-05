@@ -1,5 +1,5 @@
-node_modules/
 .cache/
+.dev/
+lib/
+node_modules/
 src/app/**/*.js
-dist
-.dev
