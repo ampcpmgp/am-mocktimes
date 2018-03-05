@@ -124,7 +124,7 @@ export const setRecursivelyMdAction = ({
   const levelName = `level-${level}`
 
   Object.assign(mdAction, {
-    url: url || getInitialPath(),
+    url,
     description,
     func,
     funcs,
@@ -171,7 +171,7 @@ export const setPattern = pattern => Action(() => {
   Object.assign(state.mock.pattern, pattern)
   setRecursivelyMdAction({
     name: '',
-    url: pattern.url || '/',
+    url: pattern.url || getInitialPath(),
     mdAction: state.mock.mdAction,
     level: 0,
     pattern
