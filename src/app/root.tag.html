@@ -39,6 +39,8 @@ import riot from 'riot'
       Actions.setCurrentUrl(null)
     })
 
+    route.start()
+
     const getMockUrl = () => {
       const hashTag = location.hash.replace(/^#/, '')
       try {
@@ -56,6 +58,5 @@ import riot from 'riot'
       history.replaceState(null, null, location.href.replace(location.hash, ''))
       history.pushState(null, null, initialUrl)
     }
-    route.start()
   </script>
 </app-root>
