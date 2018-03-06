@@ -35,8 +35,6 @@ npx am-coffee-time init
 # ファイル構造を変えたい場合は、 `npx am-coffee-time --help` を参照
 ```
 
-※
-
 
 最後にparcelを起動すれば開発可能になります。
 ```shell
