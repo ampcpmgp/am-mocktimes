@@ -5,7 +5,6 @@
   "main": "lib/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "TODO: dist": "uglify js",
     "dist": "run-s clean build:riot dist:*",
     "clean": "rimraf dist",
     "dist:main": "microbundle --entry src/main.js --sourcemap false -o lib/main.js -f cjs",
