@@ -14,6 +14,7 @@ const {
 
 const argv = require('yargs')
   .command('init', 'Output pattern & mock pages.')
+  .command('generate-template', 'Generate page files. Mock and application sources.')
   .option('p', {
     alias: 'pattern',
     default: 'mock/pattern.yml',
@@ -44,11 +45,6 @@ const argv = require('yargs')
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
-  .option('generate-template', {
-    default: false,
-    describe: 'Generate page files. Mock and application sources.',
-    type: 'boolean'
-  })
   .argv
 
 const patternFile = argv.pattern
@@ -56,7 +52,6 @@ const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outputDir = argv.outDir
-const isGenerateTemplate = argv.generateTemplate
 
 const Path = {
   PATTERN_HTML: path.join(process.cwd(), outputDir, PATTERN_HTML),
@@ -66,10 +61,6 @@ const Path = {
 }
 
 const [ command ] = argv._
-
-if (command !== 'init') {
-  throw new Error(`command not support: '${command}'`)
-}
 
 const makeFileIfNotExist = async (filePath, content = '') => {
   const isExistsFile = await fs.pathExists(filePath)
@@ -146,15 +137,16 @@ const generateMockJs = async () => {
 
 process.on('unhandledRejection', console.dir)
 
-const start = async () => {
-  if (isGenerateTemplate) {
-    await generateTemplate()
-  }
-
-  generatePatternHtml()
-  generatePatternJs()
-  generateMockHtml()
-  generateMockJs()
+switch (command) {
+  case 'init':
+    generatePatternHtml()
+    generatePatternJs()
+    generateMockHtml()
+    generateMockJs()
+    break
+  case 'generate-template':
+    generateTemplate()
+    break
+  default:
+    throw new Error(`command not support: '${command}'`)
 }
-
-start()

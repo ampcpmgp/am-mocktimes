@@ -14,8 +14,8 @@ TODO:
 npm i am-coffee-time parcel-bundler -D
 ```
 
-サンプルでは以下のファイル構造で用意します。  
-(一旦は、 `src/index.html` 以外は、空ファイルでOKです)
+以下のファイル構造で用意します。  
+( `npx am-coffee-time generate-template` でも作成可能です。)
 
 ```shell
 # モック
@@ -35,10 +35,12 @@ npx am-coffee-time init
 # ファイル構造を変えたい場合は、 `npx am-coffee-time --help` を参照
 ```
 
+※
+
 
 最後にparcelを起動すれば開発可能になります。
 ```shell
-npx parcel .am-coffee-time/index.html
+npx parcel .am-coffee-time
 ```
 
 # config mock/pattern.yml
