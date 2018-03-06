@@ -145,6 +145,9 @@ const buildCoffeeTimeFiles = async () => {
 process.on('unhandledRejection', console.dir)
 
 switch (command) {
+  case 'watch':
+    // TODO:
+    break
   case 'build':
     buildCoffeeTimeFiles()
     break

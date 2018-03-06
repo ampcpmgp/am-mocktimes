@@ -54,8 +54,12 @@
     "am-coffee-time": "bin/index.js"
   },
   "dependencies": {
+    "chokidar": "^2.0.2",
     "fs-extra": "^5.0.0",
     "normalize-path": "^2.1.1",
     "yargs": "^11.0.0"
+  },
+  "peerDependencies": {
+    "parcel-bundler": ">=1.6.2 <2"
   }
 }
