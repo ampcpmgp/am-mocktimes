@@ -11,7 +11,7 @@ TODO:
 以下をインストール。  
 
 ```
-npm i am-coffee-time parcel -D
+npm i am-coffee-time parcel-bundler -D
 ```
 
 サンプルでは以下のファイル構造で用意します。  

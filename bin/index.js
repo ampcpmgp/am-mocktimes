@@ -44,8 +44,7 @@ const argv = require('yargs')
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
-  .option('g', {
-    alias: 'generate-template',
+  .option('generate-template', {
     default: false,
     describe: 'Generate page files. Mock and application sources.',
     type: 'boolean'
@@ -72,19 +71,28 @@ if (command !== 'init') {
   throw new Error(`command not support: '${command}'`)
 }
 
-const makeFileIfNotExist = () => {
-
-}
-
-if (isGenerateTemplate) {
-  const Path = {
-
+const makeFileIfNotExist = async (filePath, content = '') => {
+  const isExistsFile = await fs.pathExists(filePath)
+  if (isExistsFile) {
+    console.warn(`${filePath} is existed.`)
+    return
   }
 
-  fs.outputFile(Path.PATTERN_HTML, '')
-  fs.outputFile(Path.PATTERN_JS, '')
-  fs.outputFile(Path.MOCK_HTML, `<script src="${test}"></script>`)
-  fs.outputFile(Path.MOCK_JS, '')
+  await fs.outputFile(filePath, content)
+}
+
+const generateTemplate = async () => {
+  const UserFiles = {
+    MOCK_PATTERN: patternFile,
+    MOCK_CONFIG: configFile,
+    SRC_HTML: appFile,
+    SRC_JS: path.join(appFile, '..', scriptSrc)
+  }
+
+  await makeFileIfNotExist(UserFiles.MOCK_PATTERN)
+  await makeFileIfNotExist(UserFiles.MOCK_CONFIG)
+  await makeFileIfNotExist(UserFiles.SRC_HTML, `<script src="${scriptSrc}"></script>\n`)
+  await makeFileIfNotExist(UserFiles.SRC_JS)
 }
 
 const generatePatternHtml = async () => {
@@ -138,7 +146,15 @@ const generateMockJs = async () => {
 
 process.on('unhandledRejection', console.dir)
 
-generatePatternHtml()
-generatePatternJs()
-generateMockHtml()
-generateMockJs()
+const start = async () => {
+  if (isGenerateTemplate) {
+    await generateTemplate()
+  }
+
+  generatePatternHtml()
+  generatePatternJs()
+  generateMockHtml()
+  generateMockJs()
+}
+
+start()
