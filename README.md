@@ -14,8 +14,8 @@ TODO:
 npm i am-coffee-time parcel -D
 ```
 
-サンプルでは以下の形式で用意します。  
-(一旦は `src/index.html` 以外は、空ファイルも問題有りません)
+サンプルでは以下のファイル構造で用意します。  
+(一旦は、 `src/index.html` 以外は、空ファイルでOKです)
 
 ```shell
 # モック
@@ -32,7 +32,9 @@ src/
 以下の初期化コマンドで、 `.am-coffee-time/` にモック用ファイルを生成します。
 ```shell
 npx am-coffee-time init
+# ファイル構造を変えたい場合は、 `npx am-coffee-time --help` を参照
 ```
+
 
 最後にparcelを起動すれば開発可能になります。
 ```shell
@@ -40,7 +42,8 @@ npx parcel .am-coffee-time/index.html
 ```
 
 # config mock/pattern.yml
-モックパターン一覧の表示に利用し、yamlとjsonに対応しています。  
+モックパターン一覧の表示に利用します。  
+jsやjson等、import可能ファイルであれば何でも設定可能です。
 
 以下が設定例です。
 ```yaml
@@ -124,4 +127,5 @@ parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/g
 ```
 
 # config src/index.js
+上記ファイルから利用される、アプリケーション本体のjsとなります。  
 am-coffee-timeでは、このjsに、モックアクションをinjectします。  
