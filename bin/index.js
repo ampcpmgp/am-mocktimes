@@ -44,6 +44,12 @@ const argv = require('yargs')
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
+  .option('g', {
+    alias: 'generate-template',
+    default: false,
+    describe: 'Generate page files. Mock and application sources.',
+    type: 'boolean'
+  })
   .argv
 
 const patternFile = argv.pattern
@@ -51,6 +57,14 @@ const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outputDir = argv.outDir
+const isGenerateTemplate = argv.generateTemplate
+
+const Path = {
+  PATTERN_HTML: path.join(process.cwd(), outputDir, PATTERN_HTML),
+  PATTERN_JS: path.join(process.cwd(), outputDir, PATTERN_JS),
+  MOCK_HTML: path.join(process.cwd(), outputDir, MOCK_HTML),
+  MOCK_JS: path.join(process.cwd(), outputDir, MOCK_JS)
+}
 
 const [ command ] = argv._
 
@@ -58,10 +72,25 @@ if (command !== 'init') {
   throw new Error(`command not support: '${command}'`)
 }
 
+const makeFileIfNotExist = () => {
+
+}
+
+if (isGenerateTemplate) {
+  const Path = {
+
+  }
+
+  fs.outputFile(Path.PATTERN_HTML, '')
+  fs.outputFile(Path.PATTERN_JS, '')
+  fs.outputFile(Path.MOCK_HTML, `<script src="${test}"></script>`)
+  fs.outputFile(Path.MOCK_JS, '')
+}
+
 const generatePatternHtml = async () => {
   const html = patternHtml(appFile)
   try {
-    fs.outputFile(path.join(process.cwd(), outputDir, PATTERN_HTML), html)
+    fs.outputFile(Path.PATTERN_HTML, html)
   } catch (e) {
     throw e
   }
@@ -70,7 +99,7 @@ const generatePatternHtml = async () => {
 const generatePatternJs = async () => {
   const js = patternJs(patternFile)
   try {
-    fs.outputFile(path.join(process.cwd(), outputDir, PATTERN_JS), js)
+    fs.outputFile(Path.PATTERN_JS, js)
   } catch (e) {
     throw e
   }
@@ -92,7 +121,7 @@ const generateMockHtml = async () => {
 
     if (baseHtml === html) throw new Error(`warning: --script-src '${scriptSrc}', not found.`)
 
-    fs.outputFile(path.join(process.cwd(), outputDir, MOCK_HTML), html)
+    fs.outputFile(Path.MOCK_HTML, html)
   } catch (e) {
     throw e
   }
@@ -101,7 +130,7 @@ const generateMockHtml = async () => {
 const generateMockJs = async () => {
   const js = mockJs(outputDir, configFile, path.join(appFile, '../'), scriptSrc)
   try {
-    fs.outputFile(path.join(process.cwd(), outputDir, MOCK_JS), js)
+    fs.outputFile(Path.MOCK_JS, js)
   } catch (e) {
     throw e
   }
