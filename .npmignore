@@ -1,0 +1,6 @@
+.am-coffee-time/
+.cache/
+.dev/
+.git/
+mock/
+src/

@@ -28,6 +28,11 @@ export const getPatternInfo = pattern => {
   return pattern
 }
 
+export const getInitialPath = () => {
+  const coffeeTimeElm = document.querySelector('[data-am-coffee-time-path]')
+  return coffeeTimeElm && coffeeTimeElm.href
+}
+
 export const getMockUrl = (url, coffeeTimeActions) => {
   const parsed = queryString.parseUrl(url)
   parsed.query.__amCoffeeTime__ = encodeURIComponent(JSON.stringify(coffeeTimeActions))

@@ -3,6 +3,7 @@ import {
 } from 'dob'
 import state from '../state'
 import {
+  getInitialPath,
   getActionKeys,
   getPatternInfo,
   getSwitchAction,
@@ -170,7 +171,7 @@ export const setPattern = pattern => Action(() => {
   Object.assign(state.mock.pattern, pattern)
   setRecursivelyMdAction({
     name: '',
-    url: pattern.url || '/',
+    url: pattern.url || getInitialPath(),
     mdAction: state.mock.mdAction,
     level: 0,
     pattern

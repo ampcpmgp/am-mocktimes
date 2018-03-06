@@ -7,22 +7,46 @@ https://github.com/ampcpmgp/am-coffee-time
 # sample page
 TODO:
 
-# start
-パターン表示用のサーバーと、モック実行用サーバーの２種類を用意する必要がありますが、
-[parcel](https://github.com/parcel-bundler/parcel) を利用すると楽に構築が出来ます。
+# start with parcel
+以下をインストール。  
 
-以下 starter-kit が参考になります。
-https://github.com/ampcpmgp/parcel-riot-coffee-time-starter
+```
+npm i am-coffee-time parcel -D
+```
 
-※version 1.0 に向けて、コマンドから一発で起動出来るよう調整中。
+サンプルでは以下のファイル構造で用意します。  
+(一旦は、 `src/index.html` 以外は、空ファイルでOKです)
+
+```shell
+# モック
+mock/
+  pattern.yml # パターンリスト表示用
+  config.js # アプリケーションモック設定用
+
+# アプリケーション本体
+src/
+  index.html # 後述しますが、 `<script src="app.js"></script>` の1行だけは入れてください。
+  app.js
+```
+
+以下の初期化コマンドで、 `.am-coffee-time/` にモック用ファイルを生成します。
+```shell
+npx am-coffee-time init
+# ファイル構造を変えたい場合は、 `npx am-coffee-time --help` を参照
+```
 
 
-# config pattern list
-モックパターン一覧の表示に利用し、yamlとjsonに対応しています。  
+最後にparcelを起動すれば開発可能になります。
+```shell
+npx parcel .am-coffee-time/index.html
+```
+
+# config mock/pattern.yml
+モックパターン一覧の表示に利用します。  
+jsやjson等、import可能ファイルであれば何でも設定可能です。
 
 以下が設定例です。
 ```yaml
-url: './accout'
 Plan A:
   func: [setPlan, plan/a.json]
   view statistics:
@@ -36,16 +60,10 @@ plan C:
 ```
 
 ## reserved property
-### url
-実際に動作するモックURLを指定します。  
-設定されたobject配下に対して、リンク先のURLを設定できます。
-default値は、 `/` になります。
-他ドメインURLの設定も可能です。
-
 ### func
 配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
-後述するactionを呼び出すトリガーになります。  
-action propertyに直接、値を定義することで、省略できます。
+後述するactionを呼び出すトリガーになり、関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  
+[action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
 
 
 ### funcs
@@ -62,22 +80,22 @@ switch配下の設定も他と同様で、新しく何かを覚える必要が�
 ## action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
-# config action js
+# config mock/config.js
 モックで呼び出される、アクション定義を設定します。
 
 以下が設定例です。
 ```js
 import { mock } from 'am-coffee-time'
-import { start } from 'app-src' // your web application entry file
 
 const action = {
-  click (selector) {
-    // click selector, and assert
+  async click (selector) {
+    // wait selector
+    // click selector
   },
   setPlan (planFile) {
     // set api callback to planFile object
   },
-  waitForElement: async (selector) {
+  async waitForElement (selector) {
     // await for specified selector
   },
   modal: {
@@ -91,7 +109,6 @@ const action = {
 }
 
 mock(action)
-start()
 ```
 
 ## mock(action: MockAction)
@@ -100,3 +117,15 @@ start()
 ### MockAction
 `func`で定義した関数名を、keyで持つobjectとなります。  
 objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。
+
+# config src/index.html
+こちらは、アプリケーション本体を配置します。  
+parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
+本体のアプリにモックアクション定義jsをinjectするため、 以下1行は最低入れておいてください。
+```
+<script src="app.js"></script>
+```
+
+# config src/index.js
+上記ファイルから利用される、アプリケーション本体のjsとなります。  
+am-coffee-timeでは、このjsに、モックアクションをinjectします。  

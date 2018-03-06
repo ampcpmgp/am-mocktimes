@@ -1,14 +1,15 @@
 {
   "name": "am-coffee-time",
-  "version": "0.0.1",
+  "version": "0.10.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "TODO: dist": "uglify js",
-    "dist": "run-s dist:*",
-    "dist:clean": "rimraf dist",
-    "dist:build": "parcel build src/main.js",
+    "dist": "run-s clean dist:*",
+    "clean": "rimraf dist",
+    "dist:main": "microbundle --entry src/main.js --sourcemap false -o lib/main.js -f cjs",
+    "dist:mock": "microbundle --entry src/mock.js --sourcemap false -o lib/mock.js -f cjs",
     "lint": "standard --verbose | snazzy src && standard src/app/**/*.tag.html --verbose | snazzy",
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
@@ -29,6 +30,7 @@
     "eslint-plugin-riot": "^0.1.7",
     "keyboardjs": "^2.4.1",
     "less": "^3.0.1",
+    "microbundle": "^0.4.4",
     "normalize.css": "^8.0.0",
     "npm-run-all": "^4.1.2",
     "parcel-bundler": "^1.6.2",
@@ -48,5 +50,13 @@
     "plugins": [
       "riot"
     ]
+  },
+  "bin": {
+    "am-coffee-time": "bin/index.js"
+  },
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "normalize-path": "^2.1.1",
+    "yargs": "^11.0.0"
   }
 }

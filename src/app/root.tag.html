@@ -25,21 +25,8 @@ import riot from 'riot'
       })
     })
 
-    route('*', (routerStr) => {
-      try {
-        const routerObj = JSON.parse(decodeURIComponent(routerStr))
-        const {mockUrl} = routerObj
-        Actions.setCurrentUrl(mockUrl)
-      } catch (e) {
-        Actions.setCurrentUrl(null)
-      }
-    })
-
-    route('..', () => {
-      Actions.setCurrentUrl(null)
-    })
-
     const getMockUrl = () => {
+      // riotのrouterを利用。
       const hashTag = location.hash.replace(/^#/, '')
       try {
         const {mockUrl} = JSON.parse(decodeURIComponent(hashTag))
@@ -49,6 +36,14 @@ import riot from 'riot'
       }
     }
 
+    route('*', () => {
+      Actions.setCurrentUrl(getMockUrl())
+    })
+
+    route('..', () => {
+      Actions.setCurrentUrl(null)
+    })
+
     const mockUrl = getMockUrl()
 
     if (mockUrl) {
@@ -56,6 +51,7 @@ import riot from 'riot'
       history.replaceState(null, null, location.href.replace(location.hash, ''))
       history.pushState(null, null, initialUrl)
     }
-    route.start()
+
+    route.start(true)
   </script>
 </app-root>
