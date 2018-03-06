@@ -13,7 +13,13 @@ const {
 } = require('./const')
 
 const argv = require('yargs')
-  .command('init', 'Output pattern & mock pages.')
+  .command('build', 'Output pattern & mock pages.', yargs => yargs
+    .option('d', {
+      alias: 'out-dir',
+      default: '.am-coffee-time',
+      describe: 'Set output directory for am coffee time.',
+      type: 'string'
+    }))
   .command('generate-template', 'Generate page files. Mock and application sources.')
   .option('p', {
     alias: 'pattern',
@@ -37,12 +43,6 @@ const argv = require('yargs')
     alias: 'script-src',
     default: 'app.js',
     describe: 'Set main script src in product html file.',
-    type: 'string'
-  })
-  .option('d', {
-    alias: 'out-dir',
-    default: '.am-coffee-time',
-    describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
   .argv
@@ -89,7 +89,7 @@ const generateTemplate = async () => {
 const generatePatternHtml = async () => {
   const html = patternHtml(appFile)
   try {
-    fs.outputFile(Path.PATTERN_HTML, html)
+    await fs.outputFile(Path.PATTERN_HTML, html)
   } catch (e) {
     throw e
   }
@@ -98,7 +98,7 @@ const generatePatternHtml = async () => {
 const generatePatternJs = async () => {
   const js = patternJs(patternFile)
   try {
-    fs.outputFile(Path.PATTERN_JS, js)
+    await fs.outputFile(Path.PATTERN_JS, js)
   } catch (e) {
     throw e
   }
@@ -118,9 +118,9 @@ const generateMockHtml = async () => {
     html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
     html = html.replace(`src="./${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
 
-    if (baseHtml === html) throw new Error(`warning: --script-src '${scriptSrc}', not found.`)
+    if (baseHtml === html) console.warn(`warning: --script-src '${scriptSrc}', not found.`)
 
-    fs.outputFile(Path.MOCK_HTML, html)
+    await fs.outputFile(Path.MOCK_HTML, html)
   } catch (e) {
     throw e
   }
@@ -129,20 +129,24 @@ const generateMockHtml = async () => {
 const generateMockJs = async () => {
   const js = mockJs(outputDir, configFile, path.join(appFile, '../'), scriptSrc)
   try {
-    fs.outputFile(Path.MOCK_JS, js)
+    await fs.outputFile(Path.MOCK_JS, js)
   } catch (e) {
     throw e
   }
 }
 
+const buildCoffeeTimeFiles = async () => {
+  await generatePatternHtml()
+  await generatePatternJs()
+  await generateMockHtml()
+  await generateMockJs()
+}
+
 process.on('unhandledRejection', console.dir)
 
 switch (command) {
-  case 'init':
-    generatePatternHtml()
-    generatePatternJs()
-    generateMockHtml()
-    generateMockJs()
+  case 'build':
+    buildCoffeeTimeFiles()
     break
   case 'generate-template':
     generateTemplate()

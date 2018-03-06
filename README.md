@@ -31,7 +31,7 @@ src/
 
 以下の初期化コマンドで、 `.am-coffee-time/` にモック用ファイルを生成します。
 ```shell
-npx am-coffee-time init
+npx am-coffee-time build
 # ファイル構造を変えたい場合は、 `npx am-coffee-time --help` を参照
 ```
 
