@@ -25,7 +25,7 @@ mock/
 
 # アプリケーション本体
 src/
-  index.html # 後述しますが、 `<script src="app.js"></script>` の1行だけは入れてください。
+  index.html # 後述しますが、jsを読み込むため、 `<script src="app.js"></script>` の1行だけは入れてください。
   app.js
 ```
 
@@ -125,6 +125,12 @@ parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/g
 ```
 <script src="app.js"></script>
 ```
+
+このファイルの変更検知を行いたい場合は、
+```
+am-coffee-time watch
+```
+の起動をお願いします。
 
 # config src/index.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。  
