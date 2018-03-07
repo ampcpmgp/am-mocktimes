@@ -4,6 +4,7 @@ const path = require('path')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
 const mockJs = require('./mock-js')
+const { fork } = require('child_process')
 
 const {
   PATTERN_HTML,
@@ -13,13 +14,8 @@ const {
 } = require('./const')
 
 const argv = require('yargs')
-  .command('build', 'Output pattern & mock pages.', yargs => yargs
-    .option('d', {
-      alias: 'out-dir',
-      default: '.am-coffee-time',
-      describe: 'Set output directory for am coffee time.',
-      type: 'string'
-    }))
+  .command('watch', 'Watch and output pattern & mock pages.')
+  .command('build', 'Output pattern & mock pages.')
   .command('generate-template', 'Generate page files. Mock and application sources.')
   .option('p', {
     alias: 'pattern',
@@ -43,6 +39,12 @@ const argv = require('yargs')
     alias: 'script-src',
     default: 'app.js',
     describe: 'Set main script src in product html file.',
+    type: 'string'
+  })
+  .option('d', {
+    alias: 'out-dir',
+    default: '.am-coffee-time',
+    describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
   .argv
@@ -146,7 +148,8 @@ process.on('unhandledRejection', console.dir)
 
 switch (command) {
   case 'watch':
-    // TODO:
+    const parcel = fork(path.join(__dirname, 'parcel.js'))
+    parcel.on('message', console.log)
     break
   case 'build':
     buildCoffeeTimeFiles()
