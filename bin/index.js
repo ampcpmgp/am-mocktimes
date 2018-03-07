@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs-extra')
 const path = require('path')
+const chokidar = require('chokidar')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
 const mockJs = require('./mock-js')
@@ -52,13 +53,13 @@ const patternFile = argv.pattern
 const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
-const outputDir = argv.outDir
+const outDir = argv.outDir
 
-const Path = {
-  PATTERN_HTML: path.join(process.cwd(), outputDir, PATTERN_HTML),
-  PATTERN_JS: path.join(process.cwd(), outputDir, PATTERN_JS),
-  MOCK_HTML: path.join(process.cwd(), outputDir, MOCK_HTML),
-  MOCK_JS: path.join(process.cwd(), outputDir, MOCK_JS)
+const FilePath = {
+  PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
+  PATTERN_JS: path.join(process.cwd(), outDir, PATTERN_JS),
+  MOCK_HTML: path.join(process.cwd(), outDir, MOCK_HTML),
+  MOCK_JS: path.join(process.cwd(), outDir, MOCK_JS)
 }
 
 const [ command ] = argv._
@@ -83,6 +84,7 @@ const generateTemplate = async () => {
 
   await makeFileIfNotExist(UserFiles.MOCK_PATTERN)
   await makeFileIfNotExist(UserFiles.MOCK_CONFIG)
+  // TODO: output html resounce
   await makeFileIfNotExist(UserFiles.SRC_HTML, `<script src="${scriptSrc}"></script>\n`)
   await makeFileIfNotExist(UserFiles.SRC_JS)
 }
@@ -90,7 +92,7 @@ const generateTemplate = async () => {
 const generatePatternHtml = async () => {
   const html = patternHtml(appFile)
   try {
-    await fs.outputFile(Path.PATTERN_HTML, html)
+    await fs.outputFile(FilePath.PATTERN_HTML, html)
   } catch (e) {
     throw e
   }
@@ -99,7 +101,7 @@ const generatePatternHtml = async () => {
 const generatePatternJs = async () => {
   const js = patternJs(patternFile)
   try {
-    await fs.outputFile(Path.PATTERN_JS, js)
+    await fs.outputFile(FilePath.PATTERN_JS, js)
   } catch (e) {
     throw e
   }
@@ -121,16 +123,16 @@ const generateMockHtml = async () => {
 
     if (baseHtml === html) console.warn(`warning: --script-src '${scriptSrc}', not found.`)
 
-    await fs.outputFile(Path.MOCK_HTML, html)
+    await fs.outputFile(FilePath.MOCK_HTML, html)
   } catch (e) {
     throw e
   }
 }
 
 const generateMockJs = async () => {
-  const js = mockJs(outputDir, configFile, path.join(appFile, '../'), scriptSrc)
+  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc)
   try {
-    await fs.outputFile(Path.MOCK_JS, js)
+    await fs.outputFile(FilePath.MOCK_JS, js)
   } catch (e) {
     throw e
   }
@@ -145,18 +147,28 @@ const buildCoffeeTimeFiles = async () => {
 
 process.on('unhandledRejection', console.dir)
 
-switch (command) {
-  case 'watch':
-    // TODO: chokidar
-    // TODO: serve parcel option
-    require('./parcel')()
-    break
-  case 'build':
-    buildCoffeeTimeFiles()
-    break
-  case 'generate-template':
-    generateTemplate()
-    break
-  default:
-    throw new Error(`command not support: '${command}'`)
+const start = async () => {
+  switch (command) {
+    case 'watch':
+      await buildCoffeeTimeFiles()
+      chokidar.watch(FilePath.MOCK_HTML)
+      .on('change', generateMockHtml)
+      .on('error', console.error)
+      require('./parcel')({
+        FilePath,
+        outDir
+      })
+      break
+    case 'build':
+      await buildCoffeeTimeFiles()
+      // TODO: output coffeetime files
+      break
+    case 'generate-template':
+      generateTemplate()
+      break
+    default:
+      throw new Error(`command not support: '${command}'`)
+  }
 }
+
+start()
