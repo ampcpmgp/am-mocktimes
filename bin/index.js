@@ -147,6 +147,8 @@ process.on('unhandledRejection', console.dir)
 
 switch (command) {
   case 'watch':
+    // TODO: chokidar
+    // TODO: serve parcel option
     require('./parcel')()
     break
   case 'build':
