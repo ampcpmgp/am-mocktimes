@@ -4,7 +4,6 @@ const path = require('path')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
 const mockJs = require('./mock-js')
-const { fork } = require('child_process')
 
 const {
   PATTERN_HTML,
@@ -148,8 +147,7 @@ process.on('unhandledRejection', console.dir)
 
 switch (command) {
   case 'watch':
-    const parcel = fork(path.join(__dirname, 'parcel.js'))
-    parcel.on('message', console.log)
+    require('./parcel')()
     break
   case 'build':
     buildCoffeeTimeFiles()
