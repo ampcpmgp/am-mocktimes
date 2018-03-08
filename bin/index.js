@@ -4,7 +4,9 @@ const path = require('path')
 const chokidar = require('chokidar')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
+const mockHtml = require('./mock-html')
 const mockJs = require('./mock-js')
+const parcel = require('./parcel')
 
 const {
   PATTERN_HTML,
@@ -47,6 +49,11 @@ const argv = require('yargs')
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
+  .option('no-use-parcel', {
+    default: false,
+    describe: 'Don\'t use parcel.',
+    type: 'boolean'
+  })
   .argv
 
 const patternFile = argv.pattern
@@ -54,6 +61,7 @@ const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
+const noUseParcel = argv.noUseParcel
 
 const FilePath = {
   PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
@@ -84,8 +92,7 @@ const generateTemplate = async () => {
 
   await makeFileIfNotExist(UserFiles.MOCK_PATTERN)
   await makeFileIfNotExist(UserFiles.MOCK_CONFIG)
-  // TODO: output html resounce
-  await makeFileIfNotExist(UserFiles.SRC_HTML, `<script src="${scriptSrc}"></script>\n`)
+  await makeFileIfNotExist(UserFiles.SRC_HTML, mockHtml(scriptSrc))
   await makeFileIfNotExist(UserFiles.SRC_JS)
 }
 
@@ -158,10 +165,11 @@ const start = async () => {
         FilePath,
         outDir
       })
+      if (noUseParcel) parcel({FilePath, outDir, watch: true})
       break
     case 'build':
       await buildCoffeeTimeFiles()
-      // TODO: output coffeetime files
+      if (noUseParcel) parcel({FilePath, outDir, watch: false})
       break
     case 'generate-template':
       generateTemplate()

@@ -25,21 +25,29 @@ mock/
 
 # アプリケーション本体
 src/
-  index.html # 後述しますが、jsを読み込むため、 `<script src="app.js"></script>` の1行だけは入れてください。
+  index.html
   app.js
 ```
 
-以下の初期化コマンドで、 `.am-coffee-time/` にモック用ファイルを生成します。
+作成後、以下のコマンドで開発可能になります。
+
+```shell
+npx am-coffee-time watch
+# ファイル構造を変えた場合は、 `npx am-coffee-time --help` を参照
+```
+
+
+また、ビルド実行も可能です。
 ```shell
 npx am-coffee-time build
-# ファイル構造を変えたい場合は、 `npx am-coffee-time --help` を参照
 ```
 
-
-最後にparcelを起動すれば開発可能になります。
+内部的に `parcel` が起動しますが、自分でoptionをつけて起動したい場合は、以下のオプションが使えます。  
 ```shell
-npx parcel .am-coffee-time
+npx am-coffee-time watch --no-use-parcel
 ```
+
+オプションの詳しい内容は help でご覧くださいm(__)m
 
 # config mock/pattern.yml
 モックパターン一覧の表示に利用します。  

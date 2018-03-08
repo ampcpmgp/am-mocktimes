@@ -24,7 +24,6 @@ module.exports = ({
   }
 
   // Initialises a bundler using the entrypoint location and options provided
-  console.log(FilePath.PATTERN_HTML);
   const bundler = new Bundler(FilePath.PATTERN_HTML, options)
   bundler.bundle()
 }
