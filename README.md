@@ -42,7 +42,7 @@ npx am-coffee-time watch
 npx am-coffee-time build
 ```
 
-内部的に `parcel` が起動しますが、自分でoptionをつけて起動したい場合は、以下のオプションが使えます。  
+内部で `parcel` を起動していますが、自分でoptionをつけて起動したい場合は、以下のオプションが使えます。  
 ```shell
 npx am-coffee-time watch --no-use-parcel
 ```
@@ -129,16 +129,6 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 # config src/index.html
 こちらは、アプリケーション本体を配置します。  
 parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
-本体のアプリにモックアクション定義jsをinjectするため、 以下1行は最低入れておいてください。
-```
-<script src="app.js"></script>
-```
-
-このファイルの変更検知を行いたい場合は、
-```
-am-coffee-time watch
-```
-の起動をお願いします。
 
 # config src/index.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。  
