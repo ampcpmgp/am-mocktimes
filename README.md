@@ -33,7 +33,7 @@ src/
 
 ```shell
 npx am-coffee-time watch
-# ファイル構造を変えた場合は、 `npx am-coffee-time --help` を参照
+# 出力ファイル等を変えたい場合は、 `npx am-coffee-time --help` を参照
 ```
 
 
@@ -42,7 +42,7 @@ npx am-coffee-time watch
 npx am-coffee-time build
 ```
 
-`parcel` のoptionを自分でつけたい場合は、以下のオプションが使えます。  
+`parcel` を自分で起動したい場合は、以下のオプションを使うことで、parcelの起動を止めます。
 ```shell
 npx am-coffee-time watch --no-use-parcel
 ```
