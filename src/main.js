@@ -7,7 +7,8 @@ import setKeyboardEvent from './tools/keyboard'
 import { setPattern } from './actions'
 
 export const generateList = pattern => {
-  pattern && setPattern(pattern)
+  if (window.app) return
+  if (pattern) setPattern(pattern)
   setKeyboardEvent()
-  riot.mount('app-root')
+  window.app = riot.mount('app-root')
 }

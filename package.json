@@ -1,6 +1,6 @@
 {
   "name": "am-coffee-time",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "",
   "main": "lib/main.js",
   "scripts": {
@@ -13,15 +13,12 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "watch:parcel:pattern": "parcel --open -p 9999 -d .dev/pattern mock/__src__/pattern.html",
-    "watch:parcel:mock": "parcel -p 9998 -d .dev/mock mock/__src__/index.html",
-    "watch:parcel:sample": "parcel -p 9997 -d .dev/sample mock/sample-app/index.html",
+    "watch:parcel:pattern": "npx parcel am-coffee-time",
     "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-coffee-time": "^0.9.16",
     "babel-polyfill": "^6.26.0",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",

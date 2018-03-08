@@ -29,20 +29,20 @@ src/
   app.js
 ```
 
-作成後、以下のコマンドで開発可能になります。
+作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になります。
 
 ```shell
 npx am-coffee-time watch
-# ファイル構造を変えた場合は、 `npx am-coffee-time --help` を参照
+# 出力ファイル等を変えたい場合は、 `npx am-coffee-time --help` を参照
 ```
 
 
-また、ビルド実行も可能です。
+また、ビルドのみの実行も可能です。
 ```shell
 npx am-coffee-time build
 ```
 
-内部で `parcel` を起動していますが、自分でoptionをつけて起動したい場合は、以下のオプションが使えます。  
+`parcel` を自分で起動したい場合は、以下のオプションを使うことで、parcelの起動を止めます。
 ```shell
 npx am-coffee-time watch --no-use-parcel
 ```

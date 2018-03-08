@@ -1,6 +1,8 @@
 .am-coffee-time/
+am-coffee-time/dist
 .cache/
 .dev/
+dist/
 lib/
 node_modules/
 src/app/**/*.js

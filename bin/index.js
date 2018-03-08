@@ -49,9 +49,9 @@ const argv = require('yargs')
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
-  .option('no-use-parcel', {
-    default: false,
-    describe: 'Don\'t use parcel.',
+  .option('use-parcel', {
+    default: true,
+    describe: 'Use parcel.',
     type: 'boolean'
   })
   .argv
@@ -61,7 +61,7 @@ const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
-const noUseParcel = argv.noUseParcel
+const useParcel = argv.useParcel
 
 const FilePath = {
   PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
@@ -161,17 +161,17 @@ const start = async () => {
       chokidar.watch(FilePath.MOCK_HTML)
       .on('change', generateMockHtml)
       .on('error', console.error)
-      if (!noUseParcel) {
+      if (useParcel) {
         const parcel = exec(`npx parcel ${outDir} --open -d ${path.join(outDir, 'dist')} `)
-        parcel.stdout.on('data', console.log)
+        parcel.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcel.stderr.on('data', console.error)
       }
       break
     case 'build':
       await buildCoffeeTimeFiles()
-      if (!noUseParcel) {
-        const parcel = exec(`npx parcel build ${outDir} --open -d ${path.join(outDir, 'dist')} `)
-        parcel.stdout.on('data', console.log)
+      if (useParcel) {
+        const parcel = exec(`npx parcel build ${outDir} -d ${path.join(outDir, 'dist')} `)
+        parcel.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcel.stderr.on('data', console.error)
       }
       break
