@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 const fs = require('fs-extra')
 const path = require('path')
+const chokidar = require('chokidar')
+const { exec } = require('child_process')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
+const mockHtml = require('./mock-html')
 const mockJs = require('./mock-js')
 
 const {
@@ -13,7 +16,9 @@ const {
 } = require('./const')
 
 const argv = require('yargs')
-  .command('init', 'Output pattern & mock pages.')
+  .command('watch', 'Watch and output pattern & mock pages.')
+  .command('build', 'Output pattern & mock pages.')
+  .command('generate-template', 'Generate page files. Mock and application sources.')
   .option('p', {
     alias: 'pattern',
     default: 'mock/pattern.yml',
@@ -44,24 +49,57 @@ const argv = require('yargs')
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
+  .option('no-use-parcel', {
+    default: false,
+    describe: 'Don\'t use parcel.',
+    type: 'boolean'
+  })
   .argv
 
 const patternFile = argv.pattern
 const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
-const outputDir = argv.outDir
+const outDir = argv.outDir
+const noUseParcel = argv.noUseParcel
+
+const FilePath = {
+  PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
+  PATTERN_JS: path.join(process.cwd(), outDir, PATTERN_JS),
+  MOCK_HTML: path.join(process.cwd(), outDir, MOCK_HTML),
+  MOCK_JS: path.join(process.cwd(), outDir, MOCK_JS)
+}
 
 const [ command ] = argv._
 
-if (command !== 'init') {
-  throw new Error(`command not support: '${command}'`)
+const makeFileIfNotExist = async (filePath, content = '') => {
+  const isExistsFile = await fs.pathExists(filePath)
+  if (isExistsFile) {
+    console.warn(`${filePath} is existed.`)
+    return
+  }
+
+  await fs.outputFile(filePath, content)
+}
+
+const generateTemplate = async () => {
+  const UserFiles = {
+    MOCK_PATTERN: patternFile,
+    MOCK_CONFIG: configFile,
+    SRC_HTML: appFile,
+    SRC_JS: path.join(appFile, '..', scriptSrc)
+  }
+
+  await makeFileIfNotExist(UserFiles.MOCK_PATTERN)
+  await makeFileIfNotExist(UserFiles.MOCK_CONFIG)
+  await makeFileIfNotExist(UserFiles.SRC_HTML, mockHtml(scriptSrc))
+  await makeFileIfNotExist(UserFiles.SRC_JS)
 }
 
 const generatePatternHtml = async () => {
   const html = patternHtml(appFile)
   try {
-    fs.outputFile(path.join(process.cwd(), outputDir, PATTERN_HTML), html)
+    await fs.outputFile(FilePath.PATTERN_HTML, html)
   } catch (e) {
     throw e
   }
@@ -70,7 +108,7 @@ const generatePatternHtml = async () => {
 const generatePatternJs = async () => {
   const js = patternJs(patternFile)
   try {
-    fs.outputFile(path.join(process.cwd(), outputDir, PATTERN_JS), js)
+    await fs.outputFile(FilePath.PATTERN_JS, js)
   } catch (e) {
     throw e
   }
@@ -90,26 +128,59 @@ const generateMockHtml = async () => {
     html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
     html = html.replace(`src="./${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
 
-    if (baseHtml === html) throw new Error(`warning: --script-src '${scriptSrc}', not found.`)
+    if (baseHtml === html) console.warn(`warning: --script-src '${scriptSrc}', not found.`)
 
-    fs.outputFile(path.join(process.cwd(), outputDir, MOCK_HTML), html)
+    await fs.outputFile(FilePath.MOCK_HTML, html)
   } catch (e) {
     throw e
   }
 }
 
 const generateMockJs = async () => {
-  const js = mockJs(outputDir, configFile, path.join(appFile, '../'), scriptSrc)
+  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc)
   try {
-    fs.outputFile(path.join(process.cwd(), outputDir, MOCK_JS), js)
+    await fs.outputFile(FilePath.MOCK_JS, js)
   } catch (e) {
     throw e
   }
 }
 
+const buildCoffeeTimeFiles = async () => {
+  await generatePatternHtml()
+  await generatePatternJs()
+  await generateMockHtml()
+  await generateMockJs()
+}
+
 process.on('unhandledRejection', console.dir)
 
-generatePatternHtml()
-generatePatternJs()
-generateMockHtml()
-generateMockJs()
+const start = async () => {
+  switch (command) {
+    case 'watch':
+      await buildCoffeeTimeFiles()
+      chokidar.watch(FilePath.MOCK_HTML)
+      .on('change', generateMockHtml)
+      .on('error', console.error)
+      if (!noUseParcel) {
+        const parcel = exec(`npx parcel ${outDir} --open -d ${path.join(outDir, 'dist')} `)
+        parcel.stdout.on('data', console.log)
+        parcel.stderr.on('data', console.error)
+      }
+      break
+    case 'build':
+      await buildCoffeeTimeFiles()
+      if (!noUseParcel) {
+        const parcel = exec(`npx parcel build ${outDir} --open -d ${path.join(outDir, 'dist')} `)
+        parcel.stdout.on('data', console.log)
+        parcel.stderr.on('data', console.error)
+      }
+      break
+    case 'generate-template':
+      generateTemplate()
+      break
+    default:
+      throw new Error(`command not support: '${command}'`)
+  }
+}
+
+start()

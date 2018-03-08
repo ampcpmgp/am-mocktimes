@@ -11,11 +11,11 @@ TODO:
 以下をインストール。  
 
 ```
-npm i am-coffee-time parcel -D
+npm i am-coffee-time parcel-bundler -D
 ```
 
-サンプルでは以下のファイル構造で用意します。  
-(一旦は、 `src/index.html` 以外は、空ファイルでOKです)
+以下のファイル構造で用意します。  
+( `npx am-coffee-time generate-template` でも作成可能です。)
 
 ```shell
 # モック
@@ -25,21 +25,29 @@ mock/
 
 # アプリケーション本体
 src/
-  index.html # 後述しますが、 `<script src="app.js"></script>` の1行だけは入れてください。
+  index.html
   app.js
 ```
 
-以下の初期化コマンドで、 `.am-coffee-time/` にモック用ファイルを生成します。
+作成後、以下のコマンドで開発可能になります。
+
 ```shell
-npx am-coffee-time init
-# ファイル構造を変えたい場合は、 `npx am-coffee-time --help` を参照
+npx am-coffee-time watch
+# ファイル構造を変えた場合は、 `npx am-coffee-time --help` を参照
 ```
 
 
-最後にparcelを起動すれば開発可能になります。
+また、ビルド実行も可能です。
 ```shell
-npx parcel .am-coffee-time/index.html
+npx am-coffee-time build
 ```
+
+内部で `parcel` を起動していますが、自分でoptionをつけて起動したい場合は、以下のオプションが使えます。  
+```shell
+npx am-coffee-time watch --no-use-parcel
+```
+
+オプションの詳しい内容は help でご覧くださいm(__)m
 
 # config mock/pattern.yml
 モックパターン一覧の表示に利用します。  
@@ -121,10 +129,6 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 # config src/index.html
 こちらは、アプリケーション本体を配置します。  
 parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
-本体のアプリにモックアクション定義jsをinjectするため、 以下1行は最低入れておいてください。
-```
-<script src="app.js"></script>
-```
 
 # config src/index.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。  
