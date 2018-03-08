@@ -2,6 +2,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const chokidar = require('chokidar')
+const { exec } = require('child_process')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
 const mockHtml = require('./mock-html')
@@ -161,15 +162,19 @@ const start = async () => {
       chokidar.watch(FilePath.MOCK_HTML)
       .on('change', generateMockHtml)
       .on('error', console.error)
-      require('./parcel')({
-        FilePath,
-        outDir
-      })
-      if (noUseParcel) parcel({FilePath, outDir, watch: true})
+      if (!noUseParcel) {
+        const parcel = exec(`npx parcel ${outDir} --open -d ${path.join(outDir, 'dist')} `)
+        parcel.stdout.on('data', console.log)
+        parcel.stderr.on('data', console.error)
+      }
       break
     case 'build':
       await buildCoffeeTimeFiles()
-      if (noUseParcel) parcel({FilePath, outDir, watch: false})
+      if (!noUseParcel) {
+        const parcel = exec(`npx parcel build ${outDir} --open -d ${path.join(outDir, 'dist')} `)
+        parcel.stdout.on('data', console.log)
+        parcel.stderr.on('data', console.error)
+      }
       break
     case 'generate-template':
       generateTemplate()
