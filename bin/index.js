@@ -7,7 +7,6 @@ const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
 const mockHtml = require('./mock-html')
 const mockJs = require('./mock-js')
-const parcel = require('./parcel')
 
 const {
   PATTERN_HTML,

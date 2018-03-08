@@ -5,7 +5,7 @@
   "main": "lib/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "run-s clean build:riot dist:*",
+    "dist": "run-s lint clean build:riot dist:*",
     "clean": "rimraf dist",
     "dist:main": "microbundle --entry src/main.js --sourcemap false -o lib/main.js -f cjs",
     "dist:mock": "microbundle --entry src/mock.js --sourcemap false -o lib/mock.js -f cjs",
