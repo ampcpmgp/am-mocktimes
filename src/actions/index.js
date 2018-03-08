@@ -168,6 +168,7 @@ export const setRecursivelyMdAction = ({
 }
 
 export const setPattern = pattern => Action(() => {
+  state.mock.pattern = {}
   Object.assign(state.mock.pattern, pattern)
   setRecursivelyMdAction({
     name: '',
