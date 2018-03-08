@@ -163,7 +163,7 @@ const start = async () => {
       .on('error', console.error)
       if (useParcel) {
         const parcel = exec(`npx parcel ${outDir} --open -d ${path.join(outDir, 'dist')} `)
-        parcel.stdout.on('data', console.log)
+        parcel.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcel.stderr.on('data', console.error)
       }
       break
