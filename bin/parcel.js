@@ -8,7 +8,7 @@ module.exports = ({
 }) => {
   // Bundler options
   const options = {
-    outDir, // The out directory to put the build files in, defaults to dist
+    outDir: Path.join(outDir, 'dist'), // The out directory to put the build files in, defaults to dist
     outFile: 'index.html', // The name of the outputFile
     publicUrl: './', // The url to server on, defaults to dist
     watch, // whether to watch the files and rebuild them on change, defaults to process.env.NODE_ENV !== 'production'
