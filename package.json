@@ -13,12 +13,13 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "watch:parcel:pattern": "npx parcel am-coffee-time",
+    "watch:parcel:pattern": "am-coffee-time watch",
     "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "am-coffee-time": "^0.10.6",
     "babel-polyfill": "^6.26.0",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
