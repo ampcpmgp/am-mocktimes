@@ -70,6 +70,13 @@ const FilePath = {
   MOCK_JS: path.join(process.cwd(), outDir, MOCK_JS)
 }
 
+const UserFiles = {
+  MOCK_PATTERN: patternFile,
+  MOCK_CONFIG: configFile,
+  SRC_HTML: appFile,
+  SRC_JS: path.join(appFile, '..', scriptSrc)
+}
+
 const [ command ] = argv._
 
 const makeFileIfNotExist = async (filePath, content = '') => {
@@ -83,13 +90,6 @@ const makeFileIfNotExist = async (filePath, content = '') => {
 }
 
 const generateTemplate = async () => {
-  const UserFiles = {
-    MOCK_PATTERN: patternFile,
-    MOCK_CONFIG: configFile,
-    SRC_HTML: appFile,
-    SRC_JS: path.join(appFile, '..', scriptSrc)
-  }
-
   await makeFileIfNotExist(UserFiles.MOCK_PATTERN)
   await makeFileIfNotExist(UserFiles.MOCK_CONFIG)
   await makeFileIfNotExist(UserFiles.SRC_HTML, mockHtml(scriptSrc))
@@ -158,7 +158,7 @@ const start = async () => {
   switch (command) {
     case 'watch':
       await buildCoffeeTimeFiles()
-      chokidar.watch(FilePath.MOCK_HTML)
+      chokidar.watch(UserFiles.SRC_HTML)
       .on('change', generateMockHtml)
       .on('error', console.error)
       if (useParcel) {
