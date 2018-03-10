@@ -58,6 +58,10 @@ const argv = require('yargs')
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })
+  .option('public-url', {
+    describe: 'Set the public URL to serve on. defaults to the same as the --out-dir option',
+    type: 'string'
+  })
   .option('use-parcel', {
     default: true,
     describe: 'Use parcel.',
@@ -70,6 +74,7 @@ const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
+const publicUrl = argv.publicUrl || outDir
 const useParcel = argv.useParcel
 const port = argv.port
 const mockPort = argv.mockPort
@@ -183,14 +188,14 @@ const start = async () => {
         if (parcelMockPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
 
         const parcelMock = exec(
-          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dev-mock')} `
+          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dev-mock')} --public-url ${publicUrl}`
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
         await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
 
         const parcelPattern = exec(
-          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dev-pattern')} `
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dev-pattern')} --public-url ${publicUrl}`
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
@@ -200,13 +205,13 @@ const start = async () => {
       await buildCoffeeTimeFiles()
       if (useParcel) {
         const parcelMock = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} `
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} --public-url ${publicUrl}`
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
 
         const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} `
+          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} --public-url ${publicUrl}`
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
