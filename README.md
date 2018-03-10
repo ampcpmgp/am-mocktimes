@@ -29,11 +29,11 @@ src/
   app.js
 ```
 
-作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になります。
+作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になります。  
 
 ```shell
 npx am-coffee-time watch
-# 出力ファイル等を変えたい場合は、 `npx am-coffee-time --help` を参照
+# 出力パスは、デフォルトで `.am-coffee-time`に設定されていて、`.gitignore` に追加することを推奨します
 ```
 
 
@@ -47,7 +47,7 @@ npx am-coffee-time build
 npx am-coffee-time watch --no-use-parcel
 ```
 
-オプションの詳しい内容は help でご覧くださいm(__)m
+オプションの詳しい内容は `npx am-coffee-time help` でご覧くださいm(__)m
 
 # config mock/pattern.yml
 モックパターン一覧の表示に利用します。  
