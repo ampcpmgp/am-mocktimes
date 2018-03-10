@@ -208,15 +208,15 @@ const start = async () => {
     case 'build':
       await buildCoffeeTimeFiles()
       if (useParcel) {
-        const publishUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
+        const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
         const parcelMock = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publishUrlArg}`
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
 
         const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publishUrlArg}`
+          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
