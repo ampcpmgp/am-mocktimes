@@ -1,6 +1,6 @@
 # Appearance
 
-| モックパターン一覧ページ | アプリケーションモックページ |
+| モックパターン一覧 | アプリケーションモック |
 | --- | --- |
 | ![pattern](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-mock.gif) |
 
@@ -143,4 +143,4 @@ am-coffee-timeでは、このjsに、モックアクションをinjectします�
 | --- | --- | --- |
 | >= 8.9 | >= 9.6 | >= 5.6 |
 
-※モックパターンページはIE11非対応なので、直接アプリケーションモックページでご確認ください。
+※モックパターン一覧ページはIE11非対応なので、直接アプリケーションモックページでご確認ください。
