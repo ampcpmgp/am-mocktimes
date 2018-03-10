@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-coffee-time": "1.0.1",
+    "am-coffee-time": "1.0.2",
     "babel-polyfill": "^6.26.0",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
