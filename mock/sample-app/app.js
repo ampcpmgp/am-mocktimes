@@ -7,7 +7,7 @@ const locations = {
   Z: ['Capsule Corporation', 'Yahhoi', 'Cell Game']
 }
 
-window.setLocation = async (location, animation) => {
+window.setLocation = async (location) => {
   const message = `This is ${location}`
   window.catSaysLocation.src = ''
   window.catSaysLocation.src = `https://cataas.com/cat/says/${message}`
@@ -15,7 +15,7 @@ window.setLocation = async (location, animation) => {
   window.catSaysLocation.onerror = () => {
     window.catSaysLocation.alt = `Image not found. - ${message}`
   }
-  if (animation) {
+  if (location === 'Cell Game') {
     window.catSaysLocation.onload = () => {
       window.catSaysLocation.style.animation = ``
       window.catSaysLocation.style.animation = `spin 0.8s ease`
