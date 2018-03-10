@@ -13,14 +13,14 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "build:mock": "am-coffee-time build -o docs",
+    "gh-pages": "rimraf docs && am-coffee-time build -d docs",
     "watch:mock": "am-coffee-time watch",
     "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-coffee-time": "0.10.8-1",
+    "am-coffee-time": "0.10.8-2",
     "babel-polyfill": "^6.26.0",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
