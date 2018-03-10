@@ -1,9 +1,3 @@
-# am-coffee-time
-モック生成・パターン管理を楽にし、休憩時間を増やそう☕
-
-# repository
-https://github.com/ampcpmgp/am-coffee-time
-
 # Appearance
 
 | モックパターン一覧 | アプリケーションページ |
@@ -11,7 +5,7 @@ https://github.com/ampcpmgp/am-coffee-time
 | ![pattern](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-mock.gif) |
 
 # sample page
-[サンプルページのリンク](https://ampcpmgp.github.io/am-coffee-time/docs/mock.html?__amCoffeeTime__=%255B%255B%2522setFullSettings%2522%255D%255D)
+[サンプルページ](https://ampcpmgp.github.io/am-coffee-time/docs/mock.html?__amCoffeeTime__=%255B%255B%2522setFullSettings%2522%255D%255D)
 
 # start with parcel
 以下をインストール。  
@@ -20,13 +14,12 @@ https://github.com/ampcpmgp/am-coffee-time
 npm i am-coffee-time parcel-bundler -D
 ```
 
-以下のファイル構造で用意します。  
-( `npx am-coffee-time generate-template` でも作成可能です。)
+以下のファイル構造で用意します。  ( `npx am-coffee-time generate-template` でも作成可能です。)
 
 ```shell
 # モック
 mock/
-  pattern.yml # パターンリスト表示用
+  pattern.yml # パターン設定用
   config.js # アプリケーションモック設定用
 
 # アプリケーション本体
@@ -40,6 +33,7 @@ src/
 ```shell
 npx am-coffee-time watch
 # 出力パスは、デフォルトで `.am-coffee-time`に設定されていて、`.gitignore` に追加することを推奨します
+# ビルド終了後、 `localhost:1234` からアクセスできます。
 ```
 
 
@@ -48,9 +42,10 @@ npx am-coffee-time watch
 npx am-coffee-time build
 ```
 
-`parcel` を自分で起動したい場合は、以下のオプションを使うことで、parcelの起動を止めます。
+また、以下のオプションを使うことで、parcelの起動を止め、ご自身でビルドを行うことが出来ます。
 ```shell
 npx am-coffee-time watch --no-use-parcel
+# `.am-coffee-time/` に、 `pattern.html / pattern.js` (パターンリスト)と、 `mock.html / mock.js` (アプリケーションモック ) が生成されます。
 ```
 
 オプションの詳しい内容は `npx am-coffee-time help` でご覧くださいm(__)m
@@ -139,3 +134,10 @@ parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/g
 # config src/index.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。  
 am-coffee-timeでは、このjsに、モックアクションをinjectします。  
+
+
+# Recommended environment
+
+| Node.js | npx | npm |
+| --- | --- | --- |
+| >= 8.9 | >= 9.6 | >= 5.6 |
