@@ -74,7 +74,7 @@ const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
-const publicUrl = argv.publicUrl || outDir
+const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
 const port = argv.port
 const mockPort = argv.mockPort
@@ -189,15 +189,17 @@ const start = async () => {
 
         // parcelが複数エントリをサポートしたら、１プロセスにまとめる。
         // https://github.com/parcel-bundler/parcel/issues/189
+        const mockOutDir = path.join(outDir, 'dev-mock')
         const parcelMock = exec(
-          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dev-mock')} --public-url ${publicUrl}`
+          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${mockOutDir}`
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
         await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
 
+        const patternOutDir = path.join(outDir, 'dev-pattern')
         const parcelPattern = exec(
-          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dev-pattern')} --public-url ${publicUrl}`
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${patternOutDir}`
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
@@ -206,14 +208,15 @@ const start = async () => {
     case 'build':
       await buildCoffeeTimeFiles()
       if (useParcel) {
+        const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
         const parcelMock = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} --public-url ${publicUrl}`
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
 
         const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} --public-url ${publicUrl}`
+          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
