@@ -183,14 +183,14 @@ const start = async () => {
         if (parcelMockPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
 
         const parcelMock = exec(
-          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dist-mock')} `
+          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dev-mock')} `
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
         await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
 
         const parcelPattern = exec(
-          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dist-pattern')} `
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dev-pattern')} `
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
@@ -199,9 +199,17 @@ const start = async () => {
     case 'build':
       await buildCoffeeTimeFiles()
       if (useParcel) {
-        const parcel = exec(`npx parcel build ${outDir} -d ${path.join(outDir, 'dist')} `)
-        parcel.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
-        parcel.stderr.on('data', console.error)
+        const parcelMock = exec(
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} `
+        )
+        parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelMock.stderr.on('data', console.error)
+
+        const parcelPattern = exec(
+          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} `
+        )
+        parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelPattern.stderr.on('data', console.error)
       }
       break
     case 'generate-template':
