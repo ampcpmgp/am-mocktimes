@@ -45,9 +45,9 @@ npx am-coffee-time build
 また、以下のオプションを使うことで、parcelの起動を止め、ご自身でビルドを行うことが出来ます。
 ```shell
 npx am-coffee-time watch --no-use-parcel
-#  `pattern.html / pattern.js` (モックパターン一覧ページ)と
-#   `mock.html / mock.js` (アプリケーションモックページ ) が
-#   `.am-coffee-time/` (出力パス)に、生成されます。
+# `pattern.html / pattern.js` (モックパターン一覧ページ) と
+# `mock.html / mock.js` (アプリケーションモックページ) が
+# `.am-coffee-time/` (出力パス) に、生成されます。
 ```
 
 オプションの詳しい内容は `npx am-coffee-time help` でご覧くださいm(__)m
