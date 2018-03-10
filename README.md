@@ -1,11 +1,17 @@
 # am-coffee-time
-モック生成・UI操作のパターンを楽に作成し、コーヒー休憩時間を増やそう☕
+モック生成・パターン管理を楽にし、休憩時間を増やそう☕
 
 # repository
 https://github.com/ampcpmgp/am-coffee-time
 
+# Appearance
+
+| モックパターン一覧 | アプリケーションページ |
+| --- | --- |
+| ![pattern](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-mock.gif) |
+
 # sample page
-TODO:
+[サンプルページのリンク](https://ampcpmgp.github.io/am-coffee-time/docs/mock.html?__amCoffeeTime__=%255B%255B%2522setFullSettings%2522%255D%255D)
 
 # start with parcel
 以下をインストール。  
