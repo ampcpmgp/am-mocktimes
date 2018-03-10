@@ -187,6 +187,8 @@ const start = async () => {
         if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
         if (parcelMockPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
 
+        // parcelが複数エントリをサポートしたら、１プロセスにまとめる。
+        // https://github.com/parcel-bundler/parcel/issues/189
         const parcelMock = exec(
           `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dev-mock')} --public-url ${publicUrl}`
         )
