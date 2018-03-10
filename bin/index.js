@@ -20,15 +20,24 @@ const argv = require('yargs')
   .command('build', 'Output pattern & mock pages.')
   .command('generate-template', 'Generate page files. Mock and application sources.')
   .option('p', {
-    alias: 'pattern',
+    alias: 'port',
+    default: 1234,
+    describe: 'Set port for am-coffee-time\'s pattern list server.',
+    type: 'number'
+  })
+  .option('mock-port', {
+    default: 8400,
+    describe: 'Set port for application mock server',
+    type: 'number'
+  })
+  .option('pattern', {
     default: 'mock/pattern.yml',
-    describe: 'Set mock pattern file (.yml | .js | .json) for am-coffee-time\'s display.',
+    describe: 'Set location of mock pattern file (.yml | .js | .json) for am-coffee-time\'s display.',
     type: 'string'
   })
-  .option('c', {
-    alias: 'config',
+  .option('config', {
     default: 'mock/config.js',
-    describe: 'Set js file with mock action is defined.',
+    describe: 'Set location of js file with mock action is defined.',
     type: 'string'
   })
   .option('a', {
@@ -62,6 +71,8 @@ const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
 const useParcel = argv.useParcel
+const port = argv.port
+const mockPort = argv.mockPort
 
 const FilePath = {
   PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
@@ -96,8 +107,8 @@ const generateTemplate = async () => {
   await makeFileIfNotExist(UserFiles.SRC_JS)
 }
 
-const generatePatternHtml = async () => {
-  const html = patternHtml(appFile)
+const generatePatternHtml = async (mockPath = MOCK_HTML) => {
+  const html = patternHtml(mockPath)
   try {
     await fs.outputFile(FilePath.PATTERN_HTML, html)
   } catch (e) {
@@ -159,12 +170,30 @@ const start = async () => {
     case 'watch':
       await buildCoffeeTimeFiles()
       chokidar.watch(UserFiles.SRC_HTML)
-      .on('change', generateMockHtml)
-      .on('error', console.error)
+        .on('change', generateMockHtml)
+        .on('error', console.error)
+
       if (useParcel) {
-        const parcel = exec(`npx parcel ${outDir} -d ${path.join(outDir, 'dist')} `)
-        parcel.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
-        parcel.stderr.on('data', console.error)
+        const ip = require('ip')
+        const getPort = require('get-port')
+        const patternPort = await getPort({port})
+        if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
+
+        const parcelMockPort = await getPort({port: mockPort})
+        if (patternPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
+
+        const parcelMock = exec(
+          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dist-mock')} `
+        )
+        parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelMock.stderr.on('data', console.error)
+        await generatePatternHtml(`${ip.address()}:${parcelMockPort}`)
+
+        const parcelPattern = exec(
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dist-pattern')} `
+        )
+        parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelPattern.stderr.on('data', console.error)
       }
       break
     case 'build':

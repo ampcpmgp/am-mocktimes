@@ -1,10 +1,9 @@
 const Const = require('./const')
 const {
-  MOCK_HTML,
   PATTERN_JS
 } = Const
 
-module.exports = (appFile) => {
+module.exports = (mockPath) => {
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -13,13 +12,7 @@ module.exports = (appFile) => {
   </head>
   <body>
     <app-root></app-root>
-    ${appFile
-    ? (
-      `<!-- don't remove next line, until parcel support multiple entry points. -->
-    <a href="${MOCK_HTML}" data-am-coffee-time-path style="display: none;"></a>`
-    )
-    : ''}
-    <script src="${PATTERN_JS}" charset="utf-8"></script>
+    <script src="${PATTERN_JS}" charset="utf-8" data-am-coffee-time-path="${mockPath}"></script>
   </body>
 </html>
 `
