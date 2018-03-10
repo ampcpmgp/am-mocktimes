@@ -177,10 +177,10 @@ const start = async () => {
         const ip = require('ip')
         const getPort = require('get-port')
         const patternPort = await getPort({port})
-        if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
-
         const parcelMockPort = await getPort({port: mockPort})
-        if (patternPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
+
+        if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
+        if (parcelMockPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
 
         const parcelMock = exec(
           `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dist-mock')} `
