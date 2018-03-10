@@ -187,7 +187,7 @@ const start = async () => {
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
-        await generatePatternHtml(`${ip.address()}:${parcelMockPort}`)
+        await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
 
         const parcelPattern = exec(
           `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dist-pattern')} `
