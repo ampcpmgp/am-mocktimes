@@ -1,6 +1,6 @@
 # Appearance
 
-| モックパターン一覧 | アプリケーションページ |
+| モックパターン一覧ページ | アプリケーションモックページ |
 | --- | --- |
 | ![pattern](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-mock.gif) |
 
@@ -19,7 +19,7 @@ npm i am-coffee-time parcel-bundler -D
 ```shell
 # モック
 mock/
-  pattern.yml # パターン設定用
+  pattern.yml # モックパターン設定用
   config.js # アプリケーションモック設定用
 
 # アプリケーション本体
@@ -45,7 +45,9 @@ npx am-coffee-time build
 また、以下のオプションを使うことで、parcelの起動を止め、ご自身でビルドを行うことが出来ます。
 ```shell
 npx am-coffee-time watch --no-use-parcel
-# `.am-coffee-time/` に、 `pattern.html / pattern.js` (パターンリスト)と、 `mock.html / mock.js` (アプリケーションモック ) が生成されます。
+#  `pattern.html / pattern.js` (モックパターン一覧ページ)と
+#   `mock.html / mock.js` (アプリケーションモックページ ) が
+#   `.am-coffee-time/` (出力パス)に、生成されます。
 ```
 
 オプションの詳しい内容は `npx am-coffee-time help` でご覧くださいm(__)m
@@ -97,8 +99,7 @@ reserved property以外は全てaction propertyとなり、pattern list表示用
 import { mock } from 'am-coffee-time'
 
 const action = {
-  async click (selector) {
-    // wait selector
+  click (selector) {
     // click selector
   },
   setPlan (planFile) {
@@ -129,7 +130,7 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 
 # config src/index.html
 こちらは、アプリケーション本体を配置します。  
-parcelを利用する場合は、[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
+[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
 
 # config src/index.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。  
