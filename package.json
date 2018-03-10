@@ -13,14 +13,14 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-coffee-time build -d docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
+    "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-coffee-time build -d docs --public-url https://ampcpmgp.github.io/am-coffee-time/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
     "watch:mock": "am-coffee-time watch",
     "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-coffee-time": "0.10.8-2",
+    "am-coffee-time": "1.0.1",
     "babel-polyfill": "^6.26.0",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
