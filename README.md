@@ -7,7 +7,8 @@ https://github.com/ampcpmgp/am-coffee-time
 # Appearance
 
 | モックパターン一覧 | アプリケーションページ |
-| (images/am-coffee-time-mock.gif)
+| --- | --- |
+| ![](https://github.com/ampcpmgp/am-coffee-time/images/am-coffee-time-pattern.gif) | ![](https://github.com/ampcpmgp/am-coffee-time/images/am-coffee-time-mock.gif) |
 
 # sample page
 [サンプルページ](https://ampcpmgp.github.io/am-coffee-time/docs/mock.html?__amCoffeeTime__=%255B%255B%2522setFullSettings%2522%255D%255D)
