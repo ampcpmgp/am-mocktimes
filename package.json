@@ -1,6 +1,6 @@
 {
   "name": "am-coffee-time",
-  "version": "0.10.8",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/main.js",
   "scripts": {
