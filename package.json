@@ -11,7 +11,7 @@
     "dist:main": "microbundle --entry src/main.js -o lib/main.js -f cjs --compress false",
     "dist:mock": "microbundle --entry src/mock.js -o lib/mock.js -f cjs --compress false",
     "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-coffee-time build -d docs --public-url https://ampcpmgp.github.io/am-coffee-time/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
-    "lint": "standard src --verbose | snazzy && standard src/app/**/*.tag.html --verbose | snazzy",
+    "lint": "standard --verbose | snazzy && standard src/app/**/*.tag.html --verbose | snazzy",
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
