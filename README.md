@@ -1,6 +1,6 @@
 # Appearance
 
-| モックパターン一覧 | アプリケーションモック |
+| モック一覧 | アプリケーションモック |
 | --- | --- |
 | ![pattern](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-mock.gif) |
 
@@ -45,7 +45,7 @@ npx am-coffee-time build
 また、以下のオプションを使うことで、parcelの起動を止め、ご自身でビルドを行うことが出来ます。
 ```shell
 npx am-coffee-time watch --no-use-parcel
-# `pattern.html / pattern.js` (モックパターン一覧ページ) と
+# `pattern.html / pattern.js` (モック一覧ページ) と
 # `mock.html / mock.js` (アプリケーションモックページ) が
 # `.am-coffee-time/` (出力パス) に、生成されます。
 ```
@@ -53,8 +53,8 @@ npx am-coffee-time watch --no-use-parcel
 オプションの詳しい内容は `npx am-coffee-time help` でご覧くださいm(__)m
 
 # config mock/pattern.yml
-モックパターン一覧の表示に利用します。  
-jsやjson等、import可能ファイルであれば何でも設定可能です。
+モック一覧の表示・設定に利用します。  
+*optionを利用することで、jsやjson等、export可能なファイルであれば何でも設定可能です。*
 
 以下が設定例です。
 ```yaml
