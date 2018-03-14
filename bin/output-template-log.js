@@ -10,5 +10,9 @@ mock/
 src/
   index.html
   app.js
+
+## docs
+mock/pattern.yml:  https://github.com/ampcpmgp/am-coffee-time#config-mockpatternyml
+mock/config.js:  https://github.com/ampcpmgp/am-coffee-time#config-mockconfigjs
 `)
 }
