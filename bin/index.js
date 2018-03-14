@@ -10,6 +10,7 @@ const templateConfig = require('./template-config')
 const templateHtml = require('./template-html')
 const templateSrc = require('./template-src')
 const mockJs = require('./mock-js')
+const outputTemplateLog = require('./output-template-log')
 
 const {
   PATTERN_HTML,
@@ -226,7 +227,8 @@ const start = async () => {
       }
       break
     case 'generate-template':
-      generateTemplate()
+      await generateTemplate()
+      outputTemplateLog()
       break
     default:
       throw new Error(`command not support: '${command}'`)
