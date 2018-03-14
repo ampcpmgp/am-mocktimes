@@ -5,7 +5,10 @@ const chokidar = require('chokidar')
 const { exec } = require('child_process')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
-const mockHtml = require('./mock-html')
+const templateYml = require('./template-yml')
+const templateConfig = require('./template-config')
+const templateHtml = require('./template-html')
+const templateSrc = require('./template-src')
 const mockJs = require('./mock-js')
 
 const {
@@ -106,10 +109,10 @@ const makeFileIfNotExist = async (filePath, content = '') => {
 }
 
 const generateTemplate = async () => {
-  await makeFileIfNotExist(UserFiles.MOCK_PATTERN)
-  await makeFileIfNotExist(UserFiles.MOCK_CONFIG)
-  await makeFileIfNotExist(UserFiles.SRC_HTML, mockHtml(scriptSrc))
-  await makeFileIfNotExist(UserFiles.SRC_JS)
+  await makeFileIfNotExist(UserFiles.MOCK_PATTERN, templateYml())
+  await makeFileIfNotExist(UserFiles.MOCK_CONFIG, templateConfig())
+  await makeFileIfNotExist(UserFiles.SRC_HTML, templateHtml(scriptSrc))
+  await makeFileIfNotExist(UserFiles.SRC_JS, templateSrc())
 }
 
 const generatePatternHtml = async (mockPath = MOCK_HTML) => {

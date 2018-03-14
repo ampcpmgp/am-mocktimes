@@ -54,7 +54,6 @@ npx am-coffee-time watch --no-use-parcel
 
 # config mock/pattern.yml
 モック一覧の表示・設定に利用します。  
-*optionを利用することで、jsやjson等、export可能なファイルであれば何でも設定可能です。*
 
 以下が設定例です。
 ```yaml
