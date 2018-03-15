@@ -13,6 +13,7 @@ export default async (mockAction) => {
       const errorMsg = `cannot find action - "${actionName}" `
       throw errorMsg
     }
+    if (!actionName) continue
     if (!actionFunc) {
       const errorMsg = `"${actionName}" is undefined`
       throw errorMsg

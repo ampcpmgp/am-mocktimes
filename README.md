@@ -57,6 +57,7 @@ npx am-coffee-time watch --no-use-parcel
 
 以下が設定例です。
 ```yaml
+No Plan: []
 Plan A:
   func: [setPlan, plan/a.json]
   view statistics:
