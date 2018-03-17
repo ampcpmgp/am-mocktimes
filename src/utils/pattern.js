@@ -29,15 +29,15 @@ export const getPatternInfo = pattern => {
 }
 
 export const getInitialPath = () => {
-  const coffeeTimeElm = document.querySelector('[data-am-mocktimes-path]')
-  if (coffeeTimeElm) {
-    return coffeeTimeElm.dataset.amCoffeeTimePath || coffeeTimeElm.href
+  const mockTimesElm = document.querySelector('[data-am-mocktimes-path]')
+  if (mockTimesElm) {
+    return mockTimesElm.dataset.amMockTimesPath || mockTimesElm.href
   }
 }
 
-export const getMockUrl = (url, coffeeTimeActions) => {
+export const getMockUrl = (url, mockTimesActions) => {
   const parsed = queryString.parseUrl(url)
-  parsed.query.__amCoffeeTime__ = encodeURIComponent(JSON.stringify(coffeeTimeActions))
+  parsed.query.__amMockTimes__ = encodeURIComponent(JSON.stringify(mockTimesActions))
   return `${parsed.url}?${queryString.stringify(parsed.query)}`
 }
 
@@ -67,7 +67,7 @@ export const getRoutePath = (mockUrl) => {
 }
 
 export const getActions = () => {
-  const {__amCoffeeTime__} = queryString.parse(location.search)
-  if (!__amCoffeeTime__) return []
-  return JSON.parse(decodeURIComponent(__amCoffeeTime__))
+  const {__amMockTimes__} = queryString.parse(location.search)
+  if (!__amMockTimes__) return []
+  return JSON.parse(decodeURIComponent(__amMockTimes__))
 }
