@@ -3,7 +3,7 @@
   "version": "1.0.10",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
-  "main": "lib/main.js",
+  "main": "lib/mock.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dist": "run-s lint clean build:riot dist:*",
@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-mocktimes": "1.0.8",
+    "am-mocktimes": "1.0.10",
     "babel-polyfill": "^6.26.0",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
