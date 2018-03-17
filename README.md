@@ -5,7 +5,7 @@
 | ![pattern](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-mock.gif) |
 
 # sample page
-[サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock.html?__amMockTimes__=%255B%255B%2522setFullSettings%2522%255D%255D)
+[サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock.html?__amMocktimes__=%255B%255B%2522setFullSettings%2522%255D%255D)
 
 # start with parcel
 以下をインストール。  

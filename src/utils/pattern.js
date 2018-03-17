@@ -31,13 +31,13 @@ export const getPatternInfo = pattern => {
 export const getInitialPath = () => {
   const mockTimesElm = document.querySelector('[data-am-mocktimes-path]')
   if (mockTimesElm) {
-    return mockTimesElm.dataset.amMockTimesPath || mockTimesElm.href
+    return mockTimesElm.dataset.amMocktimesPath || mockTimesElm.href
   }
 }
 
 export const getMockUrl = (url, mockTimesActions) => {
   const parsed = queryString.parseUrl(url)
-  parsed.query.__amMockTimes__ = encodeURIComponent(JSON.stringify(mockTimesActions))
+  parsed.query.__amMocktimes__ = encodeURIComponent(JSON.stringify(mockTimesActions))
   return `${parsed.url}?${queryString.stringify(parsed.query)}`
 }
 
@@ -67,7 +67,7 @@ export const getRoutePath = (mockUrl) => {
 }
 
 export const getActions = () => {
-  const {__amMockTimes__} = queryString.parse(location.search)
-  if (!__amMockTimes__) return []
-  return JSON.parse(decodeURIComponent(__amMockTimes__))
+  const {__amMocktimes__} = queryString.parse(location.search)
+  if (!__amMocktimes__) return []
+  return JSON.parse(decodeURIComponent(__amMocktimes__))
 }
