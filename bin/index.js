@@ -59,7 +59,7 @@ const argv = require('yargs')
   .option('d', {
     alias: 'out-dir',
     default: '.am-mocktimes',
-    describe: 'Set output directory for am mock times.',
+    describe: 'Set output directory for am MockTimes.',
     type: 'string'
   })
   .option('public-url', {

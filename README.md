@@ -92,7 +92,7 @@ switch配下の設定も他と同様で、新しく何かを覚える必要が�
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
 # config mock/config.js
-モックで呼び出される、アクション定義を設定します。
+モックで呼び出される、アクション定義を設定します。  
 
 以下が設定例です。
 ```js
@@ -121,6 +121,9 @@ const action = {
 mock(action)
 ```
 
+後述の `src/app.js` と `import` のスコープを一緒にしているため、  
+各moduleの設定や、呼出が可能です。(`.am-mocktimes/mock.js` にて確認可能です)
+
 ## mock(action: MockAction)
 この関数を呼び出すことで、モック状態を生成します。
 
@@ -134,7 +137,6 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 
 # config src/index.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。  
-am-mocktimesでは、このjsに、モックアクションをinjectします。  
 
 
 # Recommended environment
