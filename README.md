@@ -2,19 +2,19 @@
 
 | モック一覧 | アプリケーションモック |
 | --- | --- |
-| ![pattern](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-coffee-time/images/am-coffee-time-mock.gif) |
+| ![pattern](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-mock.gif) |
 
 # sample page
-[サンプルページ](https://ampcpmgp.github.io/am-coffee-time/docs/mock.html?__amCoffeeTime__=%255B%255B%2522setFullSettings%2522%255D%255D)
+[サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock.html?__amCoffeeTime__=%255B%255B%2522setFullSettings%2522%255D%255D)
 
 # start with parcel
 以下をインストール。  
 
 ```
-npm i am-coffee-time parcel-bundler -D
+npm i am-mocktimes parcel-bundler -D
 ```
 
-以下のファイル構造で用意します。  ( `npx am-coffee-time generate-template` でも作成可能です。)
+以下のファイル構造で用意します。  ( `npx am-mocktimes generate-template` でも作成可能です。)
 
 ```shell
 # モック
@@ -31,26 +31,26 @@ src/
 作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になります。  
 
 ```shell
-npx am-coffee-time watch
-# 出力パスは、デフォルトで `.am-coffee-time`に設定されていて、`.gitignore` に追加することを推奨します
+npx am-mocktimes watch
+# 出力パスは、デフォルトで `.am-mocktimes`に設定されていて、`.gitignore` に追加することを推奨します
 # ビルド終了後、 `localhost:1234` からアクセスできます。
 ```
 
 
 また、ビルドのみの実行も可能です。
 ```shell
-npx am-coffee-time build
+npx am-mocktimes build
 ```
 
 また、以下のオプションを使うことで、parcelの起動を止め、ご自身でビルドを行うことが出来ます。
 ```shell
-npx am-coffee-time watch --no-use-parcel
+npx am-mocktimes watch --no-use-parcel
 # `pattern.html / pattern.js` (モック一覧ページ) と
 # `mock.html / mock.js` (アプリケーションモックページ) が
-# `.am-coffee-time/` (出力パス) に、生成されます。
+# `.am-mocktimes/` (出力パス) に、生成されます。
 ```
 
-オプションの詳しい内容は `npx am-coffee-time help` でご覧くださいm(__)m
+オプションの詳しい内容は `npx am-mocktimes help` でご覧くださいm(__)m
 
 # config mock/pattern.yml
 モック一覧の表示・設定に利用します。  
@@ -96,7 +96,7 @@ reserved property以外は全てaction propertyとなり、pattern list表示用
 
 以下が設定例です。
 ```js
-import { mock } from 'am-coffee-time'
+import { mock } from 'am-mocktimes'
 
 const action = {
   click (selector) {
@@ -134,7 +134,7 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 
 # config src/index.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。  
-am-coffee-timeでは、このjsに、モックアクションをinjectします。  
+am-mocktimesでは、このjsに、モックアクションをinjectします。  
 
 
 # Recommended environment

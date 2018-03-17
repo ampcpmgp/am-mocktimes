@@ -12,7 +12,7 @@ module.exports = (mockPath) => {
   </head>
   <body>
     <app-root></app-root>
-    <script src="${PATTERN_JS}" charset="utf-8" data-am-coffee-time-path="${mockPath}"></script>
+    <script src="${PATTERN_JS}" charset="utf-8" data-am-mocktimes-path="${mockPath}"></script>
   </body>
 </html>
 `

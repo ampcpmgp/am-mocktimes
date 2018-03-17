@@ -1,5 +1,5 @@
 module.exports = () => {
-  return `import mock from 'am-coffee-time'
+  return `import mock from 'am-mocktimes'
 
 mock({
   action (param) {

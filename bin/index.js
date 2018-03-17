@@ -26,7 +26,7 @@ const argv = require('yargs')
   .option('p', {
     alias: 'port',
     default: 1234,
-    describe: 'Set port for am-coffee-time\'s pattern list server.',
+    describe: 'Set port for am-mocktimes\'s pattern list server.',
     type: 'number'
   })
   .option('mock-port', {
@@ -36,7 +36,7 @@ const argv = require('yargs')
   })
   .option('pattern', {
     default: 'mock/pattern.yml',
-    describe: 'Set location of mock pattern file (.yml | .js | .json) for am-coffee-time\'s display.',
+    describe: 'Set location of mock pattern file (.yml | .js | .json) for am-mocktimes\'s display.',
     type: 'string'
   })
   .option('config', {
@@ -58,7 +58,7 @@ const argv = require('yargs')
   })
   .option('d', {
     alias: 'out-dir',
-    default: '.am-coffee-time',
+    default: '.am-mocktimes',
     describe: 'Set output directory for am coffee time.',
     type: 'string'
   })

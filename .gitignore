@@ -1,5 +1,5 @@
-.am-coffee-time/
-am-coffee-time/dist
+.am-mocktimes/
+am-mocktimes/dist
 .cache/
 .dev/
 dist/

@@ -29,7 +29,7 @@ export const getPatternInfo = pattern => {
 }
 
 export const getInitialPath = () => {
-  const coffeeTimeElm = document.querySelector('[data-am-coffee-time-path]')
+  const coffeeTimeElm = document.querySelector('[data-am-mocktimes-path]')
   if (coffeeTimeElm) {
     return coffeeTimeElm.dataset.amCoffeeTimePath || coffeeTimeElm.href
   }
