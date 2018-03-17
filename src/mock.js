@@ -3,6 +3,8 @@ import {getActions} from './utils/pattern'
 
 const actions = getActions()
 
+console.clear()
+
 export default async (mockAction) => {
   for (const action of actions) {
     const [actionName, ...args] = action
