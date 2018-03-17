@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import sleep from '../../src/utils/sleep'
 import mock from '../../src/mock'
 
