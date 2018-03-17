@@ -8,7 +8,6 @@ import { setPattern } from './actions'
 
 export const generateList = pattern => {
   if (pattern) setPattern(pattern)
-  if (window.app) return
   setKeyboardEvent()
-  window.app = riot.mount('app-root')
+  riot.mount('app-root')
 }
