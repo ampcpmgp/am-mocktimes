@@ -4,7 +4,9 @@ console.clear()
 
 const actions = getActions()
 
-export default async (mockAction) => {
+export default (mockAction) => {
+  let p = Promise.resolve()
+
   for (const action of actions) {
     const [actionName, ...args] = action
     let actionFunc
@@ -19,6 +21,6 @@ export default async (mockAction) => {
       const errorMsg = `"${actionName}" is undefined`
       throw errorMsg
     }
-    await actionFunc(...args)
+    p = p.then(() => actionFunc(...args))
   }
 }
