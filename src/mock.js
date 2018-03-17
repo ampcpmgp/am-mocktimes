@@ -1,9 +1,8 @@
-import 'babel-polyfill'
 import {getActions} from './utils/pattern'
 
-const actions = getActions()
-
 console.clear()
+
+const actions = getActions()
 
 export default async (mockAction) => {
   for (const action of actions) {
