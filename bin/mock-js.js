@@ -7,5 +7,11 @@ module.exports = (outputDir, configFile, appFilePath, scriptSrc) => {
 
   return `import '${normalize(configFilePath)}'
 import '${normalize(productionFilePath)}'
+
+if (module.hot) {
+  module.hot.dispose(() => {
+    location.reload()
+  })
+}
 `
 }

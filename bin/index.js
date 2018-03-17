@@ -59,7 +59,7 @@ const argv = require('yargs')
   .option('d', {
     alias: 'out-dir',
     default: '.am-mocktimes',
-    describe: 'Set output directory for am mock times.',
+    describe: 'Set output directory for am MockTimes.',
     type: 'string'
   })
   .option('public-url', {
@@ -165,7 +165,7 @@ const generateMockJs = async () => {
   }
 }
 
-const buildMockTimesFiles = async () => {
+const buildMocktimesFiles = async () => {
   await generatePatternHtml()
   await generatePatternJs()
   await generateMockHtml()
@@ -177,7 +177,7 @@ process.on('unhandledRejection', console.dir)
 const start = async () => {
   switch (command) {
     case 'watch':
-      await buildMockTimesFiles()
+      await buildMocktimesFiles()
       chokidar.watch(UserFiles.SRC_HTML)
         .on('change', generateMockHtml)
         .on('error', console.error)
@@ -210,7 +210,7 @@ const start = async () => {
       }
       break
     case 'build':
-      await buildMockTimesFiles()
+      await buildMocktimesFiles()
       if (useParcel) {
         const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
         const parcelMock = exec(

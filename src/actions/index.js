@@ -55,31 +55,31 @@ export const setMockUrl = (mdAction) => {
   mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.mockTimesActions)
 }
 
-export const addMockTimesFuncs = (mockTimesActions, { func, funcs }) => {
+export const addMocktimesFuncs = (mockTimesActions, { func, funcs }) => {
   func && mockTimesActions.push(func)
   funcs && funcs.forEach(func => mockTimesActions.push(func))
 }
 
-export const setMockTimesAction = (mdAction, parentMockTimesActions) => {
+export const setMocktimesAction = (mdAction, parentMocktimesActions) => {
   const { selectedSwitchName, switchs } = mdAction
 
-  const currentMockTimesActions = []
-  addMockTimesFuncs(currentMockTimesActions, mdAction)
+  const currentMocktimesActions = []
+  addMocktimesFuncs(currentMocktimesActions, mdAction)
 
   if (selectedSwitchName) {
-    const selectedMockTimesAction = getPatternInfo(
+    const selectedMocktimesAction = getPatternInfo(
       switchs.find(switchItem => switchItem.name === selectedSwitchName)
     )
-    addMockTimesFuncs(currentMockTimesActions, selectedMockTimesAction)
+    addMocktimesFuncs(currentMocktimesActions, selectedMocktimesAction)
   }
 
-  mdAction.mockTimesActions = parentMockTimesActions
-    ? parentMockTimesActions.concat(currentMockTimesActions)
-    : currentMockTimesActions
+  mdAction.mockTimesActions = parentMocktimesActions
+    ? parentMocktimesActions.concat(currentMocktimesActions)
+    : currentMocktimesActions
 }
 
-export const setSwitchNameRecursively = (currentMdAction, parentMockTimesActions) => {
-  setMockTimesAction(currentMdAction, parentMockTimesActions)
+export const setSwitchNameRecursively = (currentMdAction, parentMocktimesActions) => {
+  setMocktimesAction(currentMdAction, parentMocktimesActions)
   setMockUrl(currentMdAction)
 
   currentMdAction.mdActions.forEach(childMdAction => {
@@ -146,7 +146,7 @@ export const setRecursivelyMdAction = ({
   }
 
   // set mdActions
-  setMockTimesAction(mdAction, mockTimesActions)
+  setMocktimesAction(mdAction, mockTimesActions)
   setMockUrl(mdAction)
 
   if (typeof pattern !== 'object' || Array.isArray(pattern)) return
