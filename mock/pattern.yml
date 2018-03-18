@@ -2,10 +2,10 @@
 フル設定:
   func: [setFullSettings]
   １個目を開く:
-      func: [openFirstOne]
+      func: [openFirst]
       Marsを選択: [selectMars]
   1~2階層の１個目を開く:
     funcs:
-      - [openFirstOne]
+      - [openFirst]
       - [openFirst2Level]
     3階層の1個目のリンクを開く: [openFirstLink3level]
