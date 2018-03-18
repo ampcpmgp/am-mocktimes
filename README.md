@@ -88,6 +88,11 @@ switch配下の設定も他と同様で、新しく何かを覚える必要が�
 ### description
 モック一覧の、横に表示するもの。改行ありです。yaml改行を使うと綺麗に書けます。  
 
+### url
+別URLに切り替えたいときは、このpropertyを設定します。  
+設定したobject配下に、適用されます。  
+
+
 ## action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
