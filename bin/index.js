@@ -5,8 +5,12 @@ const chokidar = require('chokidar')
 const { exec } = require('child_process')
 const patternHtml = require('./pattern-html')
 const patternJs = require('./pattern-js')
-const mockHtml = require('./mock-html')
+const templateYml = require('./template-yml')
+const templateConfig = require('./template-config')
+const templateHtml = require('./template-html')
+const templateSrc = require('./template-src')
 const mockJs = require('./mock-js')
+const outputTemplateLog = require('./output-template-log')
 
 const {
   PATTERN_HTML,
@@ -22,7 +26,7 @@ const argv = require('yargs')
   .option('p', {
     alias: 'port',
     default: 1234,
-    describe: 'Set port for am-coffee-time\'s pattern list server.',
+    describe: 'Set port for am-mocktimes\'s pattern list server.',
     type: 'number'
   })
   .option('mock-port', {
@@ -32,7 +36,7 @@ const argv = require('yargs')
   })
   .option('pattern', {
     default: 'mock/pattern.yml',
-    describe: 'Set location of mock pattern file (.yml | .js | .json) for am-coffee-time\'s display.',
+    describe: 'Set location of mock pattern file (.yml | .js | .json) for am-mocktimes\'s display.',
     type: 'string'
   })
   .option('config', {
@@ -54,8 +58,8 @@ const argv = require('yargs')
   })
   .option('d', {
     alias: 'out-dir',
-    default: '.am-coffee-time',
-    describe: 'Set output directory for am coffee time.',
+    default: '.am-mocktimes',
+    describe: 'Set output directory for am MockTimes.',
     type: 'string'
   })
   .option('public-url', {
@@ -74,7 +78,7 @@ const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
-const publicUrl = argv.publicUrl || outDir
+const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
 const port = argv.port
 const mockPort = argv.mockPort
@@ -106,10 +110,10 @@ const makeFileIfNotExist = async (filePath, content = '') => {
 }
 
 const generateTemplate = async () => {
-  await makeFileIfNotExist(UserFiles.MOCK_PATTERN)
-  await makeFileIfNotExist(UserFiles.MOCK_CONFIG)
-  await makeFileIfNotExist(UserFiles.SRC_HTML, mockHtml(scriptSrc))
-  await makeFileIfNotExist(UserFiles.SRC_JS)
+  await makeFileIfNotExist(UserFiles.MOCK_PATTERN, templateYml())
+  await makeFileIfNotExist(UserFiles.MOCK_CONFIG, templateConfig())
+  await makeFileIfNotExist(UserFiles.SRC_HTML, templateHtml(scriptSrc))
+  await makeFileIfNotExist(UserFiles.SRC_JS, templateSrc())
 }
 
 const generatePatternHtml = async (mockPath = MOCK_HTML) => {
@@ -161,7 +165,7 @@ const generateMockJs = async () => {
   }
 }
 
-const buildCoffeeTimeFiles = async () => {
+const buildMocktimesFiles = async () => {
   await generatePatternHtml()
   await generatePatternJs()
   await generateMockHtml()
@@ -173,7 +177,7 @@ process.on('unhandledRejection', console.dir)
 const start = async () => {
   switch (command) {
     case 'watch':
-      await buildCoffeeTimeFiles()
+      await buildMocktimesFiles()
       chokidar.watch(UserFiles.SRC_HTML)
         .on('change', generateMockHtml)
         .on('error', console.error)
@@ -187,38 +191,44 @@ const start = async () => {
         if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
         if (parcelMockPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
 
+        // parcelが複数エントリをサポートしたら、１プロセスにまとめる。
+        // https://github.com/parcel-bundler/parcel/issues/189
+        const mockOutDir = path.join(outDir, 'dev-mock')
         const parcelMock = exec(
-          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${path.join(outDir, 'dev-mock')} --public-url ${publicUrl}`
+          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${mockOutDir}`
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
         await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
 
+        const patternOutDir = path.join(outDir, 'dev-pattern')
         const parcelPattern = exec(
-          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${path.join(outDir, 'dev-pattern')} --public-url ${publicUrl}`
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${patternOutDir}`
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
       }
       break
     case 'build':
-      await buildCoffeeTimeFiles()
+      await buildMocktimesFiles()
       if (useParcel) {
+        const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
         const parcelMock = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} --public-url ${publicUrl}`
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
         parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelMock.stderr.on('data', console.error)
 
         const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} --public-url ${publicUrl}`
+          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
         parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
         parcelPattern.stderr.on('data', console.error)
       }
       break
     case 'generate-template':
-      generateTemplate()
+      await generateTemplate()
+      outputTemplateLog()
       break
     default:
       throw new Error(`command not support: '${command}'`)

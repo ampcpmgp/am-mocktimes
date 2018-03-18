@@ -1,27 +1,30 @@
 {
-  "name": "am-coffee-time",
-  "version": "1.0.1",
-  "description": "",
-  "main": "lib/main.js",
+  "name": "am-mocktimes",
+  "version": "1.0.13",
+  "description": "Let's ease mock creation / pattern management and increase break time.",
+  "homepage": "https://github.com/ampcpmgp/am-mocktimes",
+  "main": "lib/mock.js",
+  "bin": {
+    "am-mocktimes": "bin/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dist": "run-s lint clean build:riot dist:*",
     "clean": "rimraf dist",
     "dist:main": "microbundle --entry src/main.js -o lib/main.js -f cjs --compress false",
     "dist:mock": "microbundle --entry src/mock.js -o lib/mock.js -f cjs --compress false",
-    "lint": "standard src --verbose | snazzy && standard src/app/**/*.tag.html --verbose | snazzy",
+    "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-mocktimes build -d docs --public-url https://ampcpmgp.github.io/am-mocktimes/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
+    "lint": "standard --verbose | snazzy && standard src/app/**/*.tag.html --verbose | snazzy",
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext tag.html",
-    "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-coffee-time build -d docs --public-url https://ampcpmgp.github.io/am-coffee-time/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
-    "watch:mock": "am-coffee-time watch",
+    "watch:mock": "am-mocktimes watch",
     "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-coffee-time": "1.0.1",
-    "babel-polyfill": "^6.26.0",
+    "am-mocktimes": "1.0.13-1",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
     "dob": "^2.5.8",
@@ -36,8 +39,20 @@
     "rimraf": "^2.6.2",
     "riot": "^3.9.0",
     "riot-route": "^3.1.3",
-    "snazzy": "^7.0.0",
+    "snazzy": "^7.1.1",
     "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "chokidar": "^2.0.2",
+    "fs-extra": "^5.0.0",
+    "get-port": "^3.2.0",
+    "ip": "^1.1.5",
+    "normalize-path": "^2.1.1",
+    "yargs": "^11.0.0"
+  },
+  "peerDependencies": {
+    "parcel-bundler": ">=1.6.2 <2"
   },
   "standard": {
     "globals": [
@@ -48,19 +63,5 @@
     "plugins": [
       "riot"
     ]
-  },
-  "bin": {
-    "am-coffee-time": "bin/index.js"
-  },
-  "dependencies": {
-    "chokidar": "^2.0.2",
-    "fs-extra": "^5.0.0",
-    "get-port": "^3.2.0",
-    "ip": "^1.1.5",
-    "normalize-path": "^2.1.1",
-    "yargs": "^11.0.0"
-  },
-  "peerDependencies": {
-    "parcel-bundler": ">=1.6.2 <2"
   }
 }

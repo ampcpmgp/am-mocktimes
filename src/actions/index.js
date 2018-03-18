@@ -52,38 +52,38 @@ export const closeByLevel = (level) => Action(() => {
 })
 
 export const setMockUrl = (mdAction) => {
-  mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.coffeeTimeActions)
+  mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.mockTimesActions)
 }
 
-export const addCoffeeTimeFuncs = (coffeeTimeActions, { func, funcs }) => {
-  func && coffeeTimeActions.push(func)
-  funcs && funcs.forEach(func => coffeeTimeActions.push(func))
+export const addMocktimesFuncs = (mockTimesActions, { func, funcs }) => {
+  func && mockTimesActions.push(func)
+  funcs && funcs.forEach(func => mockTimesActions.push(func))
 }
 
-export const setCoffeeTimeAction = (mdAction, parentCoffeeTimeActions) => {
+export const setMocktimesAction = (mdAction, parentMocktimesActions) => {
   const { selectedSwitchName, switchs } = mdAction
 
-  const currentCoffeeTimeActions = []
-  addCoffeeTimeFuncs(currentCoffeeTimeActions, mdAction)
+  const currentMocktimesActions = []
+  addMocktimesFuncs(currentMocktimesActions, mdAction)
 
   if (selectedSwitchName) {
-    const selectedCoffeeTimeAction = getPatternInfo(
+    const selectedMocktimesAction = getPatternInfo(
       switchs.find(switchItem => switchItem.name === selectedSwitchName)
     )
-    addCoffeeTimeFuncs(currentCoffeeTimeActions, selectedCoffeeTimeAction)
+    addMocktimesFuncs(currentMocktimesActions, selectedMocktimesAction)
   }
 
-  mdAction.coffeeTimeActions = parentCoffeeTimeActions
-    ? parentCoffeeTimeActions.concat(currentCoffeeTimeActions)
-    : currentCoffeeTimeActions
+  mdAction.mockTimesActions = parentMocktimesActions
+    ? parentMocktimesActions.concat(currentMocktimesActions)
+    : currentMocktimesActions
 }
 
-export const setSwitchNameRecursively = (currentMdAction, parentCoffeeTimeActions) => {
-  setCoffeeTimeAction(currentMdAction, parentCoffeeTimeActions)
+export const setSwitchNameRecursively = (currentMdAction, parentMocktimesActions) => {
+  setMocktimesAction(currentMdAction, parentMocktimesActions)
   setMockUrl(currentMdAction)
 
   currentMdAction.mdActions.forEach(childMdAction => {
-    setSwitchNameRecursively(childMdAction, currentMdAction.coffeeTimeActions)
+    setSwitchNameRecursively(childMdAction, currentMdAction.mockTimesActions)
   })
 }
 
@@ -91,7 +91,7 @@ export const setSelectedSwitchName = (mdAction, selectedSwitchName) => Action(()
   mdAction.selectedSwitchName = selectedSwitchName
   const parentMdAction = getParentMdAction(mdAction)
 
-  setSwitchNameRecursively(mdAction, parentMdAction.coffeeTimeActions)
+  setSwitchNameRecursively(mdAction, parentMdAction.mockTimesActions)
 })
 
 export const openActionBox = mdAction => {
@@ -112,7 +112,7 @@ export const setRecursivelyMdAction = ({
     mdAction,
     pattern,
     selectedSwitchName,
-    coffeeTimeActions = [],
+    mockTimesActions = [],
     level = 0
   }) => {
   const {
@@ -145,8 +145,8 @@ export const setRecursivelyMdAction = ({
     mdAction.selectedSwitchName = null
   }
 
-  // set coffee time mdActions
-  setCoffeeTimeAction(mdAction, coffeeTimeActions)
+  // set mdActions
+  setMocktimesAction(mdAction, mockTimesActions)
   setMockUrl(mdAction)
 
   if (typeof pattern !== 'object' || Array.isArray(pattern)) return
@@ -161,7 +161,7 @@ export const setRecursivelyMdAction = ({
       url: currentPattern.url || url,
       mdAction: currentAction,
       level: level + 1,
-      coffeeTimeActions: mdAction.coffeeTimeActions,
+      mockTimesActions: mdAction.mockTimesActions,
       pattern: currentPattern
     })
   })
