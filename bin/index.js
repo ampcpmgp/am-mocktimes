@@ -71,6 +71,12 @@ const argv = require('yargs')
     describe: 'Use parcel.',
     type: 'boolean'
   })
+  .option('r', {
+    alias: 'mock-reload',
+    default: false,
+    describe: 'Mock html reload when hot module replacement.',
+    type: 'boolean'
+  })
   .argv
 
 const patternFile = argv.pattern
@@ -82,6 +88,7 @@ const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
 const port = argv.port
 const mockPort = argv.mockPort
+const mockReload = argv.mockReload
 
 const FilePath = {
   PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
@@ -157,7 +164,7 @@ const generateMockHtml = async () => {
 }
 
 const generateMockJs = async () => {
-  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc)
+  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc, mockReload)
   try {
     await fs.outputFile(FilePath.MOCK_JS, js)
   } catch (e) {
