@@ -73,7 +73,7 @@ const argv = require('yargs')
   })
   .option('r', {
     alias: 'mock-reload',
-    default: false,
+    default: true,
     describe: 'Mock html reload when hot module replacement.',
     type: 'boolean'
   })
