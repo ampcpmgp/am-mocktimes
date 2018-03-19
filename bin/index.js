@@ -204,7 +204,7 @@ const start = async () => {
         const parcelMock = exec(
           `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${mockOutDir}`
         )
-        parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelMock.stdout.on('data', console.log)
         parcelMock.stderr.on('data', console.error)
         await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
 
@@ -212,7 +212,7 @@ const start = async () => {
         const parcelPattern = exec(
           `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${patternOutDir}`
         )
-        parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
       }
       break
@@ -223,13 +223,13 @@ const start = async () => {
         const parcelMock = exec(
           `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
-        parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelMock.stdout.on('data', console.log)
         parcelMock.stderr.on('data', console.error)
 
         const parcelPattern = exec(
           `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
-        parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
       }
       break
