@@ -1,3 +1,4 @@
+import isAsyncFunction from 'is-async-function'
 import {getActions} from './utils/pattern'
 
 console.clear()
@@ -21,6 +22,10 @@ export default (mockAction) => {
       const errorMsg = `"${actionName}" is undefined`
       throw errorMsg
     }
-    p = p.then(() => actionFunc(...args))
+    if (isAsyncFunction(actionFunc)) {
+      p = p.then(() => actionFunc(...args))
+    } else {
+      actionFunc(...args)
+    }
   }
 }
