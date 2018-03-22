@@ -4,7 +4,7 @@ console.clear()
 
 const actions = getActions()
 
-export default async (mockAction) => {
+export default (mockAction) => {
   let p = Promise.resolve()
 
   for (const action of actions) {
