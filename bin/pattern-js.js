@@ -1,6 +1,5 @@
 module.exports = (patternFile) => {
-  return `import 'am-mocktimes/lib/main.css'
-import {generateList} from 'am-mocktimes/lib/main'
+  return `import {generateList} from 'am-mocktimes/src/main'
 import pattern from '../${patternFile}'
 
 generateList(pattern)
