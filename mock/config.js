@@ -1,4 +1,4 @@
-import mock from '../lib/mock'
+import mock from '../src/mock'
 import pattern from './sample-app/pattern.yml'
 import * as Actions from '../src/actions'
 import state from '../src/state'
