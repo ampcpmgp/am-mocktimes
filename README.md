@@ -133,8 +133,9 @@ mock(action)
 
 ### MockAction
 `func`で定義した関数名を、keyで持つobjectとなります。  
-objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。  
-関数はPromiseで直列化され、順に呼び出されます。
+objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。    
+
+定義した関数はPromiseで直列化され、順に呼び出されます。
 
 
 # config src/index.html
