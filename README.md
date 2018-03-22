@@ -34,6 +34,7 @@ src/
 npx am-mocktimes watch
 # 出力パスは、デフォルトで `.am-mocktimes`に設定されていて、`.gitignore` に追加することを推奨します
 # ビルド終了後、 `localhost:1234` からアクセスできます。
+# ParcelのHMRがうまく動かない場合、 `-r` オプションで、リロードに変更できます。
 ```
 
 また、ビルドのみの実行も可能です。
