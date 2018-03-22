@@ -4,9 +4,7 @@ console.clear()
 
 const actions = getActions()
 
-export default (mockAction) => {
-  let p = Promise.resolve()
-
+export default async (mockAction) => {
   for (const action of actions) {
     const [actionName, ...args] = action
     let actionFunc
@@ -24,6 +22,6 @@ export default (mockAction) => {
       continue
     }
 
-    p = p.then(() => actionFunc(...args)).catch(console.error)
+    await actionFunc(...args)
   }
 }

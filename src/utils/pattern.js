@@ -1,5 +1,5 @@
-import ReservedKey from '../const/reserved-key'
 import queryString from 'query-string'
+import ReservedKey from '../const/reserved-key'
 
 const {
   PATTERN
