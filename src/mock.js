@@ -1,4 +1,3 @@
-import isAsyncFunction from 'is-async-function'
 import {getActions} from './utils/pattern'
 
 console.clear()
@@ -15,17 +14,16 @@ export default (mockAction) => {
       actionFunc = eval(`mockAction.${actionName}`) // eslint-disable-line
     } catch (e) {
       const errorMsg = `cannot find action - "${actionName}" `
-      throw errorMsg
+      console.warn(errorMsg)
+      continue
     }
     if (!actionName) continue
     if (!actionFunc) {
       const errorMsg = `"${actionName}" is undefined`
-      throw errorMsg
+      console.warn(errorMsg)
+      continue
     }
-    if (isAsyncFunction(actionFunc)) {
-      p = p.then(() => actionFunc(...args))
-    } else {
-      actionFunc(...args)
-    }
+
+    p = p.then(() => actionFunc(...args)).catch(console.error)
   }
 }

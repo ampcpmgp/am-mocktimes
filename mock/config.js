@@ -7,16 +7,24 @@ import { removeEvent } from '../src/tools/keyboard'
 
 removeEvent()
 
-mock({
+const mockAction = {
   selectMars () {
     const mdAction = state.mock.mdAction.mdActions[0].mdActions[0]
     Actions.setSelectedSwitchName(mdAction, mdAction.switchs[1].name)
   },
   async openHelp () {
     await sleep(1000)
+    console.log('openHelp')
     const el = document.querySelector('parts-header > .question')
     const evt = new window.MouseEvent('click')
     el.dispatchEvent(evt)
+  },
+  log () {
+    console.log('log')
+  },
+  async sleepLog () {
+    await sleep(1000)
+    console.log('sleep log')
   },
   setFullSettings () {
     Actions.setPattern(pattern)
@@ -32,4 +40,6 @@ mock({
   openFirst () {
     Actions.openActionBox(state.mock.mdAction.mdActions[0])
   }
-})
+}
+
+mock(mockAction)
