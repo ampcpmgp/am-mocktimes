@@ -45,9 +45,9 @@ npx am-mocktimes build
 また、以下のオプションを使うことで、parcelの起動を止め、ご自身でビルドを行うことが出来ます。
 ```shell
 npx am-mocktimes watch --no-use-parcel
+# `.am-mocktimes/` (出力パス) に、
 # `pattern.html / pattern.js` (モック一覧ページ) と
-# `mock.html / mock.js` (アプリケーションモックページ) が
-# `.am-mocktimes/` (出力パス) に、生成されます。
+# `mock.html / mock.js` (アプリケーションモックページ) が生成されます。
 ```
 
 オプションの詳しい内容は `npx am-mocktimes help` でご覧くださいm(__)m
@@ -71,24 +71,24 @@ plan C:
 ```
 
 ## reserved property
-### func
+### func: Array
 配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
 後述するactionを呼び出すトリガーになり、関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  
 [action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
 
 
-### funcs
+### funcs: Array[func, func, ...]
 `func` を複数定義できます。  
 funcと同様、省略可能です。
 
-### switch
+### switch: Object
 スイッチボタンによる、モック切り替えが可能です。  
 switch配下の設定も他と同様で、新しく何かを覚える必要がありません。
 
-### description
+### description: String
 モック一覧の、横に表示するもの。改行ありです。yaml改行を使うと綺麗に書けます。  
 
-### url
+### url: String
 別URLに切り替えたいときは、このpropertyを設定します。  
 設定したobject配下に、適用されます。  
 
