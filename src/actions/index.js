@@ -10,6 +10,10 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
+const {
+  mock
+} = state
+
 export const getParentMdAction = (mdAction) => {
   let parentAction
   handleMdActionRecursively(state.mock.mdAction, (currentMdAction) => {
@@ -22,7 +26,8 @@ export const getParentMdAction = (mdAction) => {
 }
 
 export const setCurrentUrl = url => {
-  state.mock.currentUrl = url
+  mock.currentUrl = url
+  if (url) mock.lastExecutedUrl = url
 }
 
 export const handleMdActionRecursively = (mdAction, handler) => {
