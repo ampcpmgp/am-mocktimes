@@ -101,7 +101,7 @@ reserved property以外は全てaction propertyとなり、pattern list表示用
 import { mock } from 'am-mocktimes'
 
 const action = {
-  setPlan (planFile, world = null) {
+  setPlan (planFile, world = null) { // multiple arguments can be received
     // setPlan
   },
   async goLocation (location) {
