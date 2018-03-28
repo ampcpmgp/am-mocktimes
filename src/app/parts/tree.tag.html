@@ -24,7 +24,9 @@ import './icons/open-close'
       is-plus={opts.mdAction.isOpen}
       onclick={toggleActionBox}
       />
-    <a href={opts.mdAction.mockUrl} onclick={openIframe}>
+    <a href={opts.mdAction.mockUrl}
+    onclick={openIframe}
+    class={executed: opts.mdAction.mockUrl === lastExecutedUrl}>
       {opts.mdAction.name}
     </a>
     <section class="labels">
@@ -85,11 +87,19 @@ import './icons/open-close'
       }
 
       > a {
+        padding: 2px 4px;
         margin-top: 2px;
         margin-bottom: 2px;
-        margin-left: 12px;
+        margin-left: 14px;
         margin-right: 8px;
         text-decoration: none;
+        box-sizing: border-box;
+        outline: none;
+
+        &.executed {
+          border: 1px solid #555;
+          border-radius: 4px;
+        }
 
         &:hover {
           opacity: 0.4;
@@ -109,6 +119,7 @@ import './icons/open-close'
     import { observe } from 'dob'
     import route from 'riot-route'
     import * as Actions from '../../actions'
+    import state from '../../state'
     import { getRoutePath } from '../../utils/pattern'
 
     const openIframe = (e) => {
@@ -150,6 +161,7 @@ import './icons/open-close'
     }
 
     Object.assign(this, {
+      lastExecutedUrl: state.mock.lastExecutedUrl,
       getDescription,
       getOpenCloseIconStyle,
       getChildTreeStyle,
@@ -165,7 +177,10 @@ import './icons/open-close'
         opts.mdAction.selectedSwitchName,
         opts.mdAction.mockUrl
       )
-      this.update()
+
+      this.update({
+        lastExecutedUrl: state.mock.lastExecutedUrl
+      })
     })
   </script>
 </parts-tree>
