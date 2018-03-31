@@ -69,8 +69,9 @@ plan Z:
 ### reserved property
 
 #### func: Array
-配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
-後述するactionを呼び出すトリガーになり、関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  
+配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。  
+これを指定することで、固有のURLが作られ、後述する[action](#config-mockconfigjs)を呼び出すトリガーになります。  
+関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  
 [action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
 
 
@@ -98,7 +99,7 @@ reserved property以外は全てaction propertyとなり、pattern list表示用
 
 以下が設定例です。
 ```js
-import { mock } from 'am-mocktimes'
+import mock from 'am-mocktimes'
 
 const action = {
   setPlan (planFile, world = null) { // multiple arguments can be received
