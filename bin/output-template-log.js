@@ -5,7 +5,7 @@ module.exports = () => {
 # モック
 mock/
   pattern.yml # モック一覧画面/設定用
-  config.js # アプリケーションモック/設定用
+  config.js # Webアプリのモック/設定用
 
 # アプリケーション本体
 src/

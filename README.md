@@ -1,6 +1,6 @@
 # Appearance
 
-| モック一覧 | アプリケーションモック |
+| モック一覧 | Webアプリのモック |
 | --- | --- |
 | ![pattern](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-mock.gif) |
 
@@ -23,7 +23,7 @@ npm i am-mocktimes parcel-bundler -D
 # モック
 mock/
   pattern.yml # モックパターン設定用
-  config.js # アプリケーションモック設定用
+  config.js # Webアプリのモック設定用
 
 # アプリケーション本体
 src/
@@ -149,7 +149,7 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 npx am-mocktimes watch --no-use-parcel
 # `.am-mocktimes/` (出力パス) に、
 # `pattern.html / pattern.js` (モック一覧ページ) と
-# `mock.html / mock.js` (アプリケーションモックページ) が生成されます。
+# `mock.html / mock.js` (Webアプリのモックページ) が生成されます。
 ```
 
 
@@ -160,4 +160,4 @@ npx am-mocktimes watch --no-use-parcel
 | >= 8.9 | >= 9.6 | >= 5.6 |
 
 ※モック一覧ページはIE11非対応なので、  
-直接アプリケーションモックページでご確認ください。
+直接Webアプリのモックページでご確認ください。
