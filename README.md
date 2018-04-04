@@ -9,6 +9,15 @@
 * [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
   * [ソースコード](https://gitlab.com/ampcpmgp/plane-puzzle)
 
+# Recommended environment
+
+| Node.js | npx | npm |
+| --- | --- | --- |
+| >= 8.9 | >= 9.6 | >= 5.6 |
+
+※モック一覧ページはIE11非対応なので、  
+直接Webアプリのモックページでご確認ください。
+
 # start with parcel
 以下をインストール。  
 
@@ -152,12 +161,3 @@ npx am-mocktimes watch --no-use-parcel
 # `mock.html / mock.js` (Webアプリのモックページ) が生成されます。
 ```
 
-
-# Recommended environment
-
-| Node.js | npx | npm |
-| --- | --- | --- |
-| >= 8.9 | >= 9.6 | >= 5.6 |
-
-※モック一覧ページはIE11非対応なので、  
-直接Webアプリのモックページでご確認ください。
