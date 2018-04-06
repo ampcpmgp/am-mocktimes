@@ -71,6 +71,12 @@ const argv = require('yargs')
     describe: 'Use parcel.',
     type: 'boolean'
   })
+  .option('r', {
+    alias: 'mock-reload',
+    default: false,
+    describe: 'Mock html reload when hot module replacement.',
+    type: 'boolean'
+  })
   .argv
 
 const patternFile = argv.pattern
@@ -82,6 +88,7 @@ const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
 const port = argv.port
 const mockPort = argv.mockPort
+const mockReload = argv.mockReload
 
 const FilePath = {
   PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
@@ -157,7 +164,7 @@ const generateMockHtml = async () => {
 }
 
 const generateMockJs = async () => {
-  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc)
+  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc, mockReload)
   try {
     await fs.outputFile(FilePath.MOCK_JS, js)
   } catch (e) {
@@ -197,7 +204,7 @@ const start = async () => {
         const parcelMock = exec(
           `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${mockOutDir}`
         )
-        parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelMock.stdout.on('data', console.log)
         parcelMock.stderr.on('data', console.error)
         await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
 
@@ -205,7 +212,7 @@ const start = async () => {
         const parcelPattern = exec(
           `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${patternOutDir}`
         )
-        parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
       }
       break
@@ -216,13 +223,13 @@ const start = async () => {
         const parcelMock = exec(
           `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
-        parcelMock.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelMock.stdout.on('data', console.log)
         parcelMock.stderr.on('data', console.error)
 
         const parcelPattern = exec(
           `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
         )
-        parcelPattern.stdout.on('data', (data) => console.log(data.replace(/\n/g, '')))
+        parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
       }
       break

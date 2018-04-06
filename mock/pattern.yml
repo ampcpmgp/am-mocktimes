@@ -1,4 +1,7 @@
-ヘルプを開く: [openHelp]
+ヘルプを開く:
+  - [openHelp]
+  - [log]
+  - [sleepLog]
 フル設定:
   func: [setFullSettings]
   １個目を開く:

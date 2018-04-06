@@ -2,7 +2,5 @@
 am-mocktimes/dist
 .cache/
 .dev/
-dist/
-lib/
 node_modules/
 src/app/**/*.js
