@@ -1,5 +1,4 @@
-import 'am-mocktimes/lib/main.css'
-import {generateList} from 'am-mocktimes/lib/main'
+import {generateList} from 'am-mocktimes/src/main'
 import pattern from '../mock/pattern.yml'
 
 generateList(pattern)
