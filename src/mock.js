@@ -1,6 +1,8 @@
 import {getActions} from './utils/pattern'
 
-console.clear()
+console.log('-----------------------------')
+console.log('---- am mock times start ----')
+console.log('-----------------------------')
 
 const actions = getActions()
 
