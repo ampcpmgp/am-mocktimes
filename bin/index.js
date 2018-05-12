@@ -29,11 +29,6 @@ const argv = require('yargs')
     describe: 'Set port for am-mocktimes\'s pattern list server.',
     type: 'number'
   })
-  .option('mock-port', {
-    default: 8400,
-    describe: 'Set port for application mock server',
-    type: 'number'
-  })
   .option('pattern', {
     default: 'mock/pattern.yml',
     describe: 'Set location of mock pattern file (.yml | .js | .json) for am-mocktimes\'s display.',
@@ -87,7 +82,6 @@ const outDir = argv.outDir
 const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
 const port = argv.port
-const mockPort = argv.mockPort
 const mockReload = argv.mockReload
 
 const FilePath = {
@@ -190,27 +184,16 @@ const start = async () => {
         .on('error', console.error)
 
       if (useParcel) {
-        const ip = require('ip')
         const getPort = require('get-port')
         const patternPort = await getPort({port})
-        const parcelMockPort = await getPort({port: mockPort})
 
         if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
-        if (parcelMockPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
 
-        // parcelが複数エントリをサポートしたら、１プロセスにまとめる。
-        // https://github.com/parcel-bundler/parcel/issues/189
-        const mockOutDir = path.join(outDir, 'dev-mock')
-        const parcelMock = exec(
-          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${mockOutDir}`
-        )
-        parcelMock.stdout.on('data', console.log)
-        parcelMock.stderr.on('data', console.error)
-        await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
+        await generatePatternHtml()
 
         const patternOutDir = path.join(outDir, 'dev-pattern')
         const parcelPattern = exec(
-          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${patternOutDir}`
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} ${path.join(outDir, MOCK_HTML)} -p ${patternPort} -d ${patternOutDir}`
         )
         parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
