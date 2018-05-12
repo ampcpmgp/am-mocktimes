@@ -1,9 +1,5 @@
 import {getActions} from './utils/pattern'
 
-console.log('-----------------------------')
-console.log('---- am mock times start ----')
-console.log('-----------------------------')
-
 const actions = getActions()
 
 export default async (mockAction) => {
