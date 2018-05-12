@@ -12,26 +12,25 @@ const templateSrc = require('./template-src')
 const mockJs = require('./mock-js')
 const outputTemplateLog = require('./output-template-log')
 
-const {
-  PATTERN_HTML,
-  PATTERN_JS,
-  MOCK_HTML,
-  MOCK_JS
-} = require('./const')
+const { PATTERN_HTML, PATTERN_JS, MOCK_HTML, MOCK_JS } = require('./const')
 
 const argv = require('yargs')
   .command('watch', 'Watch and output pattern & mock pages.')
   .command('build', 'Output pattern & mock pages.')
-  .command('generate-template', 'Generate page files. Mock and application sources.')
+  .command(
+    'generate-template',
+    'Generate page files. Mock and application sources.'
+  )
   .option('p', {
     alias: 'port',
     default: 1234,
-    describe: 'Set port for am-mocktimes\'s pattern list server.',
+    describe: "Set port for am-mocktimes's pattern list server.",
     type: 'number'
   })
   .option('pattern', {
     default: 'mock/pattern.yml',
-    describe: 'Set location of mock pattern file (.yml | .js | .json) for am-mocktimes\'s display.',
+    describe:
+      "Set location of mock pattern file (.yml | .js | .json) for am-mocktimes's display.",
     type: 'string'
   })
   .option('config', {
@@ -42,7 +41,8 @@ const argv = require('yargs')
   .option('a', {
     alias: 'app',
     default: 'src/index.html',
-    describe: 'Set product html file.',
+    describe:
+      'Set product html files. If you want to set multiple files, please set like this. `-a index.html -a src/*.html`',
     type: 'string'
   })
   .option('s', {
@@ -58,7 +58,8 @@ const argv = require('yargs')
     type: 'string'
   })
   .option('public-url', {
-    describe: 'Set the public URL to serve on. defaults to the same as the --out-dir option',
+    describe:
+      'Set the public URL to serve on. defaults to the same as the --out-dir option',
     type: 'string'
   })
   .option('use-parcel', {
@@ -71,12 +72,15 @@ const argv = require('yargs')
     default: false,
     describe: 'Mock html reload when hot module replacement.',
     type: 'boolean'
-  })
-  .argv
+  }).argv
+
+const getAppFile = () => {
+  return typeof argv.app === 'object' ? argv.app.join(' ') : argv.app
+}
 
 const patternFile = argv.pattern
 const configFile = argv.config
-const appFile = argv.app
+const appFile = getAppFile()
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
 const publicUrl = argv.publicUrl
@@ -98,7 +102,7 @@ const UserFiles = {
   SRC_JS: path.join(appFile, '..', scriptSrc)
 }
 
-const [ command ] = argv._
+const [command] = argv._
 
 const makeFileIfNotExist = async (filePath, content = '') => {
   const isExistsFile = await fs.pathExists(filePath)
@@ -144,12 +148,23 @@ const generateMockHtml = async () => {
     }
 
     const baseHtml = await fs.readFile(appFilePath, 'utf-8')
-    let html = baseHtml.replace(`src='${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
-    html = html.replace(`src='./${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
+    let html = baseHtml.replace(
+      `src='${scriptSrc}'`,
+      `src="${MOCK_JS}" data-replaced`
+    )
+    html = html.replace(
+      `src='./${scriptSrc}'`,
+      `src="${MOCK_JS}" data-replaced`
+    )
     html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
-    html = html.replace(`src="./${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
+    html = html.replace(
+      `src="./${scriptSrc}"`,
+      `src="${MOCK_JS}" data-replaced`
+    )
 
-    if (baseHtml === html) console.warn(`warning: --script-src '${scriptSrc}', not found.`)
+    if (baseHtml === html) {
+      console.warn(`warning: --script-src '${scriptSrc}', not found.`)
+    }
 
     await fs.outputFile(FilePath.MOCK_HTML, html)
   } catch (e) {
@@ -158,7 +173,13 @@ const generateMockHtml = async () => {
 }
 
 const generateMockJs = async () => {
-  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc, mockReload)
+  const js = mockJs(
+    outDir,
+    configFile,
+    path.join(appFile, '../'),
+    scriptSrc,
+    mockReload
+  )
   try {
     await fs.outputFile(FilePath.MOCK_JS, js)
   } catch (e) {
@@ -179,13 +200,14 @@ const start = async () => {
   switch (command) {
     case 'watch':
       await buildMocktimesFiles()
-      chokidar.watch(UserFiles.SRC_HTML)
+      chokidar
+        .watch(UserFiles.SRC_HTML)
         .on('change', generateMockHtml)
         .on('error', console.error)
 
       if (useParcel) {
         const getPort = require('get-port')
-        const patternPort = await getPort({port})
+        const patternPort = await getPort({ port })
 
         if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
 
@@ -193,7 +215,10 @@ const start = async () => {
 
         const patternOutDir = path.join(outDir, 'dev-pattern')
         const parcelPattern = exec(
-          `npx parcel ${path.join(outDir, PATTERN_HTML)} ${path.join(outDir, MOCK_HTML)} -p ${patternPort} -d ${patternOutDir}`
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} ${path.join(
+            outDir,
+            MOCK_HTML
+          )} -p ${patternPort} -d ${patternOutDir}`
         )
         parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
@@ -204,13 +229,17 @@ const start = async () => {
       if (useParcel) {
         const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
         const parcelMock = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(
+            outDir
+          )} ${publicUrlArg}`
         )
         parcelMock.stdout.on('data', console.log)
         parcelMock.stderr.on('data', console.error)
 
         const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
+          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(
+            outDir
+          )} ${publicUrlArg}`
         )
         parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
