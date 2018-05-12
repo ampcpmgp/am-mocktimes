@@ -41,8 +41,7 @@ const argv = require('yargs')
   .option('a', {
     alias: 'app',
     default: 'src/index.html',
-    describe:
-      'Set product html files. If you want to set multiple files, please set like this. `-a index.html -a src/*.html`',
+    describe: 'Set product html file.',
     type: 'string'
   })
   .option('s', {
@@ -74,13 +73,9 @@ const argv = require('yargs')
     type: 'boolean'
   }).argv
 
-const getAppFile = () => {
-  return typeof argv.app === 'object' ? argv.app.join(' ') : argv.app
-}
-
 const patternFile = argv.pattern
 const configFile = argv.config
-const appFile = getAppFile()
+const appFile = argv.app
 const scriptSrc = argv.scriptSrc
 const outDir = argv.outDir
 const publicUrl = argv.publicUrl
@@ -162,9 +157,7 @@ const generateMockHtml = async () => {
       `src="${MOCK_JS}" data-replaced`
     )
 
-    if (baseHtml === html) {
-      console.warn(`warning: --script-src '${scriptSrc}', not found.`)
-    }
+    if (baseHtml === html) { console.warn(`warning: --script-src '${scriptSrc}', not found.`) }
 
     await fs.outputFile(FilePath.MOCK_HTML, html)
   } catch (e) {
