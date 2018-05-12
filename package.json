@@ -16,7 +16,7 @@
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
     "build:riot": "riot src/app --ext html",
-    "watch:mock": "am-mocktimes watch -r -a src/index.html -a mock/sample-app/index.html",
+    "watch:mock": "am-mocktimes watch -r -a mock/index.html",
     "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext html\""
   },
   "author": "",

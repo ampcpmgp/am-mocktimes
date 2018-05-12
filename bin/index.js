@@ -50,6 +50,13 @@ const argv = require('yargs')
     describe: 'Set main script src in product html file.',
     type: 'string'
   })
+  .option('ss', {
+    alias: 'sub-files',
+    default: [],
+    describe:
+      'Set sub html files. If you want to set multiple files, please set like this. `-ss src/demo/*.html -ss doc/*.html`',
+    type: 'array'
+  })
   .option('d', {
     alias: 'out-dir',
     default: '.am-mocktimes',
@@ -77,6 +84,7 @@ const patternFile = argv.pattern
 const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
+const subFiles = argv.subFiles
 const outDir = argv.outDir
 const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
@@ -157,7 +165,9 @@ const generateMockHtml = async () => {
       `src="${MOCK_JS}" data-replaced`
     )
 
-    if (baseHtml === html) { console.warn(`warning: --script-src '${scriptSrc}', not found.`) }
+    if (baseHtml === html) {
+      console.warn(`warning: --script-src '${scriptSrc}', not found.`)
+    }
 
     await fs.outputFile(FilePath.MOCK_HTML, html)
   } catch (e) {
@@ -187,6 +197,10 @@ const buildMocktimesFiles = async () => {
   await generateMockJs()
 }
 
+const getSubFilesPath = subFiles => {
+  return subFiles.join(' ')
+}
+
 process.on('unhandledRejection', console.dir)
 
 const start = async () => {
@@ -211,7 +225,7 @@ const start = async () => {
           `npx parcel ${path.join(outDir, PATTERN_HTML)} ${path.join(
             outDir,
             MOCK_HTML
-          )} -p ${patternPort} -d ${patternOutDir}`
+          )} ${getSubFilesPath(subFiles)} -p ${patternPort} -d ${patternOutDir}`
         )
         parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
@@ -221,16 +235,11 @@ const start = async () => {
       await buildMocktimesFiles()
       if (useParcel) {
         const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
-        const parcelMock = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(
-            outDir
-          )} ${publicUrlArg}`
-        )
-        parcelMock.stdout.on('data', console.log)
-        parcelMock.stderr.on('data', console.error)
-
         const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} ${path.join(
+            outDir,
+            PATTERN_HTML
+          )} ${getSubFilesPath(subFiles)} -d ${path.join(
             outDir
           )} ${publicUrlArg}`
         )
