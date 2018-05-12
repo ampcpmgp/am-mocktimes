@@ -12,31 +12,25 @@ const templateSrc = require('./template-src')
 const mockJs = require('./mock-js')
 const outputTemplateLog = require('./output-template-log')
 
-const {
-  PATTERN_HTML,
-  PATTERN_JS,
-  MOCK_HTML,
-  MOCK_JS
-} = require('./const')
+const { PATTERN_HTML, PATTERN_JS, MOCK_HTML, MOCK_JS } = require('./const')
 
 const argv = require('yargs')
   .command('watch', 'Watch and output pattern & mock pages.')
   .command('build', 'Output pattern & mock pages.')
-  .command('generate-template', 'Generate page files. Mock and application sources.')
+  .command(
+    'generate-template',
+    'Generate page files. Mock and application sources.'
+  )
   .option('p', {
     alias: 'port',
     default: 1234,
-    describe: 'Set port for am-mocktimes\'s pattern list server.',
-    type: 'number'
-  })
-  .option('mock-port', {
-    default: 8400,
-    describe: 'Set port for application mock server',
+    describe: "Set port for am-mocktimes's pattern list server.",
     type: 'number'
   })
   .option('pattern', {
     default: 'mock/pattern.yml',
-    describe: 'Set location of mock pattern file (.yml | .js | .json) for am-mocktimes\'s display.',
+    describe:
+      "Set location of mock pattern file (.yml | .js | .json) for am-mocktimes's display.",
     type: 'string'
   })
   .option('config', {
@@ -56,6 +50,13 @@ const argv = require('yargs')
     describe: 'Set main script src in product html file.',
     type: 'string'
   })
+  .option('ss', {
+    alias: 'sub-files',
+    default: [],
+    describe:
+      'Set sub html files. If you want to set multiple files, please set like this. `-ss src/demo/*.html -ss doc/*.html`',
+    type: 'array'
+  })
   .option('d', {
     alias: 'out-dir',
     default: '.am-mocktimes',
@@ -63,7 +64,8 @@ const argv = require('yargs')
     type: 'string'
   })
   .option('public-url', {
-    describe: 'Set the public URL to serve on. defaults to the same as the --out-dir option',
+    describe:
+      'Set the public URL to serve on. defaults to the same as the --out-dir option',
     type: 'string'
   })
   .option('use-parcel', {
@@ -76,18 +78,17 @@ const argv = require('yargs')
     default: false,
     describe: 'Mock html reload when hot module replacement.',
     type: 'boolean'
-  })
-  .argv
+  }).argv
 
 const patternFile = argv.pattern
 const configFile = argv.config
 const appFile = argv.app
 const scriptSrc = argv.scriptSrc
+const subFiles = argv.subFiles
 const outDir = argv.outDir
 const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
 const port = argv.port
-const mockPort = argv.mockPort
 const mockReload = argv.mockReload
 
 const FilePath = {
@@ -104,7 +105,7 @@ const UserFiles = {
   SRC_JS: path.join(appFile, '..', scriptSrc)
 }
 
-const [ command ] = argv._
+const [command] = argv._
 
 const makeFileIfNotExist = async (filePath, content = '') => {
   const isExistsFile = await fs.pathExists(filePath)
@@ -150,12 +151,23 @@ const generateMockHtml = async () => {
     }
 
     const baseHtml = await fs.readFile(appFilePath, 'utf-8')
-    let html = baseHtml.replace(`src='${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
-    html = html.replace(`src='./${scriptSrc}'`, `src="${MOCK_JS}" data-replaced`)
+    let html = baseHtml.replace(
+      `src='${scriptSrc}'`,
+      `src="${MOCK_JS}" data-replaced`
+    )
+    html = html.replace(
+      `src='./${scriptSrc}'`,
+      `src="${MOCK_JS}" data-replaced`
+    )
     html = html.replace(`src="${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
-    html = html.replace(`src="./${scriptSrc}"`, `src="${MOCK_JS}" data-replaced`)
+    html = html.replace(
+      `src="./${scriptSrc}"`,
+      `src="${MOCK_JS}" data-replaced`
+    )
 
-    if (baseHtml === html) console.warn(`warning: --script-src '${scriptSrc}', not found.`)
+    if (baseHtml === html) {
+      console.warn(`warning: --script-src '${scriptSrc}', not found.`)
+    }
 
     await fs.outputFile(FilePath.MOCK_HTML, html)
   } catch (e) {
@@ -164,7 +176,13 @@ const generateMockHtml = async () => {
 }
 
 const generateMockJs = async () => {
-  const js = mockJs(outDir, configFile, path.join(appFile, '../'), scriptSrc, mockReload)
+  const js = mockJs(
+    outDir,
+    configFile,
+    path.join(appFile, '../'),
+    scriptSrc,
+    mockReload
+  )
   try {
     await fs.outputFile(FilePath.MOCK_JS, js)
   } catch (e) {
@@ -179,38 +197,35 @@ const buildMocktimesFiles = async () => {
   await generateMockJs()
 }
 
+const getSubFilesPath = subFiles => {
+  return subFiles.join(' ')
+}
+
 process.on('unhandledRejection', console.dir)
 
 const start = async () => {
   switch (command) {
     case 'watch':
       await buildMocktimesFiles()
-      chokidar.watch(UserFiles.SRC_HTML)
+      chokidar
+        .watch(UserFiles.SRC_HTML)
         .on('change', generateMockHtml)
         .on('error', console.error)
 
       if (useParcel) {
-        const ip = require('ip')
         const getPort = require('get-port')
-        const patternPort = await getPort({port})
-        const parcelMockPort = await getPort({port: mockPort})
+        const patternPort = await getPort({ port })
 
         if (patternPort !== port) throw new Error(`Cannot use port: ${port}`)
-        if (parcelMockPort !== mockPort) console.warn(`Mockport: ${mockPort} is used, changed ${parcelMockPort}`)
 
-        // parcelが複数エントリをサポートしたら、１プロセスにまとめる。
-        // https://github.com/parcel-bundler/parcel/issues/189
-        const mockOutDir = path.join(outDir, 'dev-mock')
-        const parcelMock = exec(
-          `npx parcel ${path.join(outDir, MOCK_HTML)} -p ${parcelMockPort} -d ${mockOutDir}`
-        )
-        parcelMock.stdout.on('data', console.log)
-        parcelMock.stderr.on('data', console.error)
-        await generatePatternHtml(`//${ip.address()}:${parcelMockPort}`)
+        await generatePatternHtml()
 
         const patternOutDir = path.join(outDir, 'dev-pattern')
         const parcelPattern = exec(
-          `npx parcel ${path.join(outDir, PATTERN_HTML)} -p ${patternPort} -d ${patternOutDir}`
+          `npx parcel ${path.join(outDir, PATTERN_HTML)} ${path.join(
+            outDir,
+            MOCK_HTML
+          )} ${getSubFilesPath(subFiles)} -p ${patternPort} -d ${patternOutDir}`
         )
         parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)
@@ -220,14 +235,13 @@ const start = async () => {
       await buildMocktimesFiles()
       if (useParcel) {
         const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
-        const parcelMock = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
-        )
-        parcelMock.stdout.on('data', console.log)
-        parcelMock.stderr.on('data', console.error)
-
         const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, PATTERN_HTML)} -d ${path.join(outDir)} ${publicUrlArg}`
+          `npx parcel build ${path.join(outDir, MOCK_HTML)} ${path.join(
+            outDir,
+            PATTERN_HTML
+          )} ${getSubFilesPath(subFiles)} -d ${path.join(
+            outDir
+          )} ${publicUrlArg}`
         )
         parcelPattern.stdout.on('data', console.log)
         parcelPattern.stderr.on('data', console.error)

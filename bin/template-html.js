@@ -1,4 +1,4 @@
-module.exports = (scriptSrc) => {
+module.exports = scriptSrc => {
   return `<!DOCTYPE html>
 <html>
   <head>

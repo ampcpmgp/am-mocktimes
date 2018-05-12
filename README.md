@@ -45,7 +45,7 @@ src/
 ```shell
 npx am-mocktimes watch
 # 出力パスは、デフォルトで `.am-mocktimes`に設定されていて、`.gitignore` に追加することを推奨します
-# ビルド終了後、 `localhost:1234` からアクセスできます。
+# ビルド終了後、 `localhost:1234/.am-mocktimes/pattern.html` からアクセスできます。
 # ParcelのHMRがうまく動かない場合、 `-r` オプションで、リロードに変更できます。
 ```
 
@@ -160,4 +160,3 @@ npx am-mocktimes watch --no-use-parcel
 # `pattern.html / pattern.js` (モック一覧ページ) と
 # `mock.html / mock.js` (Webアプリのモックページ) が生成されます。
 ```
-

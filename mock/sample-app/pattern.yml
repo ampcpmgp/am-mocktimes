@@ -1,3 +1,4 @@
+url: /mock/sample-app/index.html
 Travel Plan A:
   func: [setPlan, A]
   description: |

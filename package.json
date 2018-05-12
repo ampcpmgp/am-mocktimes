@@ -1,6 +1,6 @@
 {
   "name": "am-mocktimes",
-  "version": "1.0.21",
+  "version": "1.1.4",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
   "main": "src/mock.js",
@@ -12,22 +12,26 @@
     "dist": "run-s lint build:riot",
     "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-mocktimes build -d docs --public-url https://ampcpmgp.github.io/am-mocktimes/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
     "lint": "standard --verbose | snazzy && standard src/app/**/*.tag.html --verbose | snazzy",
+    "precommit": "lint-staged",
     "prestart": "run-s build:riot",
     "start": "run-p watch:**",
-    "build:riot": "riot src/app --ext tag.html",
-    "watch:mock": "am-mocktimes watch -r",
-    "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext tag.html\""
+    "build:riot": "riot src/app --ext html",
+    "watch:mock": "am-mocktimes watch -a mock/index.html --ss mock/sample-app/index.html",
+    "watch:riot": "chokidar src/app/**/*.tag.html -c \"riot {path} --ext html\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-mocktimes": "1.0.19",
+    "am-mocktimes": "1.1.4",
     "chokidar-cli": "^1.2.0",
     "cross-env": "^5.1.3",
     "eslint-plugin-riot": "^0.1.7",
+    "husky": "^0.14.3",
     "less": "^3.0.1",
+    "lint-staged": "^7.1.0",
     "npm-run-all": "^4.1.2",
-    "parcel-bundler": "^1.7.1",
+    "parcel-bundler": "^1.8.1",
+    "prettier": "^1.12.1",
     "rimraf": "^2.6.2",
     "snazzy": "^7.1.1",
     "standard": "^10.0.3"
@@ -48,7 +52,7 @@
     "yargs": "^11.0.0"
   },
   "peerDependencies": {
-    "parcel-bundler": ">=1.6.2 <2"
+    "parcel-bundler": ">=1.8.1 <2"
   },
   "standard": {
     "globals": [
@@ -59,5 +63,16 @@
     "plugins": [
       "riot"
     ]
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier --write",
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   }
 }

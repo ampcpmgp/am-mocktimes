@@ -1,12 +1,4 @@
 export default {
-  PATTERN: [
-    'url',
-    'description',
-    'switch',
-    'func',
-    'funcs'
-  ],
-  MOCK: [
-    'action'
-  ]
+  PATTERN: ['url', 'description', 'switch', 'func', 'funcs'],
+  MOCK: ['action']
 }

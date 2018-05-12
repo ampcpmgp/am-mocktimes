@@ -8,7 +8,7 @@ const locations = {
   Z: ['Capsule Corporation', 'Yahhoi', 'Cell Game']
 }
 
-window.setLocation = async (location) => {
+window.setLocation = async location => {
   const message = `This is ${location}`
   window.catSaysLocation.src = ''
   window.catSaysLocation.src = `https://cataas.com/cat/says/${message}`
@@ -24,17 +24,18 @@ window.setLocation = async (location) => {
   }
 }
 
-const setPlan = async (planName) => {
+const setPlan = async planName => {
   await sleep(1400)
   window.planName.textContent = planName
-  window.locationBox.innerHTML =
-    locations[planName].reduce((html, location) =>
-    `${html}
+  window.locationBox.innerHTML = locations[planName].reduce(
+    (html, location) =>
+      `${html}
       <section>
         <span class='location' onclick='setLocation("${location}")'>${location}</span>
         <span class='statistics'></span>
       </section>`,
-    '')
+    ''
+  )
 }
 
 window.displayStatistics = () => {

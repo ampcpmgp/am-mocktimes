@@ -1,4 +1,9 @@
 import riot from 'riot'
+import './parts/question.tag'
+import './parts/header.tag'
+import './parts/help.tag'
+import './parts/iframe-mock.tag'
+import './parts/mockbox.tag'
 
 <app-root>
   <parts-header></parts-header>
@@ -8,11 +13,6 @@ import riot from 'riot'
   <script>
     import { observe } from 'dob'
     import route from 'riot-route'
-    import './parts/question'
-    import './parts/header'
-    import './parts/help'
-    import './parts/iframe-mock'
-    import './parts/mockbox'
     import state from '../state'
     import * as Actions from '../actions'
 

@@ -1,9 +1,7 @@
 const Const = require('./const')
-const {
-  PATTERN_JS
-} = Const
+const { PATTERN_JS } = Const
 
-module.exports = (mockPath) => {
+module.exports = mockPath => {
   return `<!doctype html>
 <html lang="en">
   <head>

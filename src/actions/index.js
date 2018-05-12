@@ -1,6 +1,4 @@
-import {
-  Action
-} from 'dob'
+import { Action } from 'dob'
 import state from '../state'
 import {
   getInitialPath,
@@ -10,13 +8,11 @@ import {
   getMockUrl
 } from '../utils/pattern'
 
-const {
-  mock
-} = state
+const { mock } = state
 
-export const getParentMdAction = (mdAction) => {
+export const getParentMdAction = mdAction => {
   let parentAction
-  handleMdActionRecursively(state.mock.mdAction, (currentMdAction) => {
+  handleMdActionRecursively(state.mock.mdAction, currentMdAction => {
     currentMdAction.mdActions.forEach(currentChildMdAction => {
       if (mdAction === currentChildMdAction) parentAction = currentMdAction
     })
@@ -37,26 +33,29 @@ export const handleMdActionRecursively = (mdAction, handler) => {
   })
 }
 
-export const openAll = () => Action(() => {
-  handleMdActionRecursively(state.mock.mdAction, mdAction => {
-    mdAction.isOpen = true
+export const openAll = () =>
+  Action(() => {
+    handleMdActionRecursively(state.mock.mdAction, mdAction => {
+      mdAction.isOpen = true
+    })
   })
-})
 
-export const closeAll = () => Action(() => {
-  handleMdActionRecursively(state.mock.mdAction, mdAction => {
-    if (mdAction.level !== 0) mdAction.isOpen = false
+export const closeAll = () =>
+  Action(() => {
+    handleMdActionRecursively(state.mock.mdAction, mdAction => {
+      if (mdAction.level !== 0) mdAction.isOpen = false
+    })
   })
-})
 
-export const closeByLevel = (level) => Action(() => {
-  handleMdActionRecursively(state.mock.mdAction, mdAction => {
-    if (mdAction.level === level) mdAction.isOpen = false
-    else mdAction.isOpen = true
+export const closeByLevel = level =>
+  Action(() => {
+    handleMdActionRecursively(state.mock.mdAction, mdAction => {
+      if (mdAction.level === level) mdAction.isOpen = false
+      else mdAction.isOpen = true
+    })
   })
-})
 
-export const setMockUrl = (mdAction) => {
+export const setMockUrl = mdAction => {
   mdAction.mockUrl = getMockUrl(mdAction.url, mdAction.mockTimesActions)
 }
 
@@ -83,7 +82,10 @@ export const setMocktimesAction = (mdAction, parentMocktimesActions) => {
     : currentMocktimesActions
 }
 
-export const setSwitchNameRecursively = (currentMdAction, parentMocktimesActions) => {
+export const setSwitchNameRecursively = (
+  currentMdAction,
+  parentMocktimesActions
+) => {
   setMocktimesAction(currentMdAction, parentMocktimesActions)
   setMockUrl(currentMdAction)
 
@@ -92,12 +94,13 @@ export const setSwitchNameRecursively = (currentMdAction, parentMocktimesActions
   })
 }
 
-export const setSelectedSwitchName = (mdAction, selectedSwitchName) => Action(() => {
-  mdAction.selectedSwitchName = selectedSwitchName
-  const parentMdAction = getParentMdAction(mdAction)
+export const setSelectedSwitchName = (mdAction, selectedSwitchName) =>
+  Action(() => {
+    mdAction.selectedSwitchName = selectedSwitchName
+    const parentMdAction = getParentMdAction(mdAction)
 
-  setSwitchNameRecursively(mdAction, parentMdAction.mockTimesActions)
-})
+    setSwitchNameRecursively(mdAction, parentMdAction.mockTimesActions)
+  })
 
 export const openActionBox = mdAction => {
   mdAction.isOpen = true
@@ -112,19 +115,15 @@ export const toggleActionBox = mdAction => {
 }
 
 export const setRecursivelyMdAction = ({
-    name,
-    url,
-    mdAction,
-    pattern,
-    selectedSwitchName,
-    mockTimesActions = [],
-    level = 0
-  }) => {
-  const {
-    description,
-    func,
-    funcs
-  } = getPatternInfo(pattern)
+  name,
+  url,
+  mdAction,
+  pattern,
+  selectedSwitchName,
+  mockTimesActions = [],
+  level = 0
+}) => {
+  const { description, func, funcs } = getPatternInfo(pattern)
 
   const levelName = `level-${level}`
 
@@ -172,17 +171,18 @@ export const setRecursivelyMdAction = ({
   })
 }
 
-export const setPattern = pattern => Action(() => {
-  state.mock.pattern = {}
-  Object.assign(state.mock.pattern, pattern)
-  setRecursivelyMdAction({
-    name: '',
-    url: pattern.url || getInitialPath(),
-    mdAction: state.mock.mdAction,
-    level: 0,
-    pattern
+export const setPattern = pattern =>
+  Action(() => {
+    state.mock.pattern = {}
+    Object.assign(state.mock.pattern, pattern)
+    setRecursivelyMdAction({
+      name: '',
+      url: pattern.url || getInitialPath(),
+      mdAction: state.mock.mdAction,
+      level: 0,
+      pattern
+    })
   })
-})
 
 export const openHelp = () => {
   state.help.isOpen = true

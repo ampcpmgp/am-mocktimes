@@ -9,9 +9,18 @@ if (module.hot) {
 }
 `
 
-module.exports = (outputDir, configFile, appFilePath, scriptSrc, mockReload = true) => {
+module.exports = (
+  outputDir,
+  configFile,
+  appFilePath,
+  scriptSrc,
+  mockReload
+) => {
   const configFilePath = path.relative(outputDir, configFile)
-  const productionFilePath = path.relative(outputDir, path.join(appFilePath, scriptSrc))
+  const productionFilePath = path.relative(
+    outputDir,
+    path.join(appFilePath, scriptSrc)
+  )
 
   return `import 'babel-polyfill'
 import '${normalize(configFilePath)}'
