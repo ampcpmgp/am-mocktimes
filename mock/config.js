@@ -13,6 +13,7 @@ const mockAction = {
     Actions.setSelectedSwitchName(mdAction, mdAction.switchs[1].name)
   },
   async openHelp () {
+    Actions.setPattern({ url: pattern.url })
     await sleep(1000)
     console.log('openHelp')
     const el = document.querySelector('parts-header > .question')
@@ -34,7 +35,8 @@ const mockAction = {
     Actions.openActionBox(state.mock.mdAction.mdActions[0].mdActions[0])
   },
   openFirstLink3level () {
-    const mockUrl = state.mock.mdAction.mdActions[0].mdActions[0].mdActions[0].mockUrl
+    const mockUrl =
+      state.mock.mdAction.mdActions[0].mdActions[0].mdActions[0].mockUrl
     Actions.setCurrentUrl(mockUrl)
   },
   openFirst () {
