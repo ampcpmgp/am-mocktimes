@@ -1,8 +1,8 @@
-import {getActions} from './utils/pattern'
+import { getActions } from './utils/pattern'
 
 const actions = getActions()
 
-export default async (mockAction) => {
+export default async mockAction => {
   for (const action of actions) {
     const [actionName, ...args] = action
     let actionFunc
