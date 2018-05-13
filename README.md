@@ -40,12 +40,12 @@ src/
   app.js
 ```
 
-作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になります。  
+作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になり、   
+http://localhost:1234/pattern.html からアクセスできます。
 
 ```shell
 npx am-mocktimes watch
 # 出力パスは、デフォルトで `.am-mocktimes`に設定されていて、`.gitignore` に追加することを推奨します
-# ビルド終了後、 `localhost:1234/.am-mocktimes/pattern.html` からアクセスできます。
 # ParcelのHMRがうまく動かない場合、 `-r` オプションで、リロードに変更できます。
 ```
 
