@@ -46,8 +46,10 @@ http://localhost:1234/pattern.html からアクセスできます。
 ```shell
 npx am-mocktimes watch
 # 出力パスは、デフォルトで `.am-mocktimes`に設定されていて、`.gitignore` に追加することを推奨します
-# ParcelのHMRがうまく動かない場合、 `-r` オプションで、リロードに変更できます。
 ```
+
+*※ --sub-modules を指定した場合は、ディレクトリ構造が変わるため http://localhost:1234/.am-mocktimes/pattern.html からアクセスできます*
+
 
 また、ビルドのみの実行も可能です。
 ```shell
