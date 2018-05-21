@@ -9,6 +9,7 @@ const locations = {
 }
 
 window.setLocation = async location => {
+  console.log('setLocation')
   const message = `This is ${location}`
   window.catSaysLocation.src = ''
   window.catSaysLocation.src = `https://cataas.com/cat/says/${message}`
@@ -25,6 +26,7 @@ window.setLocation = async location => {
 }
 
 const setPlan = async planName => {
+  console.log('setPlan')
   await sleep(1400)
   window.planName.textContent = planName
   window.locationBox.innerHTML = locations[planName].reduce(

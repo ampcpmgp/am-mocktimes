@@ -20,6 +20,9 @@ export default async mockAction => {
       continue
     }
 
-    await actionFunc(...args)
+    const result = actionFunc(...args)
+    if (result && result.then) {
+      await result
+    }
   }
 }
