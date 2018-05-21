@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+const ip = require('ip')
+const opn = require('opn')
+const rimraf = require('rimraf')
 const fs = require('fs-extra')
 const path = require('path')
 const chokidar = require('chokidar')
@@ -206,6 +209,7 @@ process.on('unhandledRejection', console.dir)
 const start = async () => {
   switch (command) {
     case 'watch':
+      rimraf.sync(outDir)
       await buildMocktimesFiles()
       chokidar
         .watch(UserFiles.SRC_HTML)
@@ -227,11 +231,20 @@ const start = async () => {
             MOCK_HTML
           )} ${getSubFilesPath(subFiles)} -p ${patternPort} -d ${patternOutDir}`
         )
-        parcelPattern.stdout.on('data', console.log)
+
+        parcelPattern.stdout.on('data', (...args) => {
+          console.log(...args)
+        })
         parcelPattern.stderr.on('data', console.error)
+        opn(
+          `http://${ip.address()}:${port}/${
+            subFiles.length ? `${outDir}/` : ''
+          }${PATTERN_HTML}`
+        )
       }
       break
     case 'build':
+      rimraf.sync(outDir)
       await buildMocktimesFiles()
       if (useParcel) {
         const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
