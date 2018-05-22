@@ -236,11 +236,14 @@ const start = async () => {
           console.log(...args)
         })
         parcelPattern.stderr.on('data', console.error)
-        opn(
-          `http://${ip.address()}:${port}/${
-            subFiles.length ? `${outDir}/` : ''
-          }${PATTERN_HTML}`
-        )
+
+        setTimeout(() => {
+          opn(
+            `http://${ip.address()}:${port}/${
+              subFiles.length ? `${outDir}/` : ''
+            }${PATTERN_HTML}`
+          )
+        }, 3000)
       }
       break
     case 'build':
