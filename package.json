@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "run-s lint build:riot",
+    "dist": "run-s build:riot",
     "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-mocktimes build -d docs --public-url https://ampcpmgp.github.io/am-mocktimes/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
     "lint": "standard --verbose | snazzy && standard src/app/**/*.tag.html --verbose | snazzy",
     "precommit": "lint-staged",
