@@ -36,6 +36,9 @@
     "snazzy": "^7.1.1",
     "standard": "^10.0.3"
   },
+  "optionalDependencies": {
+    "chromeless": "^1.5.2"
+  },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "chokidar": "^2.0.3",

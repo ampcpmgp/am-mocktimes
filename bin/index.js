@@ -16,8 +16,30 @@ const mockJs = require('./lib/mock-js')
 const outputTemplateLog = require('./lib/output-template-log')
 
 const { PATTERN_HTML, PATTERN_JS, MOCK_HTML, MOCK_JS } = require('./lib/const')
+const DEFAULT_PORT = 1234
+
+const getDefaultUrl = (port = DEFAULT_PORT, subFiles = null) =>
+  `http://${ip.address()}:${port}/${
+    subFiles && subFiles.length ? `${outDir}/` : ''
+  }${PATTERN_HTML}`
 
 const argv = require('yargs')
+  .command(
+    'screen-shot',
+    'Capture all mock pages. Make sure to access the mock page.',
+  {
+    url: {
+      alias: 'u',
+      describe: "Set port for am-mocktimes's pattern list server.",
+      default: getDefaultUrl()
+    },
+    'out-dir': {
+      alias: 'd',
+      default: 'am-mocktimes-img',
+      describe: 'Set output directory for mock images.'
+    }
+  }
+  )
   .command('watch', 'Watch and output pattern & mock pages.')
   .command('build', 'Output pattern & mock pages.')
   .command(
@@ -26,7 +48,7 @@ const argv = require('yargs')
   )
   .option('p', {
     alias: 'port',
-    default: 1234,
+    default: DEFAULT_PORT,
     describe: "Set port for am-mocktimes's pattern list server.",
     type: 'number'
   })
@@ -41,27 +63,27 @@ const argv = require('yargs')
     describe: 'Set location of js file with mock action is defined.',
     type: 'string'
   })
-  .option('a', {
-    alias: 'app',
+  .option('app', {
+    alias: 'a',
     default: 'src/index.html',
     describe: 'Set product html file.',
     type: 'string'
   })
-  .option('s', {
-    alias: 'script-src',
+  .option('script-src', {
+    alias: 's',
     default: 'app.js',
     describe: 'Set main script src in product html file.',
     type: 'string'
   })
-  .option('ss', {
-    alias: 'sub-files',
+  .option('sub-files', {
+    alias: 'ss',
     default: [],
     describe:
       'Set sub html files. If you want to set multiple files, please set like this. `-ss src/demo/*.html -ss doc/*.html`',
     type: 'array'
   })
-  .option('d', {
-    alias: 'out-dir',
+  .option('out-dir', {
+    alias: 'd',
     default: '.am-mocktimes',
     describe: 'Set output directory for am MockTimes.',
     type: 'string'
@@ -93,6 +115,7 @@ const publicUrl = argv.publicUrl
 const useParcel = argv.useParcel
 const port = argv.port
 const mockReload = argv.mockReload
+const url = argv.url
 
 const FilePath = {
   PATTERN_HTML: path.join(process.cwd(), outDir, PATTERN_HTML),
@@ -208,6 +231,32 @@ process.on('unhandledRejection', console.dir)
 
 const start = async () => {
   switch (command) {
+    case 'screen-shot':
+      ;(async () => {
+        const { Chromeless } = require('chromeless')
+
+        const chromeless = new Chromeless()
+        const { FINISHED_ATTR } = require('../src/const/dom')
+
+        const linkInfoStr = await chromeless.goto(url).evaluate(() => {
+          const linkInfo = Array.from(
+            document.querySelectorAll(`[data-mock-links]`)
+          ).map(elm => ({ href: elm.href }))
+          return JSON.stringify(linkInfo)
+        })
+        const linkInfo = JSON.parse(linkInfoStr)
+
+        let i = 0
+        for (const linkInfoItem of linkInfo) {
+          await chromeless
+            .goto(linkInfoItem.href)
+            .wait(`[${FINISHED_ATTR}]`)
+            .screenshot({ path: ++i + '.png' })
+        }
+
+        await chromeless.end()
+      })()
+      return
     case 'watch':
       rimraf.sync(outDir)
       await buildMocktimesFiles()
@@ -225,24 +274,20 @@ const start = async () => {
         await generatePatternHtml()
 
         const patternOutDir = path.join(outDir, 'dev-pattern')
-        const parcelPattern = exec(
+        const parcelJob = exec(
           `npx parcel ${path.join(outDir, PATTERN_HTML)} ${path.join(
             outDir,
             MOCK_HTML
           )} ${getSubFilesPath(subFiles)} -p ${patternPort} -d ${patternOutDir}`
         )
 
-        parcelPattern.stdout.on('data', (...args) => {
+        parcelJob.stdout.on('data', (...args) => {
           console.log(...args)
         })
-        parcelPattern.stderr.on('data', console.error)
+        parcelJob.stderr.on('data', console.error)
 
         setTimeout(() => {
-          opn(
-            `http://${ip.address()}:${port}/${
-              subFiles.length ? `${outDir}/` : ''
-            }${PATTERN_HTML}`
-          )
+          opn(getDefaultUrl(port, subFiles))
         }, 3000)
       }
       break
@@ -251,16 +296,16 @@ const start = async () => {
       await buildMocktimesFiles()
       if (useParcel) {
         const publicUrlArg = publicUrl ? `--public-url ${publicUrl}` : ''
-        const parcelPattern = exec(
-          `npx parcel build ${path.join(outDir, MOCK_HTML)} ${path.join(
-            outDir,
-            PATTERN_HTML
-          )} ${getSubFilesPath(subFiles)} -d ${path.join(
-            outDir
-          )} ${publicUrlArg}`
-        )
-        parcelPattern.stdout.on('data', console.log)
-        parcelPattern.stderr.on('data', console.error)
+        const patternHtmlPath = path.join(outDir, PATTERN_HTML)
+        const parcelJobStr = `npx parcel build ${path.join(
+          outDir,
+          MOCK_HTML
+        )} ${patternHtmlPath} ${getSubFilesPath(subFiles)} -d ${path.join(
+          outDir
+        )} ${publicUrlArg}`
+        const parcelJob = exec(parcelJobStr)
+        parcelJob.stdout.on('data', console.log)
+        parcelJob.stderr.on('data', console.error)
       }
       break
     case 'generate-template':
