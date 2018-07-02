@@ -30,7 +30,7 @@ const argv = require('yargs')
   {
     url: {
       alias: 'u',
-      describe: "Set port for am-mocktimes's pattern list server.",
+      describe: "Set port for am-mocktimes's pattern url.",
       default: getDefaultUrl()
     },
     'out-dir': {
