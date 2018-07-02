@@ -25,7 +25,7 @@ const getDefaultUrl = (port = DEFAULT_PORT, subFiles = null) =>
 
 const argv = require('yargs')
   .command(
-    'screen-shot',
+    'screenshot',
     'Capture all mock pages. Make sure to access the mock page.',
   {
     url: {
@@ -231,7 +231,7 @@ process.on('unhandledRejection', console.dir)
 
 const start = async () => {
   switch (command) {
-    case 'screen-shot':
+    case 'screenshot':
       const { Chromeless } = require('chromeless')
       const filenamify = require('filenamify')
 
