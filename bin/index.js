@@ -232,35 +232,34 @@ process.on('unhandledRejection', console.dir)
 const start = async () => {
   switch (command) {
     case 'screen-shot':
-      ;(async () => {
-        const { Chromeless } = require('chromeless')
+      const { Chromeless } = require('chromeless')
 
-        const chromeless = new Chromeless()
-        const { FINISHED_ATTR } = require('../src/const/dom')
+      const chromeless = new Chromeless()
+      const { FINISHED_ATTR } = require('../src/const/dom')
 
-        const linkInfoStr = await chromeless.goto(url).evaluate(() => {
-          const linkInfo = Array.from(
-            document.querySelectorAll(`[data-mock-links]`)
-          ).map(elm => ({ href: elm.href }))
-          return JSON.stringify(linkInfo)
-        })
-        const linkInfo = JSON.parse(linkInfoStr)
+      const linkInfoStr = await chromeless.goto(url).evaluate(() => {
+        // this will be executed in Chrome
+        const linkInfo = Array.from(
+          document.querySelectorAll(`[data-mock-links]`)
+        ).map(elm => ({ href: elm.href }))
+        return JSON.stringify(linkInfo)
+      })
+      const linkInfo = JSON.parse(linkInfoStr)
 
-        const imgDir = path.join(process.cwd(), outDir)
-        await fs.ensureDir(imgDir)
+      const imgDir = path.join(process.cwd(), outDir)
+      await fs.ensureDir(imgDir)
 
-        let i = 0
-        for (const linkInfoItem of linkInfo) {
-          await chromeless
-            .goto(linkInfoItem.href)
-            .wait(`[${FINISHED_ATTR}]`)
-            .screenshot({
-              filePath: path.join(process.cwd(), outDir, `${++i}.png`)
-            })
-        }
+      let i = 0
+      for (const linkInfoItem of linkInfo) {
+        await chromeless
+          .goto(linkInfoItem.href)
+          .wait(`[${FINISHED_ATTR}]`)
+          .screenshot({
+            filePath: path.join(process.cwd(), outDir, `${++i}.png`)
+          })
+      }
 
-        await chromeless.end()
-      })()
+      await chromeless.end()
       return
     case 'watch':
       rimraf.sync(outDir)
