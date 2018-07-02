@@ -254,7 +254,6 @@ const start = async () => {
       await fs.ensureDir(imgDir)
 
       for (const linkInfoItem of linkInfo) {
-        console.log(filenamify(`${linkInfoItem.name}.png`))
         await chromeless
           .goto(linkInfoItem.href)
           .wait(`[${FINISHED_ATTR}]`)
