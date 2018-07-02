@@ -27,6 +27,7 @@ import './icons/open-close.tag'
     <a href={opts.mdAction.mockUrl}
     onclick={openIframe}
     data-mock-links
+    data-name-tree={opts.mdAction.nameTree}
     class={executed: opts.mdAction.mockUrl === lastExecutedUrl}>
       {opts.mdAction.name}
     </a>
