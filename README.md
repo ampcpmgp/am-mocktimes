@@ -158,7 +158,7 @@ chromlessを内部で使っているため、chromeが入っている環境が�
 
 ```shell
 npx am-mocktimes watch # サーバーを起動しておく
-npx am-mocktimes screen-shot
+npx am-mocktimes screenshot
 ```
 
 ※optionで、サーバーURLや出力フォルダを指定できます。
