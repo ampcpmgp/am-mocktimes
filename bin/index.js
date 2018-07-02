@@ -234,7 +234,6 @@ const start = async () => {
     case 'screenshot':
       const { Chromeless } = require('chromeless')
       const filenamify = require('filenamify')
-
       const chromeless = new Chromeless()
       const { FINISHED_ATTR } = require('../src/const/dom')
 
@@ -251,6 +250,7 @@ const start = async () => {
       const linkInfo = JSON.parse(linkInfoStr)
 
       const imgDir = path.join(process.cwd(), outDir)
+      rimraf.sync(imgDir)
       await fs.ensureDir(imgDir)
 
       for (const linkInfoItem of linkInfo) {
