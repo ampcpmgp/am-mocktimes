@@ -1,4 +1,5 @@
 import { getActions } from './utils/pattern'
+import { FINISHED_ATTR } from './const/dom'
 
 const actions = getActions()
 
@@ -25,4 +26,12 @@ export default async mockAction => {
       await result
     }
   }
+
+  let finishedElm = document.querySelector(`[${FINISHED_ATTR}]`)
+  if (finishedElm) finishedElm.remove()
+
+  finishedElm = document.createElement('span')
+  finishedElm.setAttribute(FINISHED_ATTR, '')
+  finishedElm.style.display = 'none'
+  document.body.append(finishedElm)
 }

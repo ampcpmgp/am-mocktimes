@@ -15,17 +15,17 @@
 | --- | --- | --- |
 | >= 8.9 | >= 9.6 | >= 5.6 |
 
-※モック一覧ページはIE11非対応なので、  
+※モック一覧ページはIE11非対応なので、
 直接Webアプリのモックページでご確認ください。
 
 # start with parcel
-以下をインストール。  
+以下をインストール。
 
 ```
 npm i am-mocktimes parcel-bundler -D
 ```
 
-以下のファイル構造で用意します。  
+以下のファイル構造で用意します。
  ( `npx am-mocktimes generate-template` でも作成可能です。)
 
 ```shell
@@ -40,7 +40,7 @@ src/
   app.js
 ```
 
-作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になり、   
+作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になり、
 http://localhost:1234/pattern.html からアクセスできます。
 
 ```shell
@@ -59,7 +59,7 @@ npx am-mocktimes build
 オプションの詳しい内容は `npx am-mocktimes help` でご覧くださいm(__)m
 
 ## config mock/pattern.yml
-モック一覧の表示・設定に利用します。  
+モック一覧の表示・設定に利用します。
 
 以下が設定例です。
 ```yaml
@@ -80,33 +80,33 @@ plan Z:
 ### reserved property
 
 #### func: Array
-配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。  
-これを指定することで、固有のURLが作られ、後述する[action](#config-mockconfigjs)を呼び出すトリガーになります。  
-関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  
+配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。
+これを指定することで、固有のURLが作られ、後述する[action](#config-mockconfigjs)を呼び出すトリガーになります。
+関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。
 [action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
 
 
 #### funcs: Array[func, func, ...]
-`func` を複数定義できます。  
+`func` を複数定義できます。
 funcと同様、省略可能です。
 
 #### switch: Object
-スイッチボタンによる、モック切り替えが可能です。  
+スイッチボタンによる、モック切り替えが可能です。
 switch配下の設定も他と同様で、新しく何かを覚える必要がありません。
 
 #### description: String
-モック一覧の、横に表示するもの。改行ありです。yaml改行を使うと綺麗に書けます。  
+モック一覧の、横に表示するもの。改行ありです。yaml改行を使うと綺麗に書けます。
 
 #### url: String
-別URLに切り替えたいときは、このpropertyを設定します。  
-設定したobject配下に、適用されます。  
+別URLに切り替えたいときは、このpropertyを設定します。
+設定したobject配下に、適用されます。
 
 
 ### action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
 ## config mock/config.js
-モックページで呼び出される、アクションを定義します。  
+モックページで呼び出される、アクションを定義します。
 
 以下が設定例です。
 ```js
@@ -132,26 +132,36 @@ const action = {
 mock(action)
 ```
 
-後述の `src/app.js` と `import` のスコープを一緒にしているため、  
+後述の `src/app.js` と `import` のスコープを一緒にしているため、
 各moduleの設定や、呼出が可能です。(`watch`時に、 `.am-mocktimes/mock.js` にて確認可能です)
 
 ### mock(action: MockAction)
-この関数を呼び出すことで、モック状態を生成します。  
+この関数を呼び出すことで、モック状態を生成します。
 
 #### MockAction
-`func`で定義した関数名を、keyで持つobjectとなります。  
-objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。    
+`func`で定義した関数名を、keyで持つobjectとなります。
+objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。
 
 
 ## config src/index.html
-こちらは、アプリケーション本体を配置します。  
+こちらは、アプリケーション本体を配置します。
 [parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
 
 
 
 ## config src/app.js
-上記ファイルから利用される、アプリケーション本体のjsとなります。  
+上記ファイルから利用される、アプリケーション本体のjsとなります。
 
+# screen shot
+各モックページのスクリーンショットを保存します。
+chromlessを内部で使っているため、chromeが入っている環境が必要です。
+
+```shell
+npx am-mocktimes watch # サーバーを起動しておく
+npx am-mocktimes screen-shot
+```
+
+※optionで、サーバーURLや出力フォルダを指定できます。
 
 
 # start with others
