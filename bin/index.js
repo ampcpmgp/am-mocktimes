@@ -233,6 +233,7 @@ const start = async () => {
   switch (command) {
     case 'screen-shot':
       const { Chromeless } = require('chromeless')
+      const filenamify = require('filenamify')
 
       const chromeless = new Chromeless()
       const { FINISHED_ATTR } = require('../src/const/dom')
@@ -241,7 +242,10 @@ const start = async () => {
         // this will be executed in Chrome
         const linkInfo = Array.from(
           document.querySelectorAll(`[data-mock-links]`)
-        ).map(elm => ({ href: elm.href }))
+        ).map(elm => ({
+          href: elm.href,
+          name: elm.getAttribute('data-name-tree')
+        }))
         return JSON.stringify(linkInfo)
       })
       const linkInfo = JSON.parse(linkInfoStr)
@@ -249,13 +253,17 @@ const start = async () => {
       const imgDir = path.join(process.cwd(), outDir)
       await fs.ensureDir(imgDir)
 
-      let i = 0
       for (const linkInfoItem of linkInfo) {
+        console.log(filenamify(`${linkInfoItem.name}.png`))
         await chromeless
           .goto(linkInfoItem.href)
           .wait(`[${FINISHED_ATTR}]`)
           .screenshot({
-            filePath: path.join(process.cwd(), outDir, `${++i}.png`)
+            filePath: path.join(
+              process.cwd(),
+              outDir,
+              filenamify(`${linkInfoItem.name}.png`)
+            )
           })
       }
 

@@ -116,6 +116,7 @@ export const toggleActionBox = mdAction => {
 
 export const setRecursivelyMdAction = ({
   name,
+  nameTree,
   url,
   mdAction,
   pattern,
@@ -137,6 +138,7 @@ export const setRecursivelyMdAction = ({
     level,
     levelName,
     name,
+    nameTree,
     mdActions: []
   })
 
@@ -157,11 +159,12 @@ export const setRecursivelyMdAction = ({
 
   getActionKeys(pattern).forEach(mdActionKey => {
     const currentPattern = pattern[mdActionKey]
-    mdAction.mdActions.push({})
-    const currentAction = mdAction.mdActions[mdAction.mdActions.length - 1]
+    const currentAction = {}
+    mdAction.mdActions.push(currentAction)
 
     setRecursivelyMdAction({
       name: mdActionKey,
+      nameTree: nameTree ? nameTree + '/' + mdActionKey : mdActionKey,
       url: currentPattern.url || url,
       mdAction: currentAction,
       level: level + 1,
@@ -177,6 +180,7 @@ export const setPattern = pattern =>
     Object.assign(state.mock.pattern, pattern)
     setRecursivelyMdAction({
       name: '',
+      nameTree: '',
       url: pattern.url || getInitialPath(),
       mdAction: state.mock.mdAction,
       level: 0,
