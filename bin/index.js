@@ -35,7 +35,7 @@ const argv = require('yargs')
     },
     'out-dir': {
       alias: 'd',
-      default: 'am-mocktimes-img',
+      default: './am-mocktimes-img',
       describe: 'Set output directory for mock images.'
     }
   }
@@ -246,12 +246,17 @@ const start = async () => {
         })
         const linkInfo = JSON.parse(linkInfoStr)
 
+        const imgDir = path.join(process.cwd(), outDir)
+        await fs.ensureDir(imgDir)
+
         let i = 0
         for (const linkInfoItem of linkInfo) {
           await chromeless
             .goto(linkInfoItem.href)
             .wait(`[${FINISHED_ATTR}]`)
-            .screenshot({ path: ++i + '.png' })
+            .screenshot({
+              filePath: path.join(process.cwd(), outDir, `${++i}.png`)
+            })
         }
 
         await chromeless.end()
