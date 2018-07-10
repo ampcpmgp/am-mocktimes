@@ -291,15 +291,19 @@ const start = async () => {
             MOCK_HTML
           )} ${getSubFilesPath(subFiles)} -p ${patternPort} -d ${patternOutDir}`
         )
+        let opnFlg = false
 
         parcelJob.stdout.on('data', (...args) => {
+          if (!opnFlg) {
+            opnFlg = true
+            setTimeout(() => {
+              opn(getDefaultUrl(port, subFiles))
+            }, 3000)
+          }
+
           console.log(...args)
         })
         parcelJob.stderr.on('data', console.error)
-
-        setTimeout(() => {
-          opn(getDefaultUrl(port, subFiles))
-        }, 3000)
       }
       break
     case 'build':
