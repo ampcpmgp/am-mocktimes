@@ -28,6 +28,16 @@ const argv = require('yargs')
     'screenshot',
     'Capture all mock pages. Make sure to access the mock page.',
   {
+    width: {
+      alias: 'w',
+      describe: 'Set viewport width.',
+      default: 1440
+    },
+    height: {
+      alias: 'h',
+      describe: 'Set viewport height.',
+      default: 900
+    },
     url: {
       alias: 'u',
       describe: "Set port for am-mocktimes's pattern url.",
@@ -234,7 +244,12 @@ const start = async () => {
     case 'screenshot':
       const { Chromeless } = require('chromeless')
       const filenamify = require('filenamify')
-      const chromeless = new Chromeless()
+      const chromeless = new Chromeless({
+        viewport: {
+          width: argv.width,
+          height: argv.height
+        }
+      })
       const { FINISHED_ATTR } = require('../src/const/dom')
 
       const linkInfoStr = await chromeless.goto(url).evaluate(() => {
