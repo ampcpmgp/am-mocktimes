@@ -242,17 +242,20 @@ process.on('unhandledRejection', console.dir)
 const start = async () => {
   switch (command) {
     case 'screenshot':
-      const { Chromeless } = require('chromeless')
       const filenamify = require('filenamify')
-      const chromeless = new Chromeless({
-        viewport: {
-          width: argv.width,
-          height: argv.height
-        }
-      })
+      const puppeteer = require('puppeteer')
+      const browser = await puppeteer.launch()
+      const page = await browser.newPage()
       const { FINISHED_ATTR } = require('../src/const/dom')
 
-      const linkInfoStr = await chromeless.goto(url).evaluate(() => {
+      page.setViewport({
+        width: argv.width,
+        height: argv.height
+      })
+
+      await page.goto(url)
+
+      const linkInfoStr = await page.evaluate(() => {
         // this will be executed in Chrome
         const linkInfo = Array.from(
           document.querySelectorAll(`[data-mock-links]`)
@@ -269,19 +272,25 @@ const start = async () => {
       await fs.ensureDir(imgDir)
 
       for (const linkInfoItem of linkInfo) {
-        await chromeless
-          .goto(linkInfoItem.href)
-          .wait(`[${FINISHED_ATTR}]`)
-          .screenshot({
-            filePath: path.join(
-              process.cwd(),
-              outDir,
-              filenamify(`${linkInfoItem.name}.png`)
-            )
-          })
+        const outputError = e => {
+          console.error(linkInfoItem.name, '\n', e, '\n')
+        }
+        page.on('pageerror', outputError)
+
+        await page.goto(linkInfoItem.href)
+        await page.waitFor(`[${FINISHED_ATTR}]`)
+        await page.screenshot({
+          path: path.join(
+            process.cwd(),
+            outDir,
+            filenamify(`${linkInfoItem.name}.png`)
+          )
+        })
+
+        page.removeListener('pageerror', outputError)
       }
 
-      await chromeless.end()
+      await browser.close()
       return
     case 'watch':
       rimraf.sync(outDir)
