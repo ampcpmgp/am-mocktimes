@@ -30,16 +30,19 @@ const mockAction = {
   setFullSettings () {
     Actions.setPattern(pattern)
   },
-  openFirst2Level () {
+  async openFirst2Level () {
+    await sleep(0)
     Actions.openActionBox(state.mock.mdAction.mdActions[0])
     Actions.openActionBox(state.mock.mdAction.mdActions[0].mdActions[0])
   },
-  openFirstLink3level () {
+  async openFirstLink3level () {
+    await sleep(0)
     const mockUrl =
       state.mock.mdAction.mdActions[0].mdActions[0].mdActions[0].mockUrl
     Actions.setCurrentUrl(mockUrl)
   },
-  openFirst () {
+  async openFirst () {
+    await sleep(0)
     Actions.openActionBox(state.mock.mdAction.mdActions[0])
   }
 }
