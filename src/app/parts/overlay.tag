@@ -1,5 +1,3 @@
-import riot from 'riot'
-
 <parts-overlay>
   <style type="less">
     :scope {

@@ -1,4 +1,3 @@
-import riot from 'riot'
 import './parts/question.tag'
 import './parts/header.tag'
 import './parts/help.tag'

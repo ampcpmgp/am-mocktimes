@@ -3,4 +3,3 @@ am-mocktimes/dist
 .cache/
 .dev/
 node_modules/
-src/app/**/*.tag.js

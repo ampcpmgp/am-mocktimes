@@ -1,5 +1,3 @@
-import riot from 'riot'
-
 <parts-header>
   <svg class="logo">
     <text x="0" y="16" font-size="18" fill="white">AM: MockTimes 🔧</text>
