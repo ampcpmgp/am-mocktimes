@@ -1,4 +1,3 @@
-import riot from 'riot'
 import './icons/open-close.tag'
 
 <parts-tree-descripion>

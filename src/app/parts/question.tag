@@ -1,5 +1,3 @@
-import riot from 'riot'
-
 <parts-question xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position:absolute;overflow:hidden;">
   <defs>
     <symbol viewBox="0 0 1024 1024" aria-labelledby="fmsi-ant-question-circle-title" id="si-ant-question-circle">

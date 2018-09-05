@@ -1,4 +1,3 @@
-import riot from 'riot'
 import './tree.tag'
 
 <parts-mockbox>

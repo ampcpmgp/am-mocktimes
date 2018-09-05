@@ -3,4 +3,3 @@
 .dev/
 .git/
 mock/
-src/app/**/*.tag.html

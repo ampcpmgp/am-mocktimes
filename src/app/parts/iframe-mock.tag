@@ -1,5 +1,3 @@
-import riot from 'riot'
-
 <parts-iframe-mock>
   <iframe src={opts.dataSrc}></iframe>
   <style type="less">

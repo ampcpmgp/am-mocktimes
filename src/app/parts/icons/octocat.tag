@@ -1,5 +1,3 @@
-import riot from 'riot'
-
 <parts-icons-octocat>
   <svg
     xmlns="http://www.w3.org/2000/svg"

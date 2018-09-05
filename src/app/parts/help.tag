@@ -1,4 +1,3 @@
-import riot from 'riot'
 import './overlay.tag'
 import './icons/octocat.tag'
 
