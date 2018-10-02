@@ -2,10 +2,9 @@ const ip = require('ip')
 const fs = require('fs-extra')
 const path = require('path')
 const { PATTERN_HTML, PATTERN_JS, MOCK_HTML, MOCK_JS } = require('./const')
-const patternHtml = require('./lib/pattern-html')
-const patternJs = require('./lib/pattern-js')
-const mockJs = require('./lib/mock-js')
-const { getFilePath } = require('./lib/util')
+const patternHtml = require('./pattern-html')
+const patternJs = require('./pattern-js')
+const mockJs = require('./mock-js')
 
 exports.getUserFiles = argv => ({
   MOCK_PATTERN: argv.pattern,
@@ -14,12 +13,12 @@ exports.getUserFiles = argv => ({
   SRC_JS: path.join(argv.app, '..', argv.scriptSrc)
 })
 
-exports.getFilePath = argv => ({
+const getFilePath = (exports.getFilePath = argv => ({
   PATTERN_HTML: path.join(process.cwd(), argv.outDir, PATTERN_HTML),
   PATTERN_JS: path.join(process.cwd(), argv.outDir, PATTERN_JS),
   MOCK_HTML: path.join(process.cwd(), argv.outDir, MOCK_HTML),
   MOCK_JS: path.join(process.cwd(), argv.outDir, MOCK_JS)
-})
+}))
 
 exports.buildMocktimesFiles = async argv => {
   await generatePatternHtml(argv)

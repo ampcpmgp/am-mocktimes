@@ -40,16 +40,14 @@ module.exports = async argv => {
         argv.subFiles
       )} -p ${patternPort} -d ${patternOutDir}`
     )
-    let opnFlg = false
+
+    if (argv.open) {
+      setTimeout(() => {
+        opn(getDefaultUrl(argv))
+      }, 3000)
+    }
 
     parcelJob.stdout.on('data', (...args) => {
-      if (!opnFlg) {
-        opnFlg = true
-        setTimeout(() => {
-          opn(getDefaultUrl(argv))
-        }, 3000)
-      }
-
       console.log(...args)
     })
     parcelJob.stderr.on('data', console.error)

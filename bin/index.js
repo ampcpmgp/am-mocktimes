@@ -3,8 +3,14 @@ const { getDefaultUrl } = require('./lib/util')
 const { DEFAULT_PORT } = require('./lib/const')
 
 const buildOption = {
-  p: {
-    alias: 'port',
+  open: {
+    default: true,
+    describe:
+      'When server execute, open browser. If you do not use it, please use `--no-open` or `--open false`.',
+    type: 'boolean'
+  },
+  port: {
+    alias: 'p',
     default: DEFAULT_PORT,
     describe: "Set port for am-mocktimes's pattern list server.",
     type: 'number'
@@ -55,8 +61,8 @@ const buildOption = {
     describe: 'Use parcel.',
     type: 'boolean'
   },
-  r: {
-    alias: 'mock-reload',
+  'mock-reload': {
+    alias: 'r',
     default: false,
     describe: 'Mock html reload when hot module replacement.',
     type: 'boolean'
@@ -101,23 +107,19 @@ const argv = require('yargs')
 
 const [command] = argv._
 
-const start = async () => {
-  switch (command) {
-    case 'screenshot':
-      require('./screenshot')(argv)
-      return
-    case 'watch':
-      require('./watch')(argv)
-      return
-    case 'build':
-      require('./build')(argv)
-      return
-    case 'generate-template':
-      require('./generate-template')(argv)
-      return
-    default:
-      throw new Error(`command not find: '${command}'`)
-  }
+switch (command) {
+  case 'screenshot':
+    require('./screenshot')(argv)
+    break
+  case 'watch':
+    require('./watch')(argv)
+    break
+  case 'build':
+    require('./build')(argv)
+    break
+  case 'generate-template':
+    require('./generate-template')(argv)
+    break
+  default:
+    throw new Error(`command not find: '${command}'`)
 }
-
-start()
