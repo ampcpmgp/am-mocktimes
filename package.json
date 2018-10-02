@@ -9,16 +9,16 @@
   },
   "scripts": {
     "test": "kocha bin/test/*.js --timeout 60000",
-    "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && am-mocktimes build -d docs --public-url https://ampcpmgp.github.io/am-mocktimes/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
+    "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && node ./bin build -d docs --public-url https://ampcpmgp.github.io/am-mocktimes/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
     "lint": "standard --verbose | snazzy",
     "precommit": "lint-staged",
-    "start": "am-mocktimes watch -a mock/index.html --ss mock/sample-app/index.html",
-    "screenshot": "am-mocktimes screenshot --url http://localhost:1234/.am-mocktimes/pattern.html"
+    "start": "node ./bin watch -a mock/index.html --ss mock/sample-app/index.html",
+    "screenshot": "node ./bin screenshot --url http://localhost:1234/.am-mocktimes/pattern.html"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "am-mocktimes": "1.3.1",
+    "am-mocktimes": "^1.6.2",
     "cross-env": "^5.1.5",
     "eslint-plugin-riot": "^0.1.7",
     "husky": "^0.14.3",
