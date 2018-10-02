@@ -7,7 +7,7 @@ const { exec } = require('child_process')
 
 const execAsync = util.promisify(exec)
 
-describe('watch & screenshot', () => {
+describe('screenshot', () => {
   it('画像フォルダ内が空っぽになり、新規画像が撮られていること', async () => {
     const waitServer = new Promise((resolve, reject) => {
       waitOn(
