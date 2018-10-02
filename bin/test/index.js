@@ -39,17 +39,13 @@ describe('watch & screenshot', () => {
     // 画像削除の確認
     const checkIfImgFilesRemoved = () => {
       const intervalId = setInterval(async () => {
-        try {
-          const files = await fs.readdir(imgDir)
-          const isEmpty = files.length === 0
+        const files = await fs.readdir(imgDir)
+        const isEmpty = files.length === 0
 
-          if (isEmpty) {
-            isRemovedImgFiles = true
-            clearInterval(intervalId)
-            checkIfImgFilesExists()
-          }
-        } catch (error) {
-          // do nothing
+        if (isEmpty) {
+          isRemovedImgFiles = true
+          clearInterval(intervalId)
+          checkIfImgFilesExists()
         }
       }, 100)
     }
