@@ -280,10 +280,12 @@ const start = async () => {
         await page.goto(linkInfoItem.href)
         await page.waitFor(`[${FINISHED_ATTR}]`)
         await page.screenshot({
+          type: 'jpeg',
+          quality: 80,
           path: path.join(
             process.cwd(),
             outDir,
-            filenamify(`${linkInfoItem.name}.png`)
+            filenamify(`${linkInfoItem.name}.jpg`)
           )
         })
 
