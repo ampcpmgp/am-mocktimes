@@ -16,6 +16,16 @@ module.exports = async argv => {
 
   await page.goto(argv.url)
 
+  const imgDir = path.join(process.cwd(), argv.outDir)
+
+  await fs.ensureDir(imgDir)
+
+  if (argv.pattern) {
+    rimraf.sync(`${imgDir}/*${argv.pattern}*`)
+  } else {
+    rimraf.sync(`${imgDir}/*`)
+  }
+
   const linkInfoStr = await page.evaluate(() => {
     // this will be executed in Chrome
     const linkInfo = Array.from(
@@ -26,13 +36,16 @@ module.exports = async argv => {
     }))
     return JSON.stringify(linkInfo)
   })
+
   const linkInfo = JSON.parse(linkInfoStr)
 
-  const imgDir = path.join(process.cwd(), argv.outDir)
-  rimraf.sync(imgDir)
-  await fs.ensureDir(imgDir)
-
   for (const linkInfoItem of linkInfo) {
+    const fileName = filenamify(`${linkInfoItem.name}`)
+
+    if (argv.pattern && fileName.indexOf(argv.pattern) === -1) {
+      continue
+    }
+
     const outputError = e => {
       console.error(linkInfoItem.name, '\n', e, '\n')
     }
@@ -43,11 +56,7 @@ module.exports = async argv => {
     await page.screenshot({
       type: 'jpeg',
       quality: 80,
-      path: path.join(
-        process.cwd(),
-        argv.outDir,
-        filenamify(`${linkInfoItem.name}.jpg`)
-      )
+      path: path.join(process.cwd(), argv.outDir, `${fileName}.jpg`)
     })
 
     page.removeListener('pageerror', outputError)
