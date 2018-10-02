@@ -2,6 +2,7 @@
 const { getDefaultUrl } = require('./lib/util')
 const { DEFAULT_PORT } = require('./lib/const')
 
+// optionを共通化してしまっているので、ビルドごとに必要なものだけを定義する。
 const buildOption = {
   open: {
     default: true,
@@ -102,7 +103,8 @@ const argv = require('yargs')
   .command('build', 'Output pattern & mock pages.', buildOption)
   .command(
     'generate-template',
-    'Generate page files. Mock and application sources.'
+    'Generate page files. Mock and application sources.',
+    buildOption
   ).argv
 
 const [command] = argv._
