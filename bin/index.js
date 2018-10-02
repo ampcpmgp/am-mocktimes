@@ -75,22 +75,32 @@ const argv = require('yargs')
     'screenshot',
     'Capture all mock pages. Make sure to access the mock page.',
   {
+    pattern: {
+      alias: 'p',
+      describe:
+          'Filter patter name. Specify the same as file name. eg: `pattern1!pattern2!pattern3`',
+      default: '',
+      type: 'string'
+    },
     width: {
       alias: 'w',
       describe: 'Set viewport width.',
-      default: 1440
+      default: 1440,
+      type: 'number'
     },
     height: {
       alias: 'h',
       describe: 'Set viewport height.',
-      default: 900
+      default: 900,
+      type: 'number'
     },
     url: {
       alias: 'u',
       describe: "Set port for am-mocktimes's pattern url.",
       default: getDefaultUrl({
         port: DEFAULT_PORT
-      })
+      }),
+      type: 'string'
     },
     'out-dir': {
       alias: 'd',

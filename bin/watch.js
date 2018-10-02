@@ -44,7 +44,7 @@ module.exports = async argv => {
     if (argv.open) {
       setTimeout(() => {
         opn(getDefaultUrl(argv))
-      }, 3000)
+      }, 5000)
     }
 
     parcelJob.stdout.on('data', (...args) => {
