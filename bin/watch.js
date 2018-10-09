@@ -41,9 +41,12 @@ module.exports = async argv => {
       )} -p ${patternPort} -d ${patternOutDir} ${argv.https ? '--https' : ''}`
     )
 
+    let isOpened = false
+
     parcelJob.stdout.on('data', (...args) => {
-      if (argv.open && args[0].indexOf('√  Built in') > -1) {
+      if (!isOpened && argv.open && args[0].indexOf('√  Built in') > -1) {
         opn(getDefaultUrl(argv))
+        isOpened = true
       }
 
       console.log(...args)
