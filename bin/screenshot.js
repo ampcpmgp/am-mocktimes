@@ -16,7 +16,12 @@ module.exports = async argv => {
     height: argv.height
   })
 
-  await page.goto(argv.url)
+  try {
+    await page.goto(argv.url)
+  } catch (error) {
+    console.error('ERROR', `${argv.url} - not connected.`)
+    process.exit()
+  }
 
   const imgDir = path.join(process.cwd(), argv.outDir)
 
