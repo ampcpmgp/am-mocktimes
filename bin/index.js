@@ -4,6 +4,11 @@ const { DEFAULT_PORT } = require('./lib/const')
 
 // optionを共通化してしまっているので、ビルドごとに必要なものだけを定義する。
 const buildOption = {
+  https: {
+    default: false,
+    describe: 'listen on HTTPS for HMR connections',
+    type: 'boolean'
+  },
   open: {
     default: true,
     describe:

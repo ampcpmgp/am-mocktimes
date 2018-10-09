@@ -104,6 +104,6 @@ exports.getSubFilesPath = subFiles => {
 }
 
 exports.getDefaultUrl = argv =>
-  `http://${ip.address()}:${argv.port}/${
+  `${argv.https ? 'https' : 'http'}://${ip.address()}:${argv.port}/${
     argv.subFiles && argv.subFiles.length ? `${argv.outDir}/` : ''
   }${PATTERN_HTML}`

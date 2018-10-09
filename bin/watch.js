@@ -38,7 +38,7 @@ module.exports = async argv => {
         MOCK_HTML
       )} ${getSubFilesPath(
         argv.subFiles
-      )} -p ${patternPort} -d ${patternOutDir}`
+      )} -p ${patternPort} -d ${patternOutDir} ${argv.https ? '--https' : ''}`
     )
 
     if (argv.open) {
