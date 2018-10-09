@@ -5,7 +5,9 @@ const path = require('path')
 module.exports = async argv => {
   const filenamify = require('filenamify')
   const puppeteer = require('puppeteer')
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    ignoreHTTPSErrors: true
+  })
   const page = await browser.newPage()
   const { FINISHED_ATTR } = require('../src/const/dom')
 
@@ -14,7 +16,12 @@ module.exports = async argv => {
     height: argv.height
   })
 
-  await page.goto(argv.url)
+  try {
+    await page.goto(argv.url)
+  } catch (error) {
+    console.error('ERROR', `${argv.url} - not connected.`)
+    process.exit()
+  }
 
   const imgDir = path.join(process.cwd(), argv.outDir)
 

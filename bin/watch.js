@@ -38,16 +38,14 @@ module.exports = async argv => {
         MOCK_HTML
       )} ${getSubFilesPath(
         argv.subFiles
-      )} -p ${patternPort} -d ${patternOutDir}`
+      )} -p ${patternPort} -d ${patternOutDir} ${argv.https ? '--https' : ''}`
     )
 
-    if (argv.open) {
-      setTimeout(() => {
-        opn(getDefaultUrl(argv))
-      }, 5000)
-    }
-
     parcelJob.stdout.on('data', (...args) => {
+      if (argv.open && args[0].indexOf('√  Built in') > -1) {
+        opn(getDefaultUrl(argv))
+      }
+
       console.log(...args)
     })
     parcelJob.stderr.on('data', console.error)

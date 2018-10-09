@@ -7,11 +7,13 @@ const { exec } = require('child_process')
 const execAsync = util.promisify(exec)
 
 describe('screenshot', () => {
+  const url = 'http://localhost:1234/.am-mocktimes/pattern.html'
+
   before(async () => {
     const waitServer = new Promise((resolve, reject) => {
       waitOn(
         {
-          resources: ['http://localhost:1234/.am-mocktimes/pattern.html'],
+          resources: [url],
           timeout: 2000
         },
         err => {
@@ -25,16 +27,12 @@ describe('screenshot', () => {
     try {
       await waitServer
     } catch (error) {
-      throw new Error(
-        'サーバーを起動(npm start)した状態で、テストを回してください。'
-      )
+      throw new Error(error.message)
     }
   })
 
   it('画像フォルダ内が空っぽになり、新規画像が撮られていること', async () => {
-    const job = execAsync(
-      'node ./bin screenshot --url http://localhost:1234/.am-mocktimes/pattern.html'
-    )
+    const job = execAsync(`node ./bin screenshot --url ${url}`)
     const imgDir = './am-mocktimes-img'
 
     // 画像削除の確認
