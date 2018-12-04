@@ -160,7 +160,7 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 npx am-mocktimes watch --only-pattern
 ```
 
-その場合、mock用のhtmlとjsを用意する必要があります。
+その場合、mock用のhtmlとjsを用意し、別途サーバーを用意します。
 
 ```html
 <!-- mock/index.html -->
@@ -168,15 +168,15 @@ npx am-mocktimes watch --only-pattern
 <script src="index.js">
 ```
 
-js側では、以下のように、configファイルと、srcファイルを両方読み込む必要があります。
+js側では、以下のように、configファイルと、srcファイルの両方読み込むことで、指定されたパターンが動くようになります。
 
 ```javascript
 // mock/index.js
-import './config.js'
-import '../src/app.js'
+import './config.js' // config mock/config.js と同様の内容
+import '../src/app.js' // アプリケーション本体のjs
 ```
 
-そして、上記htmlを返すサーバーのURLを、ymlに設定し、アクセス出来るようになります。
+そして、上記htmlを返すサーバーURLをymlに設定することで、アクセス出来るようになります。
 
 ```yaml
 // mock/pattern.yml
