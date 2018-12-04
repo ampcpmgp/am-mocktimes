@@ -27,21 +27,23 @@ exports.getFilePath = getFilePath
 exports.buildMocktimesFiles = async argv => {
   await generatePatternHtml(argv)
   await generatePatternJs(argv)
-  await generateMockHtml(argv)
-  await generateMockJs(argv)
+
+  if (!argv.onlyPattern) {
+    await generateMockHtml(argv)
+    await generateMockJs(argv)
+  }
 }
 
-const generatePatternHtml = (exports.generatePatternHtml = async (
-  argv,
-  mockPath = MOCK_HTML
-) => {
+async function generatePatternHtml (argv, mockPath = MOCK_HTML) {
   const html = patternHtml(mockPath)
   try {
     await fs.outputFile(getFilePath(argv).PATTERN_HTML, html)
   } catch (e) {
     throw e
   }
-})
+}
+
+exports.generatePatternHtml = generatePatternHtml
 
 const generatePatternJs = async argv => {
   const js = patternJs(path.relative(argv.outDir, argv.pattern))

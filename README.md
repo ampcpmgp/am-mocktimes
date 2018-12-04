@@ -40,7 +40,7 @@ src/
   app.js
 ```
 
-作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になり、
+作成後、以下のコマンドでparcelサーバーが立ち上がり
 http://localhost:1234/pattern.html からアクセスできます。
 
 ```shell
@@ -151,6 +151,38 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 
 ## config src/app.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。
+
+# start with parcel (only pattern file)
+
+以下のコマンドで、パターンファイルのみのビルドも可能です。
+
+```shell
+npx am-mocktimes watch --only-pattern
+```
+
+その場合、mock用のhtmlとjsを用意し、別途サーバーを用意します。
+
+```html
+<!-- mock/index.html -->
+<app></app>
+<script src="index.js">
+```
+
+js側では以下のように、設定ファイルとアプリファイルの両方読み込むことで、指定されたパターンが動くようになります。
+
+```javascript
+// mock/index.js
+import './config.js' // config mock/config.js と同様の内容
+import '../src/app.js' // アプリケーション本体のjs
+```
+
+そして、上記htmlを返すサーバーURLをymlに設定することで、アクセス出来るようになります。
+
+```yaml
+// mock/pattern.yml
+url: 外部で起動したURLを設定(例: http://localhost:3000/mock.html)
+```
+
 
 # screen shot
 各モックページのスクリーンショットを保存します。

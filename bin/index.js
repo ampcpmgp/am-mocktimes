@@ -75,6 +75,19 @@ const buildOption = {
   }
 }
 
+const mocktimesBuildOption = Object.assign(
+  {
+    'only-pattern': {
+      alias: 'op',
+      default: false,
+      describe:
+        'Generate only the pattern file. If this setting is set to true, you need to set `url` in the pattern file (yml).',
+      type: 'boolean'
+    }
+  },
+  buildOption
+)
+
 const argv = require('yargs')
   .command(
     'screenshot',
@@ -114,8 +127,12 @@ const argv = require('yargs')
     }
   }
   )
-  .command('watch', 'Watch and output pattern & mock pages.', buildOption)
-  .command('build', 'Output pattern & mock pages.', buildOption)
+  .command(
+    'watch',
+    'Watch and output pattern & mock pages.',
+    mocktimesBuildOption
+  )
+  .command('build', 'Output pattern & mock pages.', mocktimesBuildOption)
   .command(
     'generate-template',
     'Generate page files. Mock and application sources.',

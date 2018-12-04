@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import { getActions } from './utils/pattern'
 import { FINISHED_ATTR } from './const/dom'
 

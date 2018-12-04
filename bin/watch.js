@@ -8,7 +8,6 @@ const {
   getUserFiles,
   buildMocktimesFiles,
   generateMockHtml,
-  generatePatternHtml,
   getSubFilesPath
 } = require('./lib/util')
 const { PATTERN_HTML, MOCK_HTML } = require('./lib/const')
@@ -16,10 +15,13 @@ const { PATTERN_HTML, MOCK_HTML } = require('./lib/const')
 module.exports = async argv => {
   rimraf.sync(argv.outDir)
   await buildMocktimesFiles(argv)
-  chokidar
-    .watch(getUserFiles(argv).SRC_HTML)
-    .on('change', () => generateMockHtml(argv))
-    .on('error', console.error)
+
+  if (!argv.onlyPattern) {
+    chokidar
+      .watch(getUserFiles(argv).SRC_HTML)
+      .on('change', () => generateMockHtml(argv))
+      .on('error', console.error)
+  }
 
   if (argv.useParcel) {
     const getPort = require('get-port')
@@ -28,8 +30,6 @@ module.exports = async argv => {
     if (patternPort !== argv.port) {
       throw new Error(`Cannot use port: ${argv.port}`)
     }
-
-    await generatePatternHtml(argv)
 
     const patternOutDir = path.join(argv.outDir, 'dev-pattern')
     const parcelJob = exec(
