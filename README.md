@@ -40,7 +40,7 @@ src/
   app.js
 ```
 
-作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になり、
+作成後、以下のコマンドでparcelサーバーが立ち上がり
 http://localhost:1234/pattern.html からアクセスできます。
 
 ```shell
