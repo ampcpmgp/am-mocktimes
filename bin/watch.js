@@ -8,7 +8,6 @@ const {
   getUserFiles,
   buildMocktimesFiles,
   generateMockHtml,
-  generatePatternHtml,
   getSubFilesPath
 } = require('./lib/util')
 const { PATTERN_HTML, MOCK_HTML } = require('./lib/const')
@@ -28,8 +27,6 @@ module.exports = async argv => {
     if (patternPort !== argv.port) {
       throw new Error(`Cannot use port: ${argv.port}`)
     }
-
-    await generatePatternHtml(argv)
 
     const patternOutDir = path.join(argv.outDir, 'dev-pattern')
     const parcelJob = exec(
