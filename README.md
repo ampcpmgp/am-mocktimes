@@ -168,7 +168,7 @@ npx am-mocktimes watch --only-pattern
 <script src="index.js">
 ```
 
-js側では、以下のように、configファイルと、srcファイルの両方読み込むことで、指定されたパターンが動くようになります。
+js側では以下のように、設定ファイルとアプリファイルの両方読み込むことで、指定されたパターンが動くようになります。
 
 ```javascript
 // mock/index.js
