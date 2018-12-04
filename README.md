@@ -152,6 +152,38 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 ## config src/app.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。
 
+# start with parcel (only pattern file)
+
+以下のコマンドで、パターンファイルのみのビルドも可能です。
+
+```shell
+npx am-mocktimes watch --only-pattern
+```
+
+その場合、mock用のhtmlとjsを用意する必要があります。
+
+```html
+<!-- mock/index.html -->
+<app></app>
+<script src="index.js">
+```
+
+js側では、以下のように、configファイルと、srcファイルを両方読み込む必要があります。
+
+```javascript
+// mock/index.js
+import './config.js'
+import '../src/app.js'
+```
+
+そして、上記htmlを返すサーバーのURLを、ymlに設定し、アクセス出来るようになります。
+
+```yaml
+// mock/pattern.yml
+url: 外部で起動したURLを設定(例: http://localhost:3000/mock.html)
+```
+
+
 # screen shot
 各モックページのスクリーンショットを保存します。
 chromlessを内部で使っているため、chromeが入っている環境が必要です。
