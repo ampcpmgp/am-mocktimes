@@ -15,10 +15,13 @@ const { PATTERN_HTML, MOCK_HTML } = require('./lib/const')
 module.exports = async argv => {
   rimraf.sync(argv.outDir)
   await buildMocktimesFiles(argv)
-  chokidar
-    .watch(getUserFiles(argv).SRC_HTML)
-    .on('change', () => generateMockHtml(argv))
-    .on('error', console.error)
+
+  if (!argv.onlyPattern) {
+    chokidar
+      .watch(getUserFiles(argv).SRC_HTML)
+      .on('change', () => generateMockHtml(argv))
+      .on('error', console.error)
+  }
 
   if (argv.useParcel) {
     const getPort = require('get-port')
