@@ -13,12 +13,16 @@ exports.getUserFiles = argv => ({
   SRC_JS: path.join(argv.app, '..', argv.scriptSrc)
 })
 
-const getFilePath = (exports.getFilePath = argv => ({
-  PATTERN_HTML: path.join(process.cwd(), argv.outDir, PATTERN_HTML),
-  PATTERN_JS: path.join(process.cwd(), argv.outDir, PATTERN_JS),
-  MOCK_HTML: path.join(process.cwd(), argv.outDir, MOCK_HTML),
-  MOCK_JS: path.join(process.cwd(), argv.outDir, MOCK_JS)
-}))
+function getFilePath (argv) {
+  return {
+    PATTERN_HTML: path.join(process.cwd(), argv.outDir, PATTERN_HTML),
+    PATTERN_JS: path.join(process.cwd(), argv.outDir, PATTERN_JS),
+    MOCK_HTML: path.join(process.cwd(), argv.outDir, MOCK_HTML),
+    MOCK_JS: path.join(process.cwd(), argv.outDir, MOCK_JS)
+  }
+}
+
+exports.getFilePath = getFilePath
 
 exports.buildMocktimesFiles = async argv => {
   await generatePatternHtml(argv)
@@ -40,7 +44,7 @@ const generatePatternHtml = (exports.generatePatternHtml = async (
 })
 
 const generatePatternJs = async argv => {
-  const js = patternJs(argv.pattern)
+  const js = patternJs(path.relative(argv.outDir, argv.pattern))
   try {
     await fs.outputFile(getFilePath(argv).PATTERN_JS, js)
   } catch (e) {
