@@ -12,6 +12,8 @@ const {
 } = require('./lib/util')
 const { PATTERN_HTML, MOCK_HTML } = require('./lib/const')
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 module.exports = async argv => {
   rimraf.sync(argv.outDir)
   await buildMocktimesFiles(argv)
@@ -19,7 +21,10 @@ module.exports = async argv => {
   if (!argv.onlyPattern) {
     chokidar
       .watch(getUserFiles(argv).SRC_HTML)
-      .on('change', () => generateMockHtml(argv))
+      .on('change', async () => {
+        await sleep(0)
+        generateMockHtml(argv)
+      })
       .on('error', console.error)
   }
 

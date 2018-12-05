@@ -1,6 +1,11 @@
 <parts-view-mock>
   <iframe if="{opts.dataTarget === 'browser'}" src={opts.dataSrc}></iframe>
-  <webview if="{opts.dataTarget === 'electron'}" src={opts.dataSrc}></webview>
+  <webview
+    if="{opts.dataTarget === 'electron'}"
+    ref="webview" src={opts.dataSrc}
+    nodeintegration
+    >
+  </webview>
   <style type="less">
     :scope {
       position: fixed;
@@ -20,4 +25,12 @@
       height: inherit;
     }
   </style>
+
+  <script>
+    this.on('mount', () => {
+      this.refs.webview.addEventListener('dom-ready', () => {
+        this.refs.webview.openDevTools()
+      })
+    })
+  </script>
 </parts-view-mock>
