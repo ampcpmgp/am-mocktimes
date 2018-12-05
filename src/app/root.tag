@@ -1,21 +1,31 @@
 import './parts/question.tag'
 import './parts/header.tag'
 import './parts/help.tag'
-import './parts/iframe-mock.tag'
+import './parts/view-mock/index.tag'
 import './parts/mockbox.tag'
 
 <app-root>
   <parts-header></parts-header>
   <parts-mockbox></parts-mockbox>
   <parts-help if={isHelpOpen}></parts-help>
-  <parts-iframe-mock if={currentUrl} data-src={currentUrl}></parts-iframe-mock>
+  <parts-view-mock
+    if="{currentUrl}"
+    data-src="{currentUrl}"
+    data-target="{getTarget()}"
+    >
+  </parts-view-mock>
   <script>
     import { observe } from 'dob'
     import route from 'riot-route'
     import state from '../state'
     import * as Actions from '../actions'
+    import { getTarget } from '../utils/target'
 
     this.isHelpOpen = false
+
+    Object.assign(this, {
+      getTarget
+    })
 
     observe(() => {
       this.update({

@@ -1,13 +1,15 @@
 const { describe, it, before } = require('kocha')
 const waitOn = require('wait-on')
+const ip = require('ip')
 const fs = require('fs-extra')
 const util = require('util')
 const { exec } = require('child_process')
 
 const execAsync = util.promisify(exec)
+const port = 1234
 
 describe('screenshot', () => {
-  const url = 'http://localhost:1234/.am-mocktimes/pattern.html'
+  const url = `http://${ip.address()}:${port}/.am-mocktimes/pattern.html`
 
   before(async () => {
     const waitServer = new Promise((resolve, reject) => {
@@ -18,6 +20,7 @@ describe('screenshot', () => {
         },
         err => {
           if (err) {
+            console.error('サーバーが起動されていません。')
             reject(err)
           } else resolve()
         }

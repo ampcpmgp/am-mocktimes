@@ -24,10 +24,10 @@ import './icons/open-close.tag'
       onclick={toggleActionBox}
       />
     <a href={opts.mdAction.mockUrl}
-    onclick={openIframe}
-    data-mock-links
-    data-name-tree={opts.mdAction.nameTree}
-    class={executed: opts.mdAction.mockUrl === lastExecutedUrl}>
+      onclick={openIframe}
+      data-mock-links
+      data-name-tree={opts.mdAction.nameTree}
+      class={executed: opts.mdAction.mockUrl === lastExecutedUrl}>
       {opts.mdAction.name}
     </a>
     <section class="labels">

@@ -1,5 +1,6 @@
-<parts-iframe-mock>
-  <iframe src={opts.dataSrc}></iframe>
+<parts-view-mock>
+  <iframe if="{opts.dataTarget === 'browser'}" src={opts.dataSrc}></iframe>
+  <webview if="{opts.dataTarget === 'electron'}" src={opts.dataSrc}></webview>
   <style type="less">
     :scope {
       position: fixed;
@@ -11,11 +12,12 @@
       background-color: white;
     }
 
-    > iframe {
+    > iframe,
+    > webview {
       overflow: auto;
       border: none;
       width: inherit;
       height: inherit;
     }
   </style>
-</parts-iframe-mock>
+</parts-view-mock>

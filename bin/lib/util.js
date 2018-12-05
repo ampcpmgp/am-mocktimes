@@ -35,7 +35,7 @@ exports.buildMocktimesFiles = async argv => {
 }
 
 async function generatePatternHtml (argv, mockPath = MOCK_HTML) {
-  const html = patternHtml(mockPath)
+  const html = patternHtml(mockPath, argv.target)
   try {
     await fs.outputFile(getFilePath(argv).PATTERN_HTML, html)
   } catch (e) {
