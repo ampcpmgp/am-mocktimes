@@ -122,14 +122,9 @@ import './icons/open-close.tag'
     import * as Actions from '../../actions'
     import state from '../../state'
     import { getRoutePath } from '../../utils/pattern'
-    import {getTarget} from '../../utils/target'
 
     const openIframe = (e) => {
-      if (getTarget() === 'electron') {
-        location.assign(opts.mdAction.mockUrl)
-      } else {
-        route(getRoutePath(opts.mdAction.mockUrl))
-      }
+      route(getRoutePath(opts.mdAction.mockUrl))
       e.preventDefault()
     }
 
