@@ -2,4 +2,5 @@
 am-mocktimes/dist
 .cache/
 .dev/
+.test/
 node_modules/
