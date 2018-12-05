@@ -1,7 +1,7 @@
 import './parts/question.tag'
 import './parts/header.tag'
 import './parts/help.tag'
-import './parts/view-mock.tag'
+import './parts/view-mock/index.tag'
 import './parts/mockbox.tag'
 
 <app-root>
