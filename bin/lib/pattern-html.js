@@ -1,7 +1,8 @@
 const Const = require('./const')
+const { PATH_ATTR, TARGET_ATTR } = require('../../src/const/dom')
 const { PATTERN_JS } = Const
 
-module.exports = mockPath => {
+module.exports = (mockPath, target) => {
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -10,7 +11,12 @@ module.exports = mockPath => {
   </head>
   <body>
     <app-root></app-root>
-    <script src="${PATTERN_JS}" charset="utf-8" data-am-mocktimes-path="${mockPath}"></script>
+    <script src="${PATTERN_JS}"
+      charset="utf-8"
+      ${PATH_ATTR}="${mockPath}"
+      ${TARGET_ATTR}="${target}"
+      >
+    </script>
   </body>
 </html>
 `
