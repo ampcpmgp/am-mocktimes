@@ -80,7 +80,7 @@ const mocktimesBuildOption = Object.assign(
     target: {
       default: 'browser',
       describe:
-        'When `browser` is specified, iframe is used on the pattern screen. If `electron` is specified, it becomes webview and node.js will work.',
+        'When `browser` is specified, `iframe` tag is used on the pattern display. If `electron` is specified, it becomes `webview` tag and node.js will work.',
       type: 'string'
     },
     'only-pattern': {
