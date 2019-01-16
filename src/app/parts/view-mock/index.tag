@@ -28,9 +28,11 @@
 
   <script>
     this.on('mount', () => {
-      this.refs.webview.addEventListener('dom-ready', () => {
-        this.refs.webview.openDevTools()
-      })
+      if (this.opts.dataTarget === 'electron') {
+        this.refs.webview.addEventListener('dom-ready', () => {
+          this.refs.webview.openDevTools()
+        })
+      }
     })
   </script>
 </parts-view-mock>
