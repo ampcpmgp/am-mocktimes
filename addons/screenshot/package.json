@@ -1,10 +1,10 @@
 {
   "name": "am-mocktimes-addon-screenshot",
-  "version": "0.0.1-0",
+  "version": "0.0.1-1",
   "description": "",
-  "main": "bin/index.js",
+  "main": "",
   "bin": {
-    "am-mocktimes@screenshot": "bin/index.js"
+    "am-mocktimes--screenshot": "bin/index.js"
   },
   "files": [
     "bin",
