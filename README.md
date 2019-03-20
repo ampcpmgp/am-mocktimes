@@ -152,6 +152,12 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 ## config src/app.js
 上記ファイルから利用される、アプリケーション本体のjsとなります。
 
+
+# addons
+
+* [screenshot](./addons/screenshot/#readme) - 各モックページのスクリーンショットを保存します。
+
+
 # start with parcel (only pattern file)
 
 以下のコマンドで、パターンファイルのみのビルドも可能です。
@@ -183,17 +189,6 @@ import '../src/app.js' // アプリケーション本体のjs
 url: 外部で起動したURLを設定(例: http://localhost:3000/mock.html)
 ```
 
-
-# screen shot
-各モックページのスクリーンショットを保存します。
-chromlessを内部で使っているため、chromeが入っている環境が必要です。
-
-```shell
-npx am-mocktimes watch # サーバーを起動しておく
-npx am-mocktimes screenshot
-```
-
-※optionで、サーバーURLや出力フォルダを指定できます。
 
 
 # start with others

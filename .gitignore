@@ -1,4 +1,5 @@
 .am-mocktimes/
+.am-mocktimes-img/
 am-mocktimes/dist
 .cache/
 .dev/

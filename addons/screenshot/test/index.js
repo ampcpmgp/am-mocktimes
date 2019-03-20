@@ -9,6 +9,7 @@ const execAsync = util.promisify(exec)
 const port = 1234
 
 describe('screenshot', () => {
+  // 内部でサーバーを起動する仕組みに変更する。
   const url = `http://${ip.address()}:${port}/.am-mocktimes/pattern.html`
 
   before(async () => {
@@ -20,7 +21,9 @@ describe('screenshot', () => {
         },
         err => {
           if (err) {
-            console.error('サーバーが起動されていません。')
+            console.error(
+              'サーバーが起動されていません。rootディレクトリで、 `npm run mocktimes` を実行してください。'
+            )
             reject(err)
           } else resolve()
         }
@@ -35,8 +38,9 @@ describe('screenshot', () => {
   })
 
   it('画像フォルダ内が空っぽになり、新規画像が撮られていること', async () => {
-    const job = execAsync(`node ./bin screenshot --url ${url}`)
-    const imgDir = './am-mocktimes-img'
+    const job = execAsync(`node ./bin --url ${url}`)
+    const imgDir = './.am-mocktimes-img'
+    await fs.ensureDir(imgDir)
 
     // 画像削除の確認
     const checkIfImgFilesRemoved = new Promise((resolve, reject) => {

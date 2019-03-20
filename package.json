@@ -1,6 +1,6 @@
 {
   "name": "am-mocktimes",
-  "version": "1.9.2",
+  "version": "2.0.1",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
   "main": "src/mock.js",
@@ -15,7 +15,7 @@
     "start": "run-p mocktimes storybook",
     "mocktimes": "node ./bin watch -a mock/index.html --ss mock/sample-app/index.html",
     "storybook": "start-storybook -p 6006",
-    "screenshot": "node ./bin screenshot --url http://localhost:1234/.am-mocktimes/pattern.html"
+    "screenshot": "node ./addons/screenshot/bin --url http://localhost:1234/.am-mocktimes/pattern.html"
   },
   "author": "",
   "license": "ISC",

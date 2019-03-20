@@ -1,15 +1,51 @@
-const rimraf = require('rimraf')
+#!/usr/bin/env node
 const fs = require('fs-extra')
+const rimraf = require('rimraf')
+const filenamify = require('filenamify')
+const puppeteer = require('puppeteer')
+const yargs = require('yargs')
 const path = require('path')
+// am-mocktimes と共通化したい
+const { DEFAULT_URL, FINISHED_ATTR } = require('../src/const')
 
-module.exports = async argv => {
-  const filenamify = require('filenamify')
-  const puppeteer = require('puppeteer')
+const { argv } = yargs.options({
+  pattern: {
+    alias: 'p',
+    describe:
+      'Filter patter name. Specify the same as file name. eg: `pattern1!pattern2!pattern3`',
+    default: '',
+    type: 'string'
+  },
+  width: {
+    alias: 'w',
+    describe: 'Set viewport width.',
+    default: 1440,
+    type: 'number'
+  },
+  height: {
+    alias: 'h',
+    describe: 'Set viewport height.',
+    default: 900,
+    type: 'number'
+  },
+  url: {
+    alias: 'u',
+    describe: "Set port for am-mocktimes's pattern url.",
+    default: DEFAULT_URL,
+    type: 'string'
+  },
+  'out-dir': {
+    alias: 'd',
+    default: './.am-mocktimes-img',
+    describe: 'Set output directory for mock images.'
+  }
+})
+
+async function start () {
   const browser = await puppeteer.launch({
     ignoreHTTPSErrors: true
   })
   const page = await browser.newPage()
-  const { FINISHED_ATTR } = require('../src/const/dom')
 
   page.setViewport({
     width: argv.width,
@@ -71,3 +107,5 @@ module.exports = async argv => {
 
   await browser.close()
 }
+
+start()
