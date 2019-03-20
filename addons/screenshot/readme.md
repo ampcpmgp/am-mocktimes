@@ -6,5 +6,5 @@ npm i am-mocktimes am-mocktimes-addon-screenshot -D
 
 # execute
 npx am-mocktimes watch
-npx am-mocktimes@screenshot
+npx am-mocktimes--screenshot
 ```
