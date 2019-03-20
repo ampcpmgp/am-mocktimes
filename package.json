@@ -15,7 +15,7 @@
     "start": "run-p mocktimes storybook",
     "mocktimes": "node ./bin watch -a mock/index.html --ss mock/sample-app/index.html",
     "storybook": "start-storybook -p 6006",
-    "screenshot": "node ./bin screenshot --url http://localhost:1234/.am-mocktimes/pattern.html"
+    "screenshot": "TODO: node ./bin screenshot --url http://localhost:1234/.am-mocktimes/pattern.html"
   },
   "author": "",
   "license": "ISC",

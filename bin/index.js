@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const { getDefaultUrl } = require('./lib/util')
 const { DEFAULT_PORT } = require('./lib/const')
 
 // optionを共通化してしまっているので、ビルドごとに必要なものだけを定義する。
@@ -96,44 +95,6 @@ const mocktimesBuildOption = Object.assign(
 
 const argv = require('yargs')
   .command(
-    'screenshot',
-    'Capture all mock pages. Make sure to access the mock page.',
-  {
-    pattern: {
-      alias: 'p',
-      describe:
-          'Filter patter name. Specify the same as file name. eg: `pattern1!pattern2!pattern3`',
-      default: '',
-      type: 'string'
-    },
-    width: {
-      alias: 'w',
-      describe: 'Set viewport width.',
-      default: 1440,
-      type: 'number'
-    },
-    height: {
-      alias: 'h',
-      describe: 'Set viewport height.',
-      default: 900,
-      type: 'number'
-    },
-    url: {
-      alias: 'u',
-      describe: "Set port for am-mocktimes's pattern url.",
-      default: getDefaultUrl({
-        port: DEFAULT_PORT
-      }),
-      type: 'string'
-    },
-    'out-dir': {
-      alias: 'd',
-      default: './am-mocktimes-img',
-      describe: 'Set output directory for mock images.'
-    }
-  }
-  )
-  .command(
     'watch',
     'Watch and output pattern & mock pages.',
     mocktimesBuildOption
@@ -148,9 +109,6 @@ const argv = require('yargs')
 const [command] = argv._
 
 switch (command) {
-  case 'screenshot':
-    require('./screenshot')(argv)
-    break
   case 'watch':
     require('./watch')(argv)
     break

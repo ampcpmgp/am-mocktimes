@@ -1,6 +1,7 @@
 .am-mocktimes/
+.am-mocktimes-img/
 .cache/
 .dev/
 .git/
+addons/
 mock/
-am-mocktimes-img/
