@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fs = require('fs-extra')
 const rimraf = require('rimraf')
 const filenamify = require('filenamify')
