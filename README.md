@@ -22,7 +22,7 @@
 以下をインストール。
 
 ```
-npm i am-mocktimes parcel-bundler -D
+npm i am-mocktimes -D
 ```
 
 以下のファイル構造で用意します。
