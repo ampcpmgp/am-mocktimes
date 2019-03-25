@@ -1,6 +1,6 @@
 {
   "name": "am-mocktimes",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
   "main": "src/mock.js",
