@@ -22,7 +22,7 @@ describe('screenshot', () => {
         err => {
           if (err) {
             console.error(
-              'サーバーが起動されていません。rootディレクトリで、 `npm run mocktimes` を実行してください。'
+              'サーバーが起動されていません。 `npm run mocktimes` を実行してください。'
             )
             reject(err)
           } else resolve()

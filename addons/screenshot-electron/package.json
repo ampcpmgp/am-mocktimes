@@ -3,11 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "main": "src/index.js",
-  "bin": {
-    "am-mocktimes--screenshot": "bin/index.js"
-  },
   "files": [
-    "bin",
     "src",
     "readme.md",
     "package.json"
@@ -27,6 +23,7 @@
   },
   "homepage": "https://github.com/ampcpmgp/am-mocktimes/addons/screenshot",
   "devDependencies": {
+    "am-mocktimes": "^2.0.1",
     "ip": "^1.1.5",
     "kocha": "^1.9.1",
     "wait-on": "^3.2.0"
