@@ -47,7 +47,10 @@ async function createWindow (url) {
     x: 0,
     y: 0,
     width: argv.width,
-    height: argv.height
+    height: argv.height,
+    webPreferences: {
+      preload: path.resolve(path.join(__dirname, 'preload.js'))
+    }
   })
 
   mainWindow.loadURL(url)
@@ -96,22 +99,18 @@ async function start () {
     }
 
     ipcMain.on('errorInWindow', (event, data) => {
-      console.error(item.name, '\n', data, '\n')
+      console.error('Pattern: ', item.name, '\n', data, '\n')
     })
 
+    mainWindow.webContents.openDevTools()
     mainWindow.loadURL(item.href)
 
     await new Promise(resolve => {
       mainWindow.webContents.once('did-finish-load', resolve)
     })
+
     await mainWindow.webContents.executeJavaScript(`
-      const ipc = require('electron').ipcRenderer
-
-      window.onerror = function(error, url, line) {
-        ipc.send('errorInWindow', error)
-      }
-
-      return new Promise(resolve => {
+      new Promise(resolve => {
         setInterval(() => {
           if (document.querySelector("[${FINISHED_ATTR}]")) {
             resolve()
@@ -120,11 +119,11 @@ async function start () {
       })
     `)
 
-    mainWindow.webContents.capturePage(image => {
-      const filePath = path.join(process.cwd(), argv.outDir, `${fileName}.jpg`)
-      fs.writeFile(filePath, image.toJPEG(80))
-    })
+    // electron@4 にした時にpromiseを返す関数を利用する
+    const image = await new Promise(resolve => mainWindow.capturePage(resolve))
+    const filePath = path.join(process.cwd(), argv.outDir, `${fileName}.jpg`)
 
+    await fs.writeFile(filePath, image.toPNG())
     ipcMain.removeAllListeners('errorInWindow')
   }
 
