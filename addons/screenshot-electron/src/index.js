@@ -102,7 +102,6 @@ async function start () {
       console.error('Pattern: ', item.name, '\n', data, '\n')
     })
 
-    mainWindow.webContents.openDevTools()
     mainWindow.loadURL(item.href)
 
     await new Promise(resolve => {

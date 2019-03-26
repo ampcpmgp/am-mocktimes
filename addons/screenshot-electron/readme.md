@@ -9,4 +9,7 @@ npm i electron am-mocktimes am-mocktimes-addon-screenshot-electron -D
 # execute
 npx am-mocktimes watch --target electron
 npx electron ./node_modules/am-mocktimes-addon-screenshot-electron
+
+# show option
+node ./node_modules/am-mocktimes-addon-screenshot-electron --help
 ```
