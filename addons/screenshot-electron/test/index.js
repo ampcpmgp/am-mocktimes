@@ -1,28 +1,25 @@
 const { describe, it, before } = require('kocha')
 const waitOn = require('wait-on')
-const ip = require('ip')
 const fs = require('fs-extra')
 const util = require('util')
 const { exec } = require('child_process')
+const { DEFAULT_URL } = require('../src/const')
 
 const execAsync = util.promisify(exec)
-const port = 1234
 
 describe('screenshot', () => {
   // 内部でサーバーを起動する仕組みに変更する。
-  const url = `http://${ip.address()}:${port}/.am-mocktimes/pattern.html`
-
   before(async () => {
     const waitServer = new Promise((resolve, reject) => {
       waitOn(
         {
-          resources: [url],
+          resources: [DEFAULT_URL],
           timeout: 2000
         },
         err => {
           if (err) {
             console.error(
-              'サーバーが起動されていません。 `npm run mocktimes` を実行してください。'
+              'サーバーが起動されていません。 `npm run mock` を実行してください。'
             )
             reject(err)
           } else resolve()
@@ -38,7 +35,7 @@ describe('screenshot', () => {
   })
 
   it('画像フォルダ内が空っぽになり、新規画像が撮られていること', async () => {
-    const job = execAsync(`node ./bin --url ${url}`)
+    const job = execAsync(`npx electron .`)
     const imgDir = './.am-mocktimes-img'
     await fs.ensureDir(imgDir)
 

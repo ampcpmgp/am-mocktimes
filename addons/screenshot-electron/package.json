@@ -9,6 +9,7 @@
     "package.json"
   ],
   "scripts": {
+    "mock": "cd test/mock && npx am-mocktimes watch --target electron",
     "test": "kocha test/*.js --timeout=60000"
   },
   "repository": {
