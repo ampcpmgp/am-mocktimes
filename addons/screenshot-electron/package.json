@@ -1,18 +1,15 @@
 {
-  "name": "am-mocktimes-addon-screenshot",
-  "version": "0.0.3",
+  "name": "am-mocktimes-addon-screenshot-electron",
+  "version": "0.0.1",
   "description": "",
-  "main": "",
-  "bin": {
-    "am-mocktimes--screenshot": "bin/index.js"
-  },
+  "main": "src/index.js",
   "files": [
-    "bin",
     "src",
     "readme.md",
     "package.json"
   ],
   "scripts": {
+    "mock": "cd test/mock && npx am-mocktimes watch --target electron",
     "test": "kocha test/*.js --timeout=60000"
   },
   "repository": {
@@ -27,14 +24,16 @@
   },
   "homepage": "https://github.com/ampcpmgp/am-mocktimes/addons/screenshot",
   "devDependencies": {
+    "am-mocktimes": "^2.0.4",
     "ip": "^1.1.5",
     "kocha": "^1.9.1",
+    "parcel-plugin-tag": "^1.2.0",
     "wait-on": "^3.2.0"
   },
   "dependencies": {
+    "electron": "^4.1.0",
     "filenamify": "^3.0.0",
     "fs-extra": "^7.0.1",
-    "puppeteer": "^1.13.0",
     "rimraf": "^2.6.3",
     "yargs": "^13.2.2"
   }

@@ -6,22 +6,23 @@ const assert = require('assert')
 const { exec } = require('child_process')
 
 const execAsync = util.promisify(exec)
-const dir = '.test/watch'
+const dir = '.test/build'
 
-describe('watch', () => {
-  it('パターンファイルのみビルドされること', async () => {
+describe('build', () => {
+  it('ビルドファイルが生成されること', async () => {
     await fs.remove(dir)
+
     execAsync(
-      `node ./bin/index.js watch --only-pattern --app mock/index.html --open false --out-dir ${dir}`
+      `node ./bin/index.js build --app mock/index.html --public-url . --out-dir ${dir}`
     )
 
     await waitOn({
-      resources: [`${dir}/pattern.html`],
+      resources: [`${dir}/mock.html`],
       timeout: 4000
     })
 
     const existsMockHtml = await fs.pathExists(`${dir}/mock.html`)
 
-    assert(!existsMockHtml)
+    assert(existsMockHtml)
   })
 })
