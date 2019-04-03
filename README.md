@@ -1,3 +1,5 @@
+[![am-mocktimes Dev Token](https://badge.devtoken.rocks/am-mocktimes)](https://devtoken.rocks/package/am-mocktimes)
+
 # Appearance
 
 | モック一覧 | Webアプリのモック |
