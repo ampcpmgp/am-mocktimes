@@ -24,7 +24,7 @@
 以下をインストール。
 
 ```
-npm i am-mocktimes parcel-plugin-tag -D
+npm i am-mocktimes parcel-plugin-tag less parcel-bundler -D
 ```
 
 以下のファイル構造で用意します。
