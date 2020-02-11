@@ -1,6 +1,14 @@
+# Node.js
+node_modules/
+
+# am-mocktimes
 .am-mocktimes/
 .am-mocktimes-img/
-am-mocktimes/dist
+
+# parcel-bundler
 .cache/
-.test/
-node_modules/
+dist/
+dist-no-minified/
+
+# storybook
+storybook-static

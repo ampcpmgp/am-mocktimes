@@ -135,7 +135,7 @@ mock(action)
 ```
 
 後述の `src/app.js` と `import` のスコープを一緒にしているため、
-各moduleの設定や、呼出が可能です。(`watch`時に、 `.am-mocktimes/mock.js` にて確認可能です)
+各moduleの設定や、呼出が可能です。(`watch`時に、 `.am-mocktimes/mock.js` にて確認可能です。)
 
 ### mock(action: MockAction)
 この関数を呼び出すことで、モック状態を生成します。
