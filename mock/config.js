@@ -1,50 +1,13 @@
-import mock from '../src/mock'
-import pattern from './sample-app/pattern.yml'
-import * as Actions from '../src/actions'
-import state from '../src/state'
+import mock from 'am-mocktimes'
+import { replace } from 'svelte-spa-router'
 import sleep from '../src/utils/sleep'
-import { removeEvent } from '../src/tools/keyboard'
+import * as greetings from '../src/states/greetings/greetings'
 
-removeEvent()
+mock({
+  sleep,
+  greetings,
 
-const mockAction = {
-  selectMars () {
-    const mdAction = state.mock.mdAction.mdActions[0].mdActions[0]
-    Actions.setSelectedSwitchName(mdAction, mdAction.switchs[1].name)
+  page(name) {
+    replace(name)
   },
-  async openHelp () {
-    Actions.setPattern({ url: pattern.url })
-    await sleep(1000)
-    console.log('openHelp')
-    const el = document.querySelector('parts-header > .question')
-    const evt = new window.MouseEvent('click')
-    el.dispatchEvent(evt)
-  },
-  log () {
-    console.log('log')
-  },
-  async sleepLog () {
-    await sleep(1000)
-    console.log('sleep log')
-  },
-  setFullSettings () {
-    Actions.setPattern(pattern)
-  },
-  async openFirst2Level () {
-    await sleep(0)
-    Actions.openActionBox(state.mock.mdAction.mdActions[0])
-    Actions.openActionBox(state.mock.mdAction.mdActions[0].mdActions[0])
-  },
-  async openFirstLink3level () {
-    await sleep(0)
-    const mockUrl =
-      state.mock.mdAction.mdActions[0].mdActions[0].mdActions[0].mockUrl
-    Actions.setCurrentUrl(mockUrl)
-  },
-  async openFirst () {
-    await sleep(0)
-    Actions.openActionBox(state.mock.mdAction.mdActions[0])
-  }
-}
-
-mock(mockAction)
+})

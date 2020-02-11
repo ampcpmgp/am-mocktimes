@@ -1,14 +1,6 @@
-ヘルプを開く:
-  - [openHelp]
-  - [log]
-  - [sleepLog]
-フル設定:
-  func: [setFullSettings]
-  １個目を開く:
-      func: [openFirst]
-      Marsを選択: [selectMars]
-  1~2階層の１個目を開く:
-    funcs:
-      - [openFirst]
-      - [openFirst2Level]
-    3階層の1個目のリンクを開く: [openFirstLink3level]
+default page:
+  func: [page, /]
+  change greeting name after 1000ms:
+    - [sleep, 1000]
+    - [greetings.name.set, 'changed name']
+404 page: [page, /404]

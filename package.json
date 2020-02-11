@@ -8,7 +8,7 @@
     "am-mocktimes": "bin/index.js"
   },
   "scripts": {
-    "start": "am-mocktimes watch --script-src main.js",
+    "start": "node ./bin watch -a mock/index.html --ss mock/sample-app/index.html",
     "test": "ava",
     "test:watch": "npm run test -- --watch",
     "dist": "run-s dist:*",
@@ -34,7 +34,6 @@
     "@storybook/addon-viewport": "^5.3.12",
     "@storybook/addons": "^5.3.12",
     "@storybook/svelte": "^5.3.12",
-    "am-mocktimes": "^2.0.4",
     "am-mocktimes-addon-screenshot": "0.0.3",
     "ava": "^3.2.0",
     "babel-loader": "^8.0.6",
@@ -47,7 +46,6 @@
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
-    "parcel-plugin-tag": "^1.2.0",
     "prettier": "^1.19.1",
     "prettier-plugin-svelte": "^0.7.0",
     "rimraf": "^3.0.1",
