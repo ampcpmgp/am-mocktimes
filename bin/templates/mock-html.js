@@ -11,7 +11,8 @@ module.exports = {
   </head>
   <body>
     App
-    <script src="mock.js"></script>
+    <script src="_mock.js"></script>
   </body>
-</html>`,
+</html>
+`,
 }

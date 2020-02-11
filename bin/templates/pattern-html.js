@@ -10,7 +10,7 @@ module.exports = {
   </head>
   <body>
     <app-root></app-root>
-    <script src="pattern.js"></script>
+    <script src="_pattern.js"></script>
   </body>
 </html>
 `,
