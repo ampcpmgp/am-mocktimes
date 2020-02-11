@@ -8,7 +8,7 @@
     "am-mocktimes": "bin/index.js"
   },
   "scripts": {
-    "start": "parcel watch ",
+    "start": "parcel mock/*.html",
     "test": "ava",
     "test:watch": "npm run test -- --watch",
     "dist": "run-s dist:*",
