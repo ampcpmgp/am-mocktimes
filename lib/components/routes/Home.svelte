@@ -1,5 +1,5 @@
 <script>
-  import { name, greeting } from '../../states/greetings/greetings'
+  import { name, greeting } from '../../states/mock'
 </script>
 
 <h1>{$greeting}</h1>

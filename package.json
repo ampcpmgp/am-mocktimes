@@ -52,7 +52,6 @@
     "svelte-loader": "^2.13.6"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "chokidar": "^2.0.3",
     "dob": "^2.5.8",
     "filenamify": "^2.1.0",

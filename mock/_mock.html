@@ -4,7 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>travel page</title>
-    <link rel="stylesheet" href="../sample-app/styles.css">
+    <style>
+      body {
+        height: 100%;
+      }
+      #planBox {
+        border: 1px solid #ccc;
+      }
+      #planName {
+        font-weight: bold;
+      }
+
+      #locationBox {
+        border: 1px solid #ccffff;
+      }
+      #locationBox > section > .location {
+        cursor: pointer;
+        color: blue;
+        margin-right: 12px;
+      }
+
+      #viewStatistics {
+        color: blue;
+        float: right;
+        cursor: pointer;
+      }
+
+      @keyframes spin {
+        0% {transform: rotate(0deg);}
+        100% {transform: rotate(360deg);}
+      }
+    </style>
   </head>
   <body>
     <div id="planBox">
@@ -13,6 +43,6 @@
     </div>
     <div id="locationBox"></div>
     <img id="catSaysLocation"></img>
-    <script src="_mock.js"></script>
+    <script src="mock-config.js"></script>
   </body>
 </html>

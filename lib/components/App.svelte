@@ -4,5 +4,11 @@
   import routes from './routes'
 </script>
 
+<style>
+  :global(body) {
+    background-color: #eee;
+  }
+</style>
+
 <Header name="World" />
 <Router {routes} />
