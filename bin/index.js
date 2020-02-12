@@ -1,16 +1,26 @@
 #!/usr/bin/env node
-const argv = require('yargs').command(
-  'generate-template',
-  'Generate template files. Mock and application sources.',
-  {}
-).argv
+const yargs = require('yargs')
+const argv = yargs
+  .command(
+    'template',
+    'Generate template files. Mock and application sources.',
+    {
+      force: {
+        alias: 'f',
+        describe: 'If file exists, overwrite file.',
+        type: 'boolean',
+        default: false,
+      },
+    }
+  )
+  .help().argv
 
 const [command] = argv._
 
 switch (command) {
-  case 'generate-template':
-    require('./generate-template')(argv)
+  case 'template':
+    require('./template')(argv)
     break
   default:
-    throw new Error(`command not find: '${command}'`)
+    yargs.showHelp()
 }

@@ -5,9 +5,9 @@ module.exports = {
   src: `import mock from 'am-mocktimes'
 
 mock({
-  action (param) {
+  action(param) {
     console.log('action', param)
-  }
+  },
 })
 `,
 }
