@@ -45,14 +45,12 @@ src/
 ```
 
 作成後、以下のコマンドでparcelサーバーが立ち上がり
-http://localhost:1234/_pattern.html からアクセスできます。
+http://localhost:1234/_patterns.html からアクセスできます。
 
 ```shell
 npx am-mocktimes watch
 # 出力パスは、デフォルトで `.am-mocktimes`に設定されていて、`.gitignore` に追加することを推奨します
 ```
-
-*※ --sub-modules を指定した場合は、ディレクトリ構造が変わるため http://localhost:1234/.am-mocktimes/pattern.html からアクセスできます*
 
 
 また、ビルドのみの実行も可能です。

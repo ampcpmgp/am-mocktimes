@@ -1,4 +1,8 @@
-<!doctype html>
+const path = require('path')
+
+module.exports = {
+  filePath: path.join(process.cwd(), 'mock/_patterns.html'),
+  src: `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -7,6 +11,8 @@
   </head>
   <body>
     <div id="app"></div>
-    <script src="_pattern.js"></script>
+    <script src="_patterns.js"></script>
   </body>
 </html>
+`,
+}
