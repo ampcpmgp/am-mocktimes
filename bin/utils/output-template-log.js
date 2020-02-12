@@ -1,7 +1,5 @@
 module.exports = () => {
   console.log(`
-以下のファイルを生成しました
-
 # モック
 mock/
   _mock.html # モック画面
@@ -17,7 +15,7 @@ src/
   main.js
 
 ## docs
+mock/mock-config.js:  https://github.com/ampcpmgp/am-mocktimes#config-mockconfigjs
 mock/pattern.yml:  https://github.com/ampcpmgp/am-mocktimes#config-mockpatternyml
-mock/config.js:  https://github.com/ampcpmgp/am-mocktimes#config-mockconfigjs
 `)
 }

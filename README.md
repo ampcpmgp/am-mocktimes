@@ -106,7 +106,7 @@ switch配下の設定も他と同様で、新しく何かを覚える必要が�
 デフォルトは `browser` になります。この設定により、パターン一覧画面からモックを表示する際に iframe が使われるようになります。 `electron` に指定すると、モック表示に webview が使われ Node.js を実行出来るようになります。
 
 #### option.description: String
-モック一覧の、横に表示するもの。改行ありです。yaml改行を使うと綺麗に書けます。
+モック一覧の、横に表示するもの。改行を使えます。ルート階層以外で使えます。
 
 ### action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。

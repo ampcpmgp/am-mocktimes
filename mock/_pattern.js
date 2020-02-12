@@ -1,4 +1,4 @@
-import { generateList } from 'am-mocktimes/src/main'
+import { generateList } from '../src/main'
 import pattern from './pattern.yml'
 
 generateList(pattern)
