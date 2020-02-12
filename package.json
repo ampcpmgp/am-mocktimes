@@ -17,9 +17,8 @@
     "dist:build": "parcel build src/index.html --public-url ./",
     "gh-pages": "git checkout gh-pages && git merge master && rimraf docs && node ./bin build -d docs --public-url https://ampcpmgp.github.io/am-mocktimes/docs && git add . && git commit -m \"update gh-pages\" && git push origin && git checkout master",
     "lint": "eslint --ignore-path .gitignore **/*.{js,svelte}",
-    "TODO:delete:mocktimes": "node ./bin watch -a mock/index.html --ss mock/sample-app/index.html",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -s ./src",
+    "build-storybook": "build-storybook",
     "screenshot": "am-mocktimes--screenshot",
     "TODO:delete:screenshot": "node ./addons/screenshot/bin --url http://localhost:1234/.am-mocktimes/pattern.html"
   },
@@ -41,7 +40,6 @@
     "eslint-plugin-svelte3": "^2.7.3",
     "esm": "^3.2.25",
     "husky": "^4.2.1",
-    "less": "^3.11.0",
     "lint-staged": "^10.0.7",
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",

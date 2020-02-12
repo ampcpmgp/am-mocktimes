@@ -1,5 +1,5 @@
 module.exports = {
-  stories: ['../src/**/*.stories.js'],
+  stories: ['../lib/**/*.stories.js'],
   addons: [
     '@storybook/addon-actions',
     '@storybook/addon-backgrounds',
