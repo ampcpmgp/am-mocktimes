@@ -1,5 +1,5 @@
 import { addParameters } from '@storybook/svelte'
-import 'modern-css-reset/dist/reset.min.css'
+import 'modern-css-reset'
 
 addParameters({
   backgrounds: [
