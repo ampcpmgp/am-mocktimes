@@ -1,5 +1,7 @@
 [![am-mocktimes Dev Token](https://badge.devtoken.rocks/am-mocktimes)](https://devtoken.rocks/package/am-mocktimes)
 
+TODO: 全部見直し
+
 # Appearance
 
 | モック一覧 | Webアプリのモック |
