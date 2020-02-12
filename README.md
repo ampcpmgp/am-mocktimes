@@ -30,7 +30,7 @@ npm i am-mocktimes parcel-plugin-tag less parcel-bundler -D
 ```
 
 以下のファイル構造で用意します。
- ( `npx am-mocktimes generate-template` でも作成可能です。)
+ ( `npx am-mocktimes template` でも作成可能です。)
 
 ```shell
 # モック
@@ -45,7 +45,7 @@ src/
 ```
 
 作成後、以下のコマンドでparcelサーバーが立ち上がり
-http://localhost:1234/pattern.html からアクセスできます。
+http://localhost:1234/_pattern.html からアクセスできます。
 
 ```shell
 npx am-mocktimes watch

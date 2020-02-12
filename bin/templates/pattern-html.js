@@ -10,7 +10,7 @@ module.exports = {
     <title>am-mocktimes Pattern List</title>
   </head>
   <body>
-    <app-root></app-root>
+    <div id="app"></div>
     <script src="_pattern.js"></script>
   </body>
 </html>

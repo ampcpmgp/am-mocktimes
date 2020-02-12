@@ -10,5 +10,5 @@
   }
 </style>
 
-<Header name="World" />
+<Header text="World" />
 <Router {routes} />

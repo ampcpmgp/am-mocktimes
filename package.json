@@ -24,7 +24,7 @@
     "TODO:delete:screenshot": "node ./addons/screenshot/bin --url http://localhost:1234/.am-mocktimes/pattern.html"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@storybook/addon-actions": "^5.3.12",
@@ -79,7 +79,7 @@
       "esm"
     ],
     "files": [
-      "./src/**/*.test.js"
+      "**/*.test.js"
     ]
   },
   "lint-staged": {
