@@ -41,7 +41,7 @@
     "eslint-plugin-svelte3": "^2.7.3",
     "esm": "^3.2.25",
     "husky": "^4.2.1",
-    "lint-staged": "^10.0.7",
+    "lint-staged": "^7.1.1",
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
@@ -83,7 +83,9 @@
   },
   "lint-staged": {
     "**/*.{js,svelte}": [
-      "eslint"
+      "eslint",
+      "prettier --write",
+      "git add"
     ]
   },
   "husky": {

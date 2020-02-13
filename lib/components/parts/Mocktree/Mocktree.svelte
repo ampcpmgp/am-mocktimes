@@ -1,3 +1,5 @@
 <script>
-  export let pattern
+  export let patterns
 </script>
+
+<div>{patterns}</div>
