@@ -1,7 +1,6 @@
 module.exports = {
   stories: ['../lib/**/*.stories.js'],
   addons: [
-    '@storybook/addon-actions',
     '@storybook/addon-backgrounds',
     '@storybook/addon-knobs',
     '@storybook/addon-links',

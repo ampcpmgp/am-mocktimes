@@ -27,7 +27,6 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.8.4",
-    "@storybook/addon-actions": "^5.3.12",
     "@storybook/addon-backgrounds": "^5.3.12",
     "@storybook/addon-knobs": "^5.3.12",
     "@storybook/addon-links": "^5.3.12",
