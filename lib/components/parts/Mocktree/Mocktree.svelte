@@ -4,28 +4,47 @@
     getActionKeys,
     getDescription,
     hasChild,
+    getActions,
   } from '../../../utils/patterns'
   export let patterns
   export let url
+  export let actions
 
   const actionKeys = getActionKeys(patterns)
   const dispatch = createEventDispatcher()
 
-  const treeItems = actionKeys.map(key => {
+  let treeItems = actionKeys.map(key => {
     const itemPatterns = patterns[key]
+
+    const itemActions = [...actions, ...getActions(itemPatterns)]
+    let itemUrl = url
+
+    if (itemPatterns.settings && itemPatterns.settings.url) {
+      itemUrl = itemPatterns.settings.url
+    }
 
     return {
       name: key,
       isOpen: false,
       patterns: itemPatterns,
       hasChild: hasChild(itemPatterns),
+      url: itemUrl,
+      actions: itemActions,
     }
   })
 
-  function onActionClick(actionKey) {
+  function onActionClick(treeItem) {
+    const decodeActions = encodeURIComponent(JSON.stringify(treeItem.actions))
+    const mockUrl = `${treeItem.url}?__amMocktimes__=${decodeActions}`
+
     dispatch('actionclick', {
-      actionKey,
+      mockUrl,
     })
+  }
+
+  function toggleItem(treeItem) {
+    treeItem.isOpen = !treeItem.isOpen
+    treeItems = treeItems
   }
 </script>
 
@@ -83,11 +102,11 @@
     <li>
       <div
         class="open-close-icon {treeItem.hasChild ? '' : 'hide'}"
-        on:click={() => (treeItem.isOpen = !treeItem.isOpen)}>
+        on:click={() => toggleItem(treeItem)}>
         {treeItem.isOpen ? '-' : '+'}
       </div>
 
-      <div class="action" on:click={() => onActionClick(treeItem.name)}>
+      <div class="action" on:click={() => onActionClick(treeItem)}>
         {treeItem.name}
       </div>
 
@@ -95,7 +114,11 @@
 
       {#if treeItem.isOpen}
         <div class="child">
-          <svelte:self patterns={treeItem.patterns} />
+          <svelte:self
+            on:actionclick
+            patterns={treeItem.patterns}
+            actions={treeItem.actions}
+            url={treeItem.url} />
         </div>
       {/if}
     </li>
