@@ -73,8 +73,10 @@
     justify-content: center;
     align-items: center;
     font-size: 16px;
-    font-weight: bold;
+    color: #555;
     line-height: 0px;
+    font-weight: bold;
+    font-family: sans-serif;
   }
 
   .action {
