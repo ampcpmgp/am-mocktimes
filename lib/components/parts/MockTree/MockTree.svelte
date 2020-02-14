@@ -5,16 +5,18 @@
 
   const dispatch = createEventDispatcher()
 
+  function refresh() {
+    treeData = treeData
+  }
+
   function onActionClick(treeItem) {
-    console.log(treeItem)
     const actionsJson = JSON.stringify(treeItem.actions)
     const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`
 
-    treeItem.lastExecuted = true
-    treeData = treeData
-
     dispatch('actionclick', {
+      refresh,
       mockUrl,
+      treeItem,
     })
   }
 
@@ -35,7 +37,6 @@
   }
 
   .tree-li {
-    padding: 2px;
     display: grid;
     grid-template-columns: auto auto 1fr;
     grid-template-areas:
@@ -79,7 +80,10 @@
     cursor: pointer;
     color: blue;
     padding: 2px 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
     box-sizing: border-box;
+    line-height: 1.15;
   }
   .action:hover {
     opacity: 0.4;
