@@ -6,8 +6,8 @@
   const dispatch = createEventDispatcher()
 
   function onActionClick(treeItem) {
-    const decodeActions = encodeURIComponent(JSON.stringify(treeItem.actions))
-    const mockUrl = `${treeItem.url}?__amMocktimes__=${decodeActions}`
+    const actionsJson = JSON.stringify(treeItem.actions)
+    const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`
 
     dispatch('actionclick', {
       mockUrl,
