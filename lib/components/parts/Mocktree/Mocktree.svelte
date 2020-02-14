@@ -6,8 +6,12 @@
   const dispatch = createEventDispatcher()
 
   function onActionClick(treeItem) {
+    console.log(treeItem)
     const actionsJson = JSON.stringify(treeItem.actions)
     const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`
+
+    treeItem.lastExecuted = true
+    treeData = treeData
 
     dispatch('actionclick', {
       mockUrl,
@@ -74,9 +78,15 @@
   .action {
     cursor: pointer;
     color: blue;
+    padding: 2px 4px;
+    box-sizing: border-box;
   }
   .action:hover {
     opacity: 0.4;
+  }
+  .action.executed {
+    border: 1px solid #555;
+    border-radius: 4px;
   }
 
   small {
@@ -118,7 +128,12 @@
         {item.isOpen ? '-' : '+'}
       </div>
 
-      <div class="action" on:click={() => onActionClick(item)}>{item.name}</div>
+      <div
+        class=" action {item.lastExecuted ? 'executed' : ''}
+        "
+        on:click={() => onActionClick(item)}>
+        {item.name}
+      </div>
 
       {#if item.hasSwitch}
         <ul class="switch-ul">
