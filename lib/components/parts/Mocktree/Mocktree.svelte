@@ -1,37 +1,8 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import {
-    getActionKeys,
-    getDescription,
-    hasChild,
-    getActions,
-  } from '../../../utils/patterns'
-  export let patterns
-  export let url
-  export let actions
+  export let treeData
 
-  const actionKeys = getActionKeys(patterns)
   const dispatch = createEventDispatcher()
-
-  let treeItems = actionKeys.map(key => {
-    const itemPatterns = patterns[key]
-
-    const itemActions = [...actions, ...getActions(itemPatterns)]
-    let itemUrl = url
-
-    if (itemPatterns.settings && itemPatterns.settings.url) {
-      itemUrl = itemPatterns.settings.url
-    }
-
-    return {
-      name: key,
-      isOpen: false,
-      patterns: itemPatterns,
-      hasChild: hasChild(itemPatterns),
-      url: itemUrl,
-      actions: itemActions,
-    }
-  })
 
   function onActionClick(treeItem) {
     const decodeActions = encodeURIComponent(JSON.stringify(treeItem.actions))
@@ -42,9 +13,9 @@
     })
   }
 
-  function toggleItem(treeItem) {
-    treeItem.isOpen = !treeItem.isOpen
-    treeItems = treeItems
+  function toggleItem(treeDataItem) {
+    treeDataItem.isOpen = !treeDataItem.isOpen
+    treeData = treeData
   }
 </script>
 
@@ -60,6 +31,10 @@
     justify-content: start;
     align-items: center;
     grid-column-gap: 6px;
+  }
+
+  li.has-switch {
+    grid-template-columns: auto auto auto 1fr;
   }
 
   .open-close-icon {
@@ -87,6 +62,7 @@
   small {
     white-space: pre-line;
     margin-left: 6px;
+    grid-column: 3 / span 1;
   }
 
   .child {
@@ -100,27 +76,25 @@
 </style>
 
 <ul>
-  {#each treeItems as treeItem}
+  {#each treeData as item}
     <li>
       <div
-        class="open-close-icon {treeItem.hasChild ? '' : 'hide'}"
-        on:click={() => toggleItem(treeItem)}>
-        {treeItem.isOpen ? '-' : '+'}
+        class="open-close-icon {item.hasChild ? '' : 'hide'}"
+        on:click={() => toggleItem(item)}>
+        {item.isOpen ? '-' : '+'}
       </div>
 
-      <div class="action" on:click={() => onActionClick(treeItem)}>
-        {treeItem.name}
-      </div>
+      <div class="action" on:click={() => onActionClick(item)}>{item.name}</div>
 
-      <small>{getDescription(patterns, treeItem.name)}</small>
+      {#if item.switch}
+        <div>1</div>
+      {/if}
 
-      {#if treeItem.isOpen}
+      <small>{item.description}</small>
+
+      {#if item.isOpen}
         <div class="child">
-          <svelte:self
-            on:actionclick
-            patterns={treeItem.patterns}
-            actions={treeItem.actions}
-            url={treeItem.url} />
+          <svelte:self on:actionclick treeData={item.treeData} />
         </div>
       {/if}
     </li>
