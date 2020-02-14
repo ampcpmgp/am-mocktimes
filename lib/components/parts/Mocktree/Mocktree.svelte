@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte'
+  import { reflectSwitchData } from '../../../utils/patterns'
   export let treeData
 
   const dispatch = createEventDispatcher()
@@ -13,6 +14,11 @@
     })
   }
 
+  function onSwitch(treeItem, switchItem) {
+    reflectSwitchData(treeItem, switchItem)
+    treeData = treeData
+  }
+
   function toggleItem(treeDataItem) {
     treeDataItem.isOpen = !treeDataItem.isOpen
     treeData = treeData
@@ -20,21 +26,26 @@
 </script>
 
 <style>
-  ul {
+  .tree-ul {
     display: grid;
   }
 
-  li {
+  .tree-li {
     padding: 2px;
     display: grid;
     grid-template-columns: auto auto 1fr;
+    grid-template-areas:
+      '. . description'
+      '. . .';
     justify-content: start;
     align-items: center;
     grid-column-gap: 6px;
   }
-
-  li.has-switch {
+  .tree-li.has-switch {
     grid-template-columns: auto auto auto 1fr;
+    grid-template-areas:
+      '. . . description'
+      '. . . .';
   }
 
   .open-close-icon {
@@ -53,16 +64,25 @@
     font-weight: bold;
     font-family: sans-serif;
   }
+  .open-close-icon:hover {
+    background-color: #ccc;
+  }
+  .open-close-icon.hide {
+    visibility: hidden;
+  }
 
   .action {
     cursor: pointer;
     color: blue;
   }
+  .action:hover {
+    opacity: 0.4;
+  }
 
   small {
+    grid-area: description;
     white-space: pre-line;
     margin-left: 6px;
-    grid-column: 3 / span 1;
   }
 
   .child {
@@ -70,24 +90,46 @@
     grid-column: 1 / -1;
   }
 
-  .hide {
-    visibility: hidden;
+  .switch-ul {
+    display: grid;
+    grid-auto-flow: column;
+  }
+
+  .switch-ul li {
+    cursor: pointer;
+    border: 1px solid rgba(255, 128, 0, 0.6);
+    padding: 0 6px;
+    text-align: center;
+    display: inline-block;
+    line-height: 1.15;
+  }
+  .switch-ul li.selected {
+    background-color: yellow;
   }
 </style>
 
-<ul>
+<ul class="tree-ul">
   {#each treeData as item}
-    <li>
+    <li class="tree-li {item.hasSwitch ? 'has-switch' : ''}">
       <div
-        class="open-close-icon {item.hasChild ? '' : 'hide'}"
+        class=" open-close-icon {item.hasChild ? '' : 'hide'}
+        "
         on:click={() => toggleItem(item)}>
         {item.isOpen ? '-' : '+'}
       </div>
 
       <div class="action" on:click={() => onActionClick(item)}>{item.name}</div>
 
-      {#if item.switch}
-        <div>1</div>
+      {#if item.hasSwitch}
+        <ul class="switch-ul">
+          {#each item.switchData as switchItem}
+            <li
+              class={item.selected.name === switchItem.name ? 'selected' : ''}
+              on:click={() => onSwitch(item, switchItem)}>
+              {switchItem.name}
+            </li>
+          {/each}
+        </ul>
       {/if}
 
       <small>{item.description}</small>
