@@ -8,28 +8,13 @@
   import MockTree from '../parts/MockTree/MockTree'
 
   function showMock(e) {
-    const { refresh, mockUrl, treeItem } = e.detail
+    const { mockUrl, treeItem } = e.detail
 
-    // TODO: 実装
     resetLastExecuted($treeData)
     treeItem.lastExecuted = true
     $treeData = $treeData
 
-    void (push, refresh, mockUrl)
-
-    // treeItem.lastExecuted = true
-    //   refresh()
-    // setTimeout(() => {
-    //   resetLastExecuted($treeData)
-    //   refresh()
-    // }, 1000)
-
-    // refreshCache()
-    // treeItem.lastExecuted = true
-    // refresh()
-
-    // refreshCache = refresh
-    // push('/' + e.detail.mockUrl)
+    push('/' + mockUrl)
   }
 </script>
 

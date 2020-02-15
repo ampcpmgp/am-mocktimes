@@ -5,16 +5,11 @@
 
   const dispatch = createEventDispatcher()
 
-  function refresh() {
-    treeData = treeData
-  }
-
   function onActionClick(treeItem) {
     const actionsJson = JSON.stringify(treeItem.actions)
     const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`
 
     dispatch('actionclick', {
-      refresh,
       mockUrl,
       treeItem,
     })

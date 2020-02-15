@@ -1,6 +1,7 @@
 <script>
-  import { name, greeting } from '../../states/mock'
+  import { location, querystring } from 'svelte-spa-router'
+
+  const url = $location.replace(/\//, '') + '?' + $querystring
 </script>
 
-<h1>{$greeting}</h1>
-<input bind:value={$name} />
+<div>{url}</div>
