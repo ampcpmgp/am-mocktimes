@@ -2,7 +2,6 @@
 node_modules/
 
 # am-mocktimes
-.am-mocktimes/
 .am-mocktimes-img/
 
 # parcel-bundler
