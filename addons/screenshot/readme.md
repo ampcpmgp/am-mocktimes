@@ -6,5 +6,6 @@ npm i am-mocktimes am-mocktimes-addon-screenshot -D
 
 # execute
 npx am-mocktimes watch
-npx am-mocktimes--screenshot
+# other console
+npx am-mocktimes--screenshot --url http://localhost:1234/_patterns.html
 ```

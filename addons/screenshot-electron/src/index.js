@@ -82,7 +82,7 @@ async function start() {
         document.querySelectorAll("[data-mock-links]")
       ).map(elm => ({
         href: elm.href,
-        name: elm.getAttribute('data-name-tree')
+        name: elm.textContent
       }))
 
       resolve(JSON.stringify(linkInfo))

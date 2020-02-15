@@ -133,6 +133,7 @@
       </div>
 
       <a
+        data-mock-links
         href={getMockUrl(item)}
         class="action"
         class:executed={item.lastExecuted}
