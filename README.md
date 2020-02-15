@@ -5,9 +5,8 @@
 モックパターン生成・管理ツールです。
 
 # Sample Page
-* [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock.html?__amMocktimes__=%255B%255B%2522setFullSettings%2522%255D%255D)
+* [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/_patterns.html)
 * [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
-  * [ソースコード](https://gitlab.com/ampcpmgp/plane-puzzle)
 
 # Recommended environment
 
@@ -15,7 +14,7 @@
 | --- | --- | --- |
 | >= 10.15.3 | >= 6.4.1 | >= 6.4.1 |
 
-# start with parcel
+# Start with parcel
 
 ```shell
 # インストール
