@@ -39,6 +39,7 @@
   {:else if target === 'electron'}
     <webview {src} bind:this={webview} nodeintegration />
   {:else}
-    settings.target = `{target}`, not defined. 'browser' or 'electron'.
+    settings.target = `{target}`, not defined. 'browser' or 'electron'
+    available.
   {/if}
 </div>

@@ -144,7 +144,7 @@
         <ul class="switch-ul">
           {#each item.switchData as switchItem}
             <li
-              class={item.selected.name === switchItem.name ? 'selected' : ''}
+              class:selected={item.selected.name === switchItem.name}
               on:click={() => onSwitch(item, switchItem)}>
               {switchItem.name}
             </li>
