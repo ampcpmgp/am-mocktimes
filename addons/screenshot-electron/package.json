@@ -1,0 +1,30 @@
+{
+  "name": "am-mocktimes-addon-screenshot-electron",
+  "version": "0.1.1",
+  "description": "",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "readme.md",
+    "package.json"
+  ],
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ampcpmgp/am-mocktimes.git",
+    "directory": "addons/screenshot-electron"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ampcpmgp/am-mocktimes/issues"
+  },
+  "homepage": "https://github.com/ampcpmgp/am-mocktimes/addons/screenshot-electron",
+  "dependencies": {
+    "electron": "^4.1.0",
+    "filenamify": "^3.0.0",
+    "fs-extra": "^7.0.1",
+    "rimraf": "^2.6.3",
+    "yargs": "^13.2.2"
+  }
+}

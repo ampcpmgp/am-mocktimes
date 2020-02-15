@@ -1,6 +1,13 @@
-.am-mocktimes/
-am-mocktimes/dist
-.cache/
-.dev/
+# Node.js
 node_modules/
-src/app/**/*.js
+
+# am-mocktimes
+.am-mocktimes-img/
+
+# parcel-bundler
+.cache/
+dist/
+dist-no-minified/
+
+# storybook
+storybook-static/

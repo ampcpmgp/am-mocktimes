@@ -1,108 +1,116 @@
-# Appearance
+[![am-mocktimes Dev Token](https://badge.devtoken.rocks/am-mocktimes)](https://devtoken.rocks/package/am-mocktimes)
 
-| モック一覧 | Webアプリのモック |
-| --- | --- |
-| ![pattern](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-pattern.gif) | ![mock](https://ampcpmgp.github.io/am-mocktimes/images/am-mocktimes-mock.gif) |
+# am-mocktimes
+
+モックパターン生成・管理ツールです。
 
 # Sample Page
-* [上記アニメーションのサンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock.html?__amMocktimes__=%255B%255B%2522setFullSettings%2522%255D%255D)
+* [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock.html?__amMocktimes__=%255B%255B%2522setFullSettings%2522%255D%255D)
 * [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
   * [ソースコード](https://gitlab.com/ampcpmgp/plane-puzzle)
 
+# Recommended environment
+
+| Node.js | npx | npm |
+| --- | --- | --- |
+| >= 10.15.3 | >= 6.4.1 | >= 6.4.1 |
+
 # start with parcel
-以下をインストール。  
 
-```
-npm i am-mocktimes parcel-bundler -D
+```shell
+# インストール
+npm i am-mocktimes parcel-plugin-svelte parcel-bundler -D
+
+# テンプレート生成
+npx am-mocktimes template
 ```
 
-以下のファイル構造で用意します。  
- ( `npx am-mocktimes generate-template` でも作成可能です。)
+以下のテンプレートファイルが出来上がります。
 
 ```shell
 # モック
 mock/
-  pattern.yml # モックパターン設定用
-  config.js # Webアプリのモック設定用
+  _mock.html # モック画面
+  _mock.js # モック画面js
+  _patterns.html # パターン一覧画面
+  _patterns.js # パターン一覧画面js
+  mock-config.js # モック画面 - 設定ファイル
+  patterns.yml # パターン一覧画面 - 設定ファイル
 
 # アプリケーション本体
 src/
   index.html
-  app.js
+  main.js
 ```
 
-作成後、以下のコマンドでparcelサーバーが立ち上がり、開発可能になります。  
+テンプレート作成後、以下のコマンドでparcelサーバーが立ち上がり、
 
 ```shell
-npx am-mocktimes watch
-# 出力パスは、デフォルトで `.am-mocktimes`に設定されていて、`.gitignore` に追加することを推奨します
-# ビルド終了後、 `localhost:1234` からアクセスできます。
-# ParcelのHMRがうまく動かない場合、 `-r` オプションで、リロードに変更できます。
+npx parcel mock/*.html
 ```
 
-また、ビルドのみの実行も可能です。
-```shell
-npx am-mocktimes build
-```
+http://localhost:1234/_patterns.html からアクセスできます。
 
-オプションの詳しい内容は `npx am-mocktimes help` でご覧くださいm(__)m
-
-## config mock/pattern.yml
-モック一覧の表示・設定に利用します。  
+## config mock/patterns.yml
+モック一覧の表示・設定に利用します。
 
 以下が設定例です。
+
 ```yaml
+settings:
+  url: _mock.html
 No Plan: []
-Plan A: [setPlan, plan/a.json]
+Plan A: [setPlan, A]
   switch:
-    Earth: [goLocation, earth]
-    Mars: [goLocation, mars]
-    Sun: [goLocation, sun]
+    Earth: [goLocation, Earth]
+    Mars: [goLocation, Mars]
+    Sun: [goLocation, Sun]
 Plan B:
-  func: [setPlan, plan/b.json]
+  func: [setPlan, B]
 plan Z:
   funcs:
-    - [setPlan, plan/z.json, DragonBall]
+    - [setPlan, Z, DragonBall]
     - [dbz.open]
 ```
 
 ### reserved property
 
 #### func: Array
-配列の先頭に関数名、２つ目以降は、引数として扱われるものになります。  
-これを指定することで、固有のURLが作られ、後述する[action](#config-mockconfigjs)を呼び出すトリガーになります。  
-関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。  
+配列の先頭に関数名、2つ目以降は、引数として扱われるものになります。<br>
+これを指定することで、固有のURLが作られ、後述する[action](#config-mockmock-configjs)を呼び出すトリガーになります。<br>
+関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。<br>
 [action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
 
+#### settings.url: String
+別URLに切り替えたいときは、このpropertyを設定します。<br>
+設定したobject配下に適用されます。
+
+#### settings.target: String
+デフォルトは `browser` になります。この設定により、パターン一覧画面からモックを表示する際に iframe が使われるようになります。 `electron` に指定すると、モック表示に webview が使われ Node.js を実行出来るようになります。
 
 #### funcs: Array[func, func, ...]
-`func` を複数定義できます。  
+`func` を複数定義できます。<br>
 funcと同様、省略可能です。
 
 #### switch: Object
-スイッチボタンによる、モック切り替えが可能です。  
-switch配下の設定も他と同様で、新しく何かを覚える必要がありません。
+スイッチボタンによる、モック切り替えが可能です。<br>
+switch配下の設定も他と同様です。
 
 #### description: String
-モック一覧の、横に表示するもの。改行ありです。yaml改行を使うと綺麗に書けます。  
-
-#### url: String
-別URLに切り替えたいときは、このpropertyを設定します。  
-設定したobject配下に、適用されます。  
-
+モック一覧の横に説明書きとして表示されます。改行可能。
 
 ### action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
-## config mock/config.js
-モックページで呼び出される、アクションを定義します。  
+## config mock/mock-config.js
+モックページで呼び出される、アクションを定義します。
 
 以下が設定例です。
 ```js
 import mock from 'am-mocktimes'
 
 const action = {
-  setPlan (planFile, world = null) { // multiple arguments can be received
+  setPlan (name, world = null) { // multiple arguments can be received
     // setPlan
   },
   async goLocation (location) {
@@ -121,43 +129,17 @@ const action = {
 mock(action)
 ```
 
-後述の `src/app.js` と `import` のスコープを一緒にしているため、  
-各moduleの設定や、呼出が可能です。(`watch`時に、 `.am-mocktimes/mock.js` にて確認可能です)
-
 ### mock(action: MockAction)
-この関数を呼び出すことで、モック状態を生成します。  
+この関数を呼び出すことで、モック状態を生成します。
 
 #### MockAction
-`func`で定義した関数名を、keyで持つobjectとなります。  
-objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。    
+`func`で定義した関数名を、keyで持つobjectとなります。<br>
+objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。
 
+# addons
 
-## config src/index.html
-こちらは、アプリケーション本体を配置します。  
-[parcel/Getting Started](https://parceljs.org/getting_started.html)を参考に出来ます。
+* [screenshot](./addons/screenshot/#readme) - 各モックページのスクリーンショットを保存します。
 
+# start with webpack
 
-
-## config src/app.js
-上記ファイルから利用される、アプリケーション本体のjsとなります。  
-
-
-
-# start with others
-以下のオプションを使うことで、parcelの起動を止め、出力されたファイルに対し、お好きなビルドを行うことが出来ます。
-```shell
-npx am-mocktimes watch --no-use-parcel
-# `.am-mocktimes/` (出力パス) に、
-# `pattern.html / pattern.js` (モック一覧ページ) と
-# `mock.html / mock.js` (Webアプリのモックページ) が生成されます。
-```
-
-
-# Recommended environment
-
-| Node.js | npx | npm |
-| --- | --- | --- |
-| >= 8.9 | >= 9.6 | >= 5.6 |
-
-※モック一覧ページはIE11非対応なので、  
-直接Webアプリのモックページでご確認ください。
+PR Welcome!
