@@ -1,7 +1,6 @@
 {
-  "TODO: 上から全部見る、特に不要なモジュールが無いか": "",
   "name": "am-mocktimes",
-  "version": "3.0.0",
+  "version": "3.0.0-beta.0",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
   "main": "src/mock.js",
@@ -20,8 +19,7 @@
     "format": "prettier --ignore-path .gitignore --write **/*.{js,svelte}",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "screenshot": "am-mocktimes--screenshot",
-    "TODO:delete:screenshot": "node ./addons/screenshot/bin --url http://localhost:1234/.am-mocktimes/pattern.html"
+    "screenshot": "node ./addons/screenshot/bin"
   },
   "author": "",
   "license": "MIT",
@@ -50,23 +48,14 @@
     "svelte-loader": "^2.13.6"
   },
   "dependencies": {
-    "chokidar": "^2.0.3",
-    "dob": "^2.5.8",
-    "filenamify": "^2.1.0",
     "fs-extra": "^5.0.0",
     "get-port": "^3.2.0",
-    "ip": "^1.1.5",
     "keyboardjs": "^2.4.1",
     "modern-css-reset": "^1.1.0",
-    "normalize-path": "^2.1.1",
-    "opn": "^5.3.0",
     "parcel-bundler": "^1.12.3",
-    "parcel-plugin-tag": "^1.2.0",
     "query-string": "^6.1.0",
-    "rimraf": "^2.6.3",
     "svelte": "^3.18.2",
     "svelte-spa-router": "^2.0.0",
-    "wait-on": "^3.2.0",
     "yargs": "^15.1.0"
   },
   "browserslist": [
