@@ -1,7 +1,9 @@
 <script>
-  import { location, querystring } from 'svelte-spa-router'
+  import MockView from '../parts/MockView/MockView'
 
-  const url = $location.replace(/\//, '') + '?' + $querystring
+  const viewInfoEncoded = location.hash.replace(/^#\//, '')
+  const viewInfoJson = decodeURIComponent(viewInfoEncoded)
+  const { mockUrl, target } = JSON.parse(viewInfoJson)
 </script>
 
-<div>{url}</div>
+<MockView src={mockUrl} {target} />

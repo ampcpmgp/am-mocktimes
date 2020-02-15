@@ -14,7 +14,14 @@
     treeItem.lastExecuted = true
     $treeData = $treeData
 
-    push('/' + mockUrl)
+    const viewInfo = {
+      mockUrl,
+      target: treeItem.target,
+    }
+
+    const viewInfoJson = JSON.stringify(viewInfo)
+
+    push('/' + viewInfoJson)
   }
 </script>
 
