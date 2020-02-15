@@ -10,4 +10,4 @@ dist/
 dist-no-minified/
 
 # storybook
-storybook-static
+storybook-static/

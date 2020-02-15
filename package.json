@@ -1,9 +1,9 @@
 {
   "name": "am-mocktimes",
-  "version": "3.0.0-beta.0",
+  "version": "3.0.0-beta.1",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
-  "main": "src/mock.js",
+  "main": "lib/mock.js",
   "bin": {
     "am-mocktimes": "bin/index.js"
   },
