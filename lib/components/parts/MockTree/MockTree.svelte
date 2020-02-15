@@ -133,7 +133,7 @@
       </div>
 
       <a
-        data-mock-links
+        data-mock-name-tree={item.nameTree}
         href={getMockUrl(item)}
         class="action"
         class:executed={item.lastExecuted}

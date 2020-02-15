@@ -19,7 +19,8 @@
     "format": "prettier --ignore-path .gitignore --write **/*.{js,svelte}",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "screenshot": "node ./addons/screenshot/bin"
+    "screenshot": "node ./addons/screenshot/bin",
+    "screenshot-electron": "cd addons/screenshot-electron && npx electron ."
   },
   "author": "",
   "license": "MIT",
