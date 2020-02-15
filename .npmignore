@@ -1,6 +1,7 @@
-.am-mocktimes/
 .am-mocktimes-img/
 .cache/
+.storybook/
 .git/
 addons/
 mock/
+lib/components/**/*.stories.js

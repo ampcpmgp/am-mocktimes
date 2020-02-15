@@ -5,8 +5,7 @@ const filenamify = require('filenamify')
 const puppeteer = require('puppeteer')
 const yargs = require('yargs')
 const path = require('path')
-// am-mocktimes と共通化したい
-const { DEFAULT_URL, FINISHED_ATTR } = require('../src/const')
+const { DEFAULT_URL, FINISHED_ATTR } = require('./const')
 
 const { argv } = yargs.options({
   pattern: {
@@ -14,42 +13,42 @@ const { argv } = yargs.options({
     describe:
       'Filter patter name. Specify the same as file name. eg: `pattern1!pattern2!pattern3`',
     default: '',
-    type: 'string'
+    type: 'string',
   },
   width: {
     alias: 'w',
     describe: 'Set viewport width.',
     default: 1440,
-    type: 'number'
+    type: 'number',
   },
   height: {
     alias: 'h',
     describe: 'Set viewport height.',
     default: 900,
-    type: 'number'
+    type: 'number',
   },
   url: {
     alias: 'u',
     describe: "Set port for am-mocktimes's pattern url.",
     default: DEFAULT_URL,
-    type: 'string'
+    type: 'string',
   },
   'out-dir': {
     alias: 'd',
     default: './.am-mocktimes-img',
-    describe: 'Set output directory for mock images.'
-  }
+    describe: 'Set output directory for mock images.',
+  },
 })
 
-async function start () {
+async function start() {
   const browser = await puppeteer.launch({
-    ignoreHTTPSErrors: true
+    ignoreHTTPSErrors: true,
   })
   const page = await browser.newPage()
 
   page.setViewport({
     width: argv.width,
-    height: argv.height
+    height: argv.height,
   })
 
   try {
@@ -64,13 +63,15 @@ async function start () {
   await fs.ensureDir(imgDir)
   rimraf.sync(`${imgDir}/*`)
 
+  await page.keyboard.press('0')
+
   const linkInfoStr = await page.evaluate(() => {
     // this will be executed in Chrome
     const linkInfo = Array.from(
-      document.querySelectorAll(`[data-mock-links]`)
+      document.querySelectorAll(`[data-mock-name-tree]`)
     ).map(elm => ({
       href: elm.href,
-      name: elm.getAttribute('data-name-tree')
+      name: elm.getAttribute('data-mock-name-tree'),
     }))
     return JSON.stringify(linkInfo)
   })
@@ -94,7 +95,7 @@ async function start () {
     await page.screenshot({
       type: 'jpeg',
       quality: 80,
-      path: path.join(process.cwd(), argv.outDir, `${fileName}.jpg`)
+      path: path.join(process.cwd(), argv.outDir, `${fileName}.jpg`),
     })
 
     page.removeListener('pageerror', pageError)

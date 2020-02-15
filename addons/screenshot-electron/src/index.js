@@ -13,44 +13,44 @@ const { argv } = yargs.options({
     describe:
       'Filter patter name. Specify the same as file name. eg: `pattern1!pattern2!pattern3`',
     default: '',
-    type: 'string'
+    type: 'string',
   },
   width: {
     alias: 'w',
     describe: 'Set viewport width.',
     default: 1440,
-    type: 'number'
+    type: 'number',
   },
   height: {
     alias: 'h',
     describe: 'Set viewport height.',
     default: 900,
-    type: 'number'
+    type: 'number',
   },
   url: {
     alias: 'u',
     describe: "Set port for am-mocktimes's pattern url.",
     default: DEFAULT_URL,
-    type: 'string'
+    type: 'string',
   },
   'out-dir': {
     alias: 'd',
     default: './.am-mocktimes-img',
-    describe: 'Set output directory for mock images.'
-  }
+    describe: 'Set output directory for mock images.',
+  },
 })
 
 const { app, BrowserWindow, ipcMain } = electron
 
-async function createWindow (url) {
+async function createWindow(url) {
   let mainWindow = new BrowserWindow({
     x: 0,
     y: 0,
     width: argv.width,
     height: argv.height,
     webPreferences: {
-      preload: path.resolve(path.join(__dirname, 'preload.js'))
-    }
+      preload: path.resolve(path.join(__dirname, 'preload.js')),
+    },
   })
 
   mainWindow.loadURL(url)
@@ -67,7 +67,7 @@ async function createWindow (url) {
   })
 }
 
-async function start () {
+async function start() {
   process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true
 
   const mainWindow = await createWindow(argv.url)
@@ -76,13 +76,16 @@ async function start () {
   await fs.ensureDir(imgDir)
   rimraf.sync(`${imgDir}/*`)
 
+  mainWindow.webContents.sendInputEvent({ keyCode: '0', type: 'keyDown' })
+  mainWindow.webContents.sendInputEvent({ keyCode: '0', type: 'keyUp' })
+
   const linkInfoStr = await mainWindow.webContents.executeJavaScript(`
     new Promise(resolve => {
       const linkInfo = Array.from(
-        document.querySelectorAll("[data-mock-links]")
+        document.querySelectorAll("[data-mock-name-tree]")
       ).map(elm => ({
         href: elm.href,
-        name: elm.getAttribute('data-name-tree')
+        name: elm.getAttribute('data-mock-name-tree')
       }))
 
       resolve(JSON.stringify(linkInfo))
@@ -131,7 +134,7 @@ async function start () {
 
 app.on('ready', start)
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
   if (process.platform !== 'darwin') {
     app.quit()
   }
