@@ -1,5 +1,6 @@
 import sleep from '../lib/utils/sleep'
 import mock from '../lib/mock'
+import cat from './cat.svg'
 
 const locations = {
   A: ['Earth', 'Mars', 'Sun'],
@@ -11,15 +12,15 @@ window.setLocation = async location => {
   console.log('setLocation')
   const message = `This is ${location}`
   window.catSaysLocation.src = ''
-  window.catSaysLocation.src = `https://cataas.com/cat/says/${message}`
+  window.say.textContent = ''
   window.catSaysLocation.alt = `Image loading...`
-  window.catSaysLocation.onerror = () => {
-    window.catSaysLocation.alt = `Image not found. - ${message}`
-  }
+  await sleep(1000)
+  window.catSaysLocation.src = cat
+  window.say.textContent = message
   if (location === 'Cell Game') {
     window.catSaysLocation.onload = () => {
-      window.catSaysLocation.style.animation = ``
-      window.catSaysLocation.style.animation = `spin 0.8s ease`
+      window.picture.style.animation = ``
+      window.picture.style.animation = `spin 0.8s ease`
     }
   }
 }

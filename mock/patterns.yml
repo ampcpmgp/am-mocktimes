@@ -8,11 +8,11 @@ Travel Plan A:
   planet:
     switch:
       Earth:
-          func: [setLocation, earth]
+          func: [setLocation, Earth]
           description: less capacity, fullfilled water
       Mars:
-        - [setLocation, mars]
-      Sun: [setLocation, sun]
+        - [setLocation, Mars]
+      Sun: [setLocation, Sun]
     view statistics: [view.displayStatistics]
 Travel Plan B: [setPlan, B]
 Travel Plan Z:
