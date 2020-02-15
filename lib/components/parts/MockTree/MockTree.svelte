@@ -5,12 +5,16 @@
 
   const dispatch = createEventDispatcher()
 
-  function onActionClick(treeItem) {
+  function getMockUrl(treeItem) {
     const actionsJson = JSON.stringify(treeItem.actions)
     const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`
 
+    return mockUrl
+  }
+
+  function onActionClick(treeItem) {
     dispatch('actionclick', {
-      mockUrl,
+      mockUrl: getMockUrl(treeItem),
       treeItem,
     })
   }
@@ -79,6 +83,7 @@
     margin-bottom: 2px;
     box-sizing: border-box;
     line-height: 1.15;
+    text-decoration: none;
   }
   .action:hover {
     opacity: 0.4;
@@ -127,12 +132,13 @@
         {item.isOpen ? '-' : '+'}
       </div>
 
-      <div
-        class=" action {item.lastExecuted ? 'executed' : ''}
-        "
-        on:click={() => onActionClick(item)}>
+      <a
+        href={getMockUrl(item)}
+        class="action"
+        class:executed={item.lastExecuted}
+        on:click|preventDefault={() => onActionClick(item)}>
         {item.name}
-      </div>
+      </a>
 
       {#if item.hasSwitch}
         <ul class="switch-ul">
