@@ -5,8 +5,7 @@ const filenamify = require('filenamify')
 const puppeteer = require('puppeteer')
 const yargs = require('yargs')
 const path = require('path')
-// am-mocktimes と共通化したい
-const { DEFAULT_URL, FINISHED_ATTR } = require('../src/const')
+const { DEFAULT_URL, FINISHED_ATTR } = require('./const')
 
 const { argv } = yargs.options({
   pattern: {
@@ -63,6 +62,8 @@ async function start() {
 
   await fs.ensureDir(imgDir)
   rimraf.sync(`${imgDir}/*`)
+
+  await page.keyboard.press('0')
 
   const linkInfoStr = await page.evaluate(() => {
     // this will be executed in Chrome

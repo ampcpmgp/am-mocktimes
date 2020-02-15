@@ -8,13 +8,10 @@
   },
   "files": [
     "bin",
-    "src",
     "readme.md",
     "package.json"
   ],
-  "scripts": {
-    "test": "kocha test/*.js --timeout=60000"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ampcpmgp/am-mocktimes.git",
@@ -26,11 +23,6 @@
     "url": "https://github.com/ampcpmgp/am-mocktimes/issues"
   },
   "homepage": "https://github.com/ampcpmgp/am-mocktimes/addons/screenshot",
-  "devDependencies": {
-    "ip": "^1.1.5",
-    "kocha": "^1.9.1",
-    "wait-on": "^3.2.0"
-  },
   "dependencies": {
     "filenamify": "^3.0.0",
     "fs-extra": "^7.0.1",

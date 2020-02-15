@@ -1,6 +1,6 @@
 {
   "name": "am-mocktimes",
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
   "main": "lib/mock.js",
@@ -19,7 +19,8 @@
     "format": "prettier --ignore-path .gitignore --write **/*.{js,svelte}",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "screenshot": "node ./addons/screenshot/bin"
+    "screenshot": "node ./addons/screenshot/bin",
+    "screenshot-electron": "node ./addons/screenshot-electron/bin"
   },
   "author": "",
   "license": "MIT",
