@@ -12,16 +12,19 @@ window.setLocation = async location => {
   console.log('setLocation')
   const message = `This is ${location}`
   window.catSaysLocation.src = ''
-  window.say.textContent = ''
   window.catSaysLocation.alt = `Image loading...`
+  window.say.textContent = ''
   await sleep(1000)
   window.catSaysLocation.src = cat
   window.say.textContent = message
   if (location === 'Cell Game') {
-    window.catSaysLocation.onload = () => {
+    window.catSaysLocation.onload = async () => {
       window.picture.style.animation = ``
+      await sleep(100)
       window.picture.style.animation = `spin 0.8s ease`
     }
+  } else {
+    window.catSaysLocation.onload = () => {}
   }
 }
 
