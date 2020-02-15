@@ -71,7 +71,7 @@
     ]
   },
   "lint-staged": {
-    "**/*.{js,svelte}": [
+    "**/*.{js,svelte},!docs/**": [
       "eslint",
       "prettier --write",
       "git add"
