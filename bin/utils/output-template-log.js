@@ -15,7 +15,7 @@ src/
   main.js
 
 ## docs
-mock/mock-config.js:  https://github.com/ampcpmgp/am-mocktimes#config-mockconfigjs
+mock/mock-config.js:  https://github.com/ampcpmgp/am-mocktimes#config-mockmockconfigjs
 mock/patterns.yml:  https://github.com/ampcpmgp/am-mocktimes#config-mockpatternyml
 `)
 }

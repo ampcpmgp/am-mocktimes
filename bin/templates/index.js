@@ -4,7 +4,7 @@ module.exports = {
   mockConfig: require('./mock-config'),
   mockHtml: require('./mock-html'),
   mockSrc: require('./mock-src'),
-  patternHtml: require('./pattern-html'),
-  patternJs: require('./pattern-js'),
-  patternYml: require('./pattern-yml'),
+  patternsHtml: require('./patterns-html'),
+  patternsJs: require('./patterns-js'),
+  patternsYml: require('./patterns-yml'),
 }

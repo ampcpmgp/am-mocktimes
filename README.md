@@ -109,7 +109,7 @@ switch配下の設定も他と同様で、新しく何かを覚える必要が�
 ### action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
-## config mock/config.js
+## config mock/mock-config.js
 モックページで呼び出される、アクションを定義します。
 
 以下が設定例です。

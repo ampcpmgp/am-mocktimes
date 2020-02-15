@@ -55,7 +55,6 @@
   .open-close-icon {
     cursor: pointer;
     user-select: none;
-    border: solid 2px #555;
     width: 20px;
     height: 20px;
     border-radius: 4px;
@@ -67,6 +66,7 @@
     line-height: 0px;
     font-weight: bold;
     font-family: sans-serif;
+    border: solid 2px #555;
   }
   .open-close-icon:hover {
     background-color: #ccc;
@@ -126,8 +126,8 @@
   {#each treeData as item}
     <li class="tree-li {item.hasSwitch ? 'has-switch' : ''}">
       <div
-        class=" open-close-icon {item.hasChild ? '' : 'hide'}
-        "
+        class="open-close-icon"
+        class:hide={!item.hasChild}
         on:click={() => toggleItem(item)}>
         {item.isOpen ? '-' : '+'}
       </div>

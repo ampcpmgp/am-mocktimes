@@ -5,7 +5,7 @@ const outputTemplateLog = require('./utils/output-template-log')
 const makeFileIfNotExist = async ({ filePath, src }, { force }) => {
   const isExistsFile = await fs.pathExists(filePath)
   if (isExistsFile && !force) {
-    console.warn(`${filePath} is existed.`)
+    console.warn(`${filePath} is existed. skipped.`)
     return
   }
 
@@ -18,8 +18,8 @@ module.exports = async argv => {
   await makeFileIfNotExist(templates.mockConfig, argv)
   await makeFileIfNotExist(templates.mockHtml, argv)
   await makeFileIfNotExist(templates.mockSrc, argv)
-  await makeFileIfNotExist(templates.patternHtml, argv)
-  await makeFileIfNotExist(templates.patternJs, argv)
-  await makeFileIfNotExist(templates.patternYml, argv)
+  await makeFileIfNotExist(templates.patternsHtml, argv)
+  await makeFileIfNotExist(templates.patternsJs, argv)
+  await makeFileIfNotExist(templates.patternsYml, argv)
   outputTemplateLog()
 }
