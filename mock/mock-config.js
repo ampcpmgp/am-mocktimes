@@ -52,7 +52,9 @@ window.displayStatistics = () => {
 
 mock({
   setPlan,
-  setLocation: window.setLocation,
+  dbz: {
+    setLocation: window.setLocation,
+  },
   view: {
     displayStatistics: window.displayStatistics,
   },

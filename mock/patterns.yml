@@ -19,4 +19,4 @@ Travel Plan B: [setPlan, B]
 Travel Plan Z:
   funcs:
    - [setPlan, Z]
-   - [setLocation, Cell Game, true]
+   - [dbz.setLocation, Cell Game, true]
