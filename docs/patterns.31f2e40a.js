@@ -53,8 +53,8 @@ module.exports="octocat.a8fb7fc3.svg";
 },{"svelte/internal":"YkLP","svelte-spa-router":"hFZm","./routes":"IwUZ"}],"PIvv":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.generateList=n,require("modern-css-reset");var e=u(require("./utils/keyboard")),t=require("./states/mock"),r=u(require("./components/App"));function u(e){return e&&e.__esModule?e:{default:e}}function n(u){(0,t.init)(u),(0,e.default)(),new r.default({target:document.getElementById("app")})}
 },{"modern-css-reset":"jl9O","./utils/keyboard":"cGKb","./states/mock":"FbKH","./components/App":"mjRx"}],"xnAD":[function(require,module,exports) {
-module.exports={settings:{url:"_mock.html"},"Travel Plan A":{func:["setPlan","A"],description:"top plan\nmost expensive plan\n",planet:{switch:{Earth:{func:["setLocation","Earth"],description:"less capacity, fullfilled water"},Mars:[["setLocation","Mars"]],Sun:["setLocation","Sun"]},"view statistics":["view.displayStatistics"]}},"Travel Plan B":["setPlan","B"],"Travel Plan Z":{funcs:[["setPlan","Z"],["setLocation","Cell Game",!0]]}};
-},{}],"kEdg":[function(require,module,exports) {
+module.exports={settings:{url:"mock.html"},"Travel Plan A":{func:["setPlan","A"],description:"top plan\nmost expensive plan\n",planet:{switch:{Earth:{func:["setLocation","Earth"],description:"less capacity, fullfilled water"},Mars:[["setLocation","Mars"]],Sun:["setLocation","Sun"]},"view statistics":["view.displayStatistics"]}},"Travel Plan B":["setPlan","B"],"Travel Plan Z":{funcs:[["setPlan","Z"],["setLocation","Cell Game",!0]]}};
+},{}],"MwO6":[function(require,module,exports) {
 "use strict";var e=require("../lib/main"),r=t(require("./patterns.yml"));function t(e){return e&&e.__esModule?e:{default:e}}(0,e.generateList)(r.default);
-},{"../lib/main":"PIvv","./patterns.yml":"xnAD"}]},{},["kEdg"], null)
-//# sourceMappingURL=_patterns.b27e8399.js.map
+},{"../lib/main":"PIvv","./patterns.yml":"xnAD"}]},{},["MwO6"], null)
+//# sourceMappingURL=patterns.31f2e40a.js.map
