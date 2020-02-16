@@ -6,7 +6,7 @@
 
 # Sample Page
 * [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/patterns.html)
-* [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)  
+* [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
 
 # How to use
 上記のサンプルページを開き、特定のリンクをクリックすると、iframeでモックが表示されます。<br>
@@ -22,6 +22,7 @@
 
 ```shell
 # インストール
+npm init
 npm i am-mocktimes parcel-plugin-svelte parcel-bundler -D
 
 # テンプレート生成
@@ -46,13 +47,25 @@ src/
   main.js
 ```
 
-テンプレート作成後、以下のコマンドでparcelサーバーが立ち上がり、
+※[こちらのIssue](https://github.com/DeMoorJasper/parcel-plugin-svelte/issues/44)が解消されるまでは、 `package.json` 内に 以下のような `browserlist` を追加してください。
+
+```json
+{
+  ...
+  "browserslist": [
+    "last 1 chrome versions"
+  ]
+}
+
+
+テンプレート作成後、以下のコマンドでparcelサーバーが立ち上がります。<br>
 
 ```shell
 npx parcel mock/*.html
 ```
 
-http://localhost:1234/patterns.html からアクセスできます。
+http://localhost:1234/patterns.html からアクセスできます。<br>
+( `browserlist` を入れなかった場合、上記ページを開くとエラーが表示されます。 )
 
 ## config mock/patterns.yml
 モック一覧の表示・設定に利用します。
