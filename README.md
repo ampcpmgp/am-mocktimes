@@ -56,9 +56,10 @@ src/
     "last 1 chrome versions"
   ]
 }
+```
 
 
-テンプレート作成後、以下のコマンドでparcelサーバーが立ち上がります。<br>
+テンプレート作成後、以下のコマンドでparcelサーバーが立ち上がります。
 
 ```shell
 npx parcel mock/*.html
