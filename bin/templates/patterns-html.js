@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  filePath: path.join(process.cwd(), 'mock/patterns.html'),
+  filePath: path.join(process.cwd(), 'mock/testbed/patterns.html'),
   src: `<!doctype html>
 <html lang="en">
   <head>
