@@ -64,7 +64,7 @@ src/
 テンプレート作成後、以下のコマンドでparcelサーバーが立ち上がります。
 
 ```shell
-npx parcel mock/*.html
+npx parcel mock/testbed/*.html
 ```
 
 http://localhost:1234/patterns.html からアクセスできます。<br>
