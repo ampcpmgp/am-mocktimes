@@ -2,10 +2,10 @@ module.exports = () => {
   console.log(`
 # モック
 mock/
-  _mock.html # モック画面
-  _mock.js # モック画面js
-  _patterns.html # パターン一覧画面
-  _patterns.js # パターン一覧画面js
+  mock.html # モック画面
+  mock.js # モック画面js
+  patterns.html # パターン一覧画面
+  patterns.js # パターン一覧画面js
   mock-config.js # モック画面 - 設定ファイル
   patterns.yml # パターン一覧画面 - 設定ファイル
 

@@ -1,5 +1,5 @@
 settings:
-  url: _mock.html
+  url: mock.html
   # target: electron
 Travel Plan A:
   func: [setPlan, A]

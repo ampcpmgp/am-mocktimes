@@ -5,7 +5,7 @@
 モックパターン生成・管理ツールです。
 
 # Sample Page
-* [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/_patterns.html)
+* [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/patterns.html)
 * [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
 
 # Recommended environment
@@ -29,10 +29,10 @@ npx am-mocktimes template
 ```shell
 # モック
 mock/
-  _mock.html # モック画面
-  _mock.js # モック画面js
-  _patterns.html # パターン一覧画面
-  _patterns.js # パターン一覧画面js
+  mock.html # モック画面
+  mock.js # モック画面js
+  patterns.html # パターン一覧画面
+  patterns.js # パターン一覧画面js
   mock-config.js # モック画面 - 設定ファイル
   patterns.yml # パターン一覧画面 - 設定ファイル
 
@@ -48,7 +48,7 @@ src/
 npx parcel mock/*.html
 ```
 
-http://localhost:1234/_patterns.html からアクセスできます。
+http://localhost:1234/patterns.html からアクセスできます。
 
 ## config mock/patterns.yml
 モック一覧の表示・設定に利用します。
@@ -57,7 +57,7 @@ http://localhost:1234/_patterns.html からアクセスできます。
 
 ```yaml
 settings:
-  url: _mock.html
+  url: mock.html
 No Plan: []
 Plan A: [setPlan, A]
   switch:
