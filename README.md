@@ -4,21 +4,21 @@
 
 モック生成・パターン管理ツールです。
 
-# Sample Page
+## Sample Page
 * [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/patterns.html)
 * [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
 
-# How to use
+## How to use
 上記のサンプルページを開き、特定のリンクをクリックすると、iframeでモックが表示されます。<br>
 ブラウザの戻るボタンを押すと再度一覧ページに戻ります。
 
-# Recommended environment
+## Recommended environment
 
 | Node.js | npx | npm |
 | --- | --- | --- |
 | >= 10.15.3 | >= 6.4.1 | >= 6.4.1 |
 
-# Start with parcel
+## Start with parcel
 
 ```shell
 # インストール
@@ -155,10 +155,10 @@ mock(action)
 `func`で定義した関数名を、keyで持つobjectとなります。<br>
 objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [dbz.start]` のように、 `.` でつなぎます。
 
-# addons
+## addons
 
 * [screenshot](./addons/screenshot/#readme) - 各モックページのスクリーンショットを保存します。
 
-# start with webpack
+## start with webpack
 
 PR Welcome!
