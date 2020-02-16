@@ -153,7 +153,7 @@ mock(action)
 
 #### MockAction
 `func`で定義した関数名を、keyで持つobjectとなります。<br>
-objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [modal.open]` のように、 `.` でつなぎます。
+objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [dbz.start]` のように、 `.` でつなぎます。
 
 # addons
 
