@@ -2,7 +2,7 @@
 
 # am-mocktimes
 
-モックパターン生成・管理ツールです。
+モック生成・管理ツールです。
 
 # Sample Page
 * [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/patterns.html)
