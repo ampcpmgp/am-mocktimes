@@ -79,13 +79,13 @@ http://localhost:1234/patterns.html からアクセスできます。<br>
 settings:
   url: mock.html
 No Plan: []
-Plan A: [setPlan, A]
+Plan A:
+  func: [setPlan, A]
   switch:
     Earth: [goLocation, Earth]
     Mars: [goLocation, Mars]
     Sun: [goLocation, Sun]
-Plan B:
-  func: [setPlan, B]
+Plan B: [setPlan, B]
 plan Z:
   funcs:
     - [setPlan, Z, DragonBall]
