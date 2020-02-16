@@ -6,7 +6,11 @@
 
 # Sample Page
 * [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/patterns.html)
-* [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
+* [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)  
+
+# How to use
+上記のサンプルページを開き、特定のリンクをクリックすると、iframeでモックが表示されます。<br>
+ブラウザの戻るボタンを押すと再度一覧ページに戻ります。
 
 # Recommended environment
 
