@@ -94,12 +94,6 @@ plan Z:
 
 ### reserved property
 
-#### func: Array
-配列の先頭に関数名、2つ目以降は、引数として扱われるものになります。<br>
-これを指定することで、固有のURLが作られ、後述する[action](#config-mockmock-configjs)を呼び出すトリガーになります。<br>
-関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。<br>
-[action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
-
 #### settings.url: String
 別URLに切り替えたいときは、このpropertyを設定します。<br>
 設定したobject配下に適用されます。
@@ -107,13 +101,18 @@ plan Z:
 #### settings.target: String
 デフォルトは `browser` になります。この設定により、パターン一覧画面からモックを表示する際に iframe が使われるようになります。 `electron` に指定すると、モック表示に webview が使われ Node.js を実行出来るようになります。
 
+#### func: Array
+配列の先頭に関数名、2つ目以降は、引数として扱われるものになります。<br>
+これを指定することで、固有のURLが作られ、後述する[action](#config-mockmock-configjs)を呼び出すトリガーになります。<br>
+関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。<br>
+[action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
+
 #### funcs: Array[func, func, ...]
-`func` を複数定義できます。<br>
-funcと同様、省略可能です。
+`func` を複数定義できます。funcと同様、省略可能です。
 
 #### switch: Object
 スイッチボタンによる、モック切り替えが可能です。<br>
-switch配下の設定も他と同様です。
+switch配下の設定も、他と同様に　reserved propert を使えます。
 
 #### description: String
 モック一覧の横に説明書きとして表示されます。改行可能。
