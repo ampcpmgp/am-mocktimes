@@ -29,10 +29,9 @@
     treeDataItem.isOpen = !treeDataItem.isOpen
     treeData = treeData
 
-
     dispatch('changeOpenStatus', {
       nameTree: treeDataItem.nameTree,
-      isOpen: treeDataItem.isOpen
+      isOpen: treeDataItem.isOpen,
     })
   }
 </script>
