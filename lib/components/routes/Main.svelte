@@ -3,9 +3,15 @@
   import { isOpen } from '../../states/help'
   import { treeData } from '../../states/mock'
   import { resetLastExecuted } from '../../utils/patterns'
+  import { setLastOpenName } from '../../utils/localForage'
   import Header from '../parts/Header/Header'
   import Help from '../parts/Help/Help'
   import MockTree from '../parts/MockTree/MockTree'
+
+  function saveOpenStatus(e) {
+    const { nameTree, isOpen } = e.detail
+    setLastOpenName(nameTree, isOpen)
+  }
 
   function showMock(e) {
     const { mockUrl, treeItem } = e.detail
@@ -30,4 +36,7 @@
   <Help on:overlayclick={() => ($isOpen = false)} />
 {/if}
 
-<MockTree treeData={$treeData} on:actionClick={showMock} />
+<MockTree
+  treeData={$treeData}
+  on:actionClick={showMock}
+  on:changeOpenStatus={saveOpenStatus} />

@@ -31,7 +31,7 @@
 
 
     dispatch('changeOpenStatus', {
-      treeItem: treeDataItem.nameTree,
+      nameTree: treeDataItem.nameTree,
       isOpen: treeDataItem.isOpen
     })
   }
