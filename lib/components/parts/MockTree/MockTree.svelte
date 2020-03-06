@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte'
   import { reflectSwitchData } from '../../../utils/patterns'
+
   export let treeData
 
   const dispatch = createEventDispatcher()
@@ -13,7 +14,7 @@
   }
 
   function onActionClick(treeItem) {
-    dispatch('actionclick', {
+    dispatch('actionClick', {
       mockUrl: getMockUrl(treeItem),
       treeItem,
     })
@@ -27,6 +28,12 @@
   function toggleItem(treeDataItem) {
     treeDataItem.isOpen = !treeDataItem.isOpen
     treeData = treeData
+
+
+    dispatch('changeOpenStatus', {
+      treeItem: treeDataItem.nameTree,
+      isOpen: treeDataItem.isOpen
+    })
   }
 </script>
 
@@ -157,7 +164,10 @@
 
       {#if item.isOpen}
         <div class="child">
-          <svelte:self on:actionclick treeData={item.treeData} />
+          <svelte:self
+            on:actionClick
+            on:changeOpenStatus
+            treeData={item.treeData} />
         </div>
       {/if}
     </li>

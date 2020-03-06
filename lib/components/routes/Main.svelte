@@ -30,4 +30,4 @@
   <Help on:overlayclick={() => ($isOpen = false)} />
 {/if}
 
-<MockTree treeData={$treeData} on:actionclick={showMock} />
+<MockTree treeData={$treeData} on:actionClick={showMock} />
