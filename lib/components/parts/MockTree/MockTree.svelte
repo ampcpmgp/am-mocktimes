@@ -98,6 +98,10 @@
     border: 1px solid #555;
     border-radius: 4px;
   }
+  .action.noLink {
+    color: inherit;
+    pointer-events: none;
+  }
 
   small {
     grid-area: description;
@@ -143,6 +147,7 @@
         href={getMockUrl(item)}
         class="action"
         class:executed={item.lastExecuted}
+        class:noLink={item.noLink}
         on:click|preventDefault={() => onActionClick(item)}>
         {item.name}
       </a>

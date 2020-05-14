@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/ampcpmgp/am-mocktimes/issues"
   },
-  "homepage": "https://github.com/ampcpmgp/am-mocktimes/addons/screenshot",
+  "homepage": "https://github.com/ampcpmgp/am-mocktimes/tree/master/addons/screenshot",
   "dependencies": {
     "filenamify": "^3.0.0",
     "fs-extra": "^7.0.1",

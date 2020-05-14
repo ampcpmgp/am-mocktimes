@@ -15,8 +15,11 @@ Travel Plan A:
         - [setLocation, Mars]
       Sun: [setLocation, Sun]
     view statistics: [view.displayStatistics]
+    No Link:
+      noLink: true,
+      Do nothing: []
 Travel Plan B: [setPlan, B]
 Travel Plan Z:
   funcs:
-   - [setPlan, Z]
-   - [dbz.setLocation, Cell Game, true]
+    - [setPlan, Z]
+    - [dbz.setLocation, Cell Game, true]
