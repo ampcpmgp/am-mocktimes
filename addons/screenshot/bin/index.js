@@ -68,7 +68,7 @@ async function start() {
   const linkInfoStr = await page.evaluate(() => {
     // this will be executed in Chrome
     const linkInfo = Array.from(
-      document.querySelectorAll(`[data-mock-name-tree]`)
+      document.querySelectorAll(`[data-mock-name-tree]:not(.noLink)`)
     ).map(elm => ({
       href: elm.href,
       name: elm.getAttribute('data-mock-name-tree'),

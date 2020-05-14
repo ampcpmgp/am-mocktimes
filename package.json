@@ -1,6 +1,6 @@
 {
   "name": "am-mocktimes",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Let's ease mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
   "main": "lib/mock.js",
@@ -58,7 +58,7 @@
     "query-string": "^6.1.0",
     "svelte": "^3.18.2",
     "svelte-spa-router": "^2.0.0",
-    "yargs": "^15.1.0"
+    "yargs": "^15.3.1"
   },
   "browserslist": [
     "last 1 chrome versions"
