@@ -64,9 +64,9 @@ async function start() {
   await fs.ensureDir(imgDir)
   rimraf.sync(`${imgDir}/*`)
 
-  await sleep(2000)
+  await sleep(3000)
   await page.keyboard.press('0')
-  await sleep(2000)
+  await sleep(1000)
 
   const linkInfoStr = await page.evaluate(() => {
     // this will be executed in Chrome
