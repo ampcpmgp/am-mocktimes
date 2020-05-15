@@ -52,6 +52,11 @@ async function start() {
     height: argv.height,
   })
 
+  page.on('dialog', async dialog => {
+    console.log(`The dialog is ignored.`, dialog.message())
+    await dialog.dismiss()
+  })
+
   try {
     await page.goto(argv.url)
   } catch (error) {
