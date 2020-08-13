@@ -54,7 +54,6 @@
     "keyboardjs": "^2.4.1",
     "localforage": "^1.7.3",
     "modern-css-reset": "^1.1.0",
-    "parcel-bundler": "^1.12.3",
     "query-string": "^6.1.0",
     "svelte": "^3.18.2",
     "svelte-spa-router": "^2.0.0",
