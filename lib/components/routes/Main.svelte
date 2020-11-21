@@ -21,11 +21,11 @@
     $treeData = $treeData
 
     const viewInfo = {
-      mockUrl,
+      mockUrl: decodeURIComponent(mockUrl),
       target: treeItem.target,
     }
 
-    const viewInfoJson = JSON.stringify(viewInfo)
+    const viewInfoJson = encodeURIComponent(JSON.stringify(viewInfo))
 
     push('/' + viewInfoJson)
   }

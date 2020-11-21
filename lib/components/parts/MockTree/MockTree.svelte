@@ -8,7 +8,8 @@
 
   function getMockUrl(treeItem) {
     const actionsJson = JSON.stringify(treeItem.actions)
-    const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`
+    const encoded = encodeURIComponent(actionsJson)
+    const mockUrl = `${treeItem.url}?__amMocktimes__=${encoded}`
 
     return mockUrl
   }
