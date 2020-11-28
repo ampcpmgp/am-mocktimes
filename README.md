@@ -117,6 +117,9 @@ switch配下の設定も、他と同様に　reserved propert を使えます。
 #### description: String
 モック一覧の横に説明書きとして表示されます。改行可能。
 
+#### noLink: Boolean
+リンク機能をオフにします。子ページだけがアクションを持つときに利用します。
+
 ### action property
 reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
 
