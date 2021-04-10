@@ -4,9 +4,9 @@
   import { treeData } from '../../states/mock'
   import { resetLastExecuted } from '../../utils/patterns'
   import { setLastOpenName } from '../../utils/localForage'
-  import Header from '../parts/Header/Header'
-  import Help from '../parts/Help/Help'
-  import MockTree from '../parts/MockTree/MockTree'
+  import Header from '../parts/Header/Header.svelte'
+  import Help from '../parts/Help/Help.svelte'
+  import MockTree from '../parts/MockTree/MockTree.svelte'
 
   function saveOpenStatus(e) {
     const { nameTree, isOpen } = e.detail

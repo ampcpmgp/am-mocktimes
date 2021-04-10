@@ -1,5 +1,5 @@
 <script>
-  import MockView from '../parts/MockView/MockView'
+  import MockView from '../parts/MockView/MockView.svelte'
 
   const viewInfoEncoded = location.hash.replace(/^#\//, '')
   const viewInfoJson = decodeURIComponent(viewInfoEncoded)
