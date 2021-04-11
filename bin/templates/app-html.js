@@ -11,7 +11,7 @@ module.exports = {
   </head>
   <body>
     App
-    <script src="./src/main.js"></script>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>
 `,
