@@ -7,14 +7,9 @@ import yaml from "@rollup/plugin-yaml";
 export default defineConfig({
   plugins: [svelte(), yaml()],
   build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "mock/testbed/index.html"),
-        mock: resolve(__dirname, "mock/testbed/mock.html"),
-      },
+    lib: {
+      entry: resolve(__dirname, "lib/main.js"),
+      name: "MyLib",
     },
-  },
-  server: {
-    open: "/mock/testbed/index.html",
   },
 });
