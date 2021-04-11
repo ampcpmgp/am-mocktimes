@@ -182,3 +182,19 @@ objectは階層を持つことが出来ます。その場合の `func` の指定
 ## start with webpack
 
 PR Welcome!
+
+## Development
+
+start
+
+```shell
+npm start
+```
+
+publish
+
+```shell
+npm run build
+npm version <patch|minor|major|prerelease>
+npm publish
+````
