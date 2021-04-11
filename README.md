@@ -23,7 +23,7 @@ npm i am-mocktimes vite @sveltejs/vite-plugin-svelte @rollup/plugin-yaml -D
 npx am-mocktimes template # generate template
 ```
 
-add vite.mock.config.js
+add `vite.mock.config.js`
 
 ```js
 import { defineConfig } from "vite";
@@ -48,6 +48,8 @@ export default defineConfig({
   },
 });
 ```
+
+Start
 
 ```shell
 npx vite --config=vite.mock.config.js
