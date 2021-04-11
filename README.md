@@ -77,7 +77,9 @@ src/
   main.js
 ```
 
-### config mock/patterns.yml
+これらのファイルを設定・編集することでパターンが作れます。
+
+## config mock/patterns.yml
 
 モック一覧の表示・設定に利用します。
 
@@ -99,6 +101,8 @@ plan Z:
     - [setPlan, Z, DragonBall]
     - [dbz.open]
 ```
+
+### reseved property
 
 #### settings.url: String
 
@@ -135,11 +139,11 @@ switch配下の設定も、他と同様に　reserved propert を使えます。
 
 リンク機能をオフにします。子ページだけがアクションを持つときに利用します。
 
-#### action property
+### action property
 
 reserved property 以外は全て action property となり、pattern list 表示用に利用されます。
 
-### config mock/mock-config.js
+## config mock/mock-config.js
 
 モックページで呼び出される、アクションを定義します。
 
