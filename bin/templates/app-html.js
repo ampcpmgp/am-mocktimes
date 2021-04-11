@@ -1,7 +1,7 @@
-const path = require('path')
+const path = require("path");
 
 module.exports = {
-  filePath: path.join(process.cwd(), 'src/index.html'),
+  filePath: path.join(process.cwd(), "index.html"),
   src: `<!DOCTYPE html>
 <html>
   <head>
@@ -11,8 +11,8 @@ module.exports = {
   </head>
   <body>
     App
-    <script src="./main.js"></script>
+    <script src="./src/main.js"></script>
   </body>
 </html>
 `,
-}
+};
