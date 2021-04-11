@@ -19,7 +19,7 @@
 
 TODO
 
-## API Document
+## How to use
 
 テンプレートファイル生成後、以下のファイルが出来上がります。
 
@@ -30,14 +30,14 @@ mock/
   patterns.yml # パターン一覧画面 - 設定ファイル
 
   testbed/
-    mock.html # モック画面
-    mock.js # モック画面js
     index.html # パターン一覧画面
     index.js # パターン一覧画面js
+    mock.html # モック画面
+    mock.js # モック画面js
 
 # アプリケーション本体
+index.html
 src/
-  index.html
   main.js
 ```
 
@@ -79,6 +79,8 @@ plan Z:
 これを指定することで、固有のURLが作られ、後述する[action](#config-mockmock-configjs)を呼び出すトリガーになります。
 関数名は ドット `.` を繋げることで、object 階層を表すことが出来ます。
 [action property](#action-property)に直接この値を定義することで、 `func` propertyを省略できます。
+
+※ ここの値に `#` は利用できません。
 
 #### funcs: Array[func, func, ...]
 
