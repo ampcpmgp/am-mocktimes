@@ -1,52 +1,104 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
-  import { reflectSwitchData } from '../../../utils/patterns'
+  import { createEventDispatcher } from "svelte";
+  import { reflectSwitchData } from "../../../utils/patterns";
 
-  export let treeData
+  export let treeData;
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher();
 
   function getMockUrl(treeItem) {
-    const actionsJson = JSON.stringify(treeItem.actions)
-    const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`
+    const actionsJson = JSON.stringify(treeItem.actions);
+    const mockUrl = `${treeItem.url}?__amMocktimes__=${actionsJson}`;
 
-    return mockUrl
+    return mockUrl;
   }
 
   function onActionClick(treeItem) {
-    dispatch('actionClick', {
+    dispatch("actionClick", {
       mockUrl: getMockUrl(treeItem),
       treeItem,
-    })
+    });
   }
 
   function onSwitch(treeItem, switchItem) {
-    reflectSwitchData(treeItem, switchItem)
-    treeData = treeData
+    reflectSwitchData(treeItem, switchItem);
+    treeData = treeData;
   }
 
   function toggleItem(treeDataItem) {
-    treeDataItem.isOpen = !treeDataItem.isOpen
-    treeData = treeData
+    treeDataItem.isOpen = !treeDataItem.isOpen;
+    treeData = treeData;
 
-    dispatch('changeOpenStatus', {
+    dispatch("changeOpenStatus", {
       nameTree: treeDataItem.nameTree,
       isOpen: treeDataItem.isOpen,
-    })
+    });
   }
 </script>
+
+<ul class="tree-ul">
+  {#each treeData as item}
+    <li class="tree-li {item.hasSwitch ? 'has-switch' : ''}">
+      <div
+        class="open-close-icon"
+        class:hide={!item.hasChild}
+        on:click={() => toggleItem(item)}
+      >
+        {item.isOpen ? "-" : "+"}
+      </div>
+
+      <a
+        data-mock-name-tree={item.nameTree}
+        href={getMockUrl(item)}
+        class="action"
+        class:executed={item.lastExecuted}
+        class:noLink={item.noLink}
+        on:click|preventDefault={() => onActionClick(item)}
+      >
+        {item.name}
+      </a>
+
+      {#if item.hasSwitch}
+        <ul class="switch-ul">
+          {#each item.switchData as switchItem}
+            <li
+              class:selected={item.selected.name === switchItem.name}
+              on:click={() => onSwitch(item, switchItem)}
+            >
+              {switchItem.name}
+            </li>
+          {/each}
+        </ul>
+      {/if}
+
+      <small>{item.description}</small>
+
+      {#if item.isOpen}
+        <div class="child">
+          <svelte:self
+            on:actionClick
+            on:changeOpenStatus
+            treeData={item.treeData}
+          />
+        </div>
+      {/if}
+    </li>
+  {/each}
+</ul>
 
 <style>
   .tree-ul {
     display: grid;
+    margin: 0;
+    padding: 0;
   }
 
   .tree-li {
     display: grid;
     grid-template-columns: auto auto 1fr;
     grid-template-areas:
-      '. . description'
-      '. . .';
+      ". . description"
+      ". . .";
     justify-content: start;
     align-items: center;
     grid-column-gap: 6px;
@@ -54,8 +106,8 @@
   .tree-li.has-switch {
     grid-template-columns: auto auto auto 1fr;
     grid-template-areas:
-      '. . . description'
-      '. . . .';
+      ". . . description"
+      ". . . .";
   }
 
   .open-close-icon {
@@ -131,49 +183,3 @@
     background-color: yellow;
   }
 </style>
-
-<ul class="tree-ul">
-  {#each treeData as item}
-    <li class="tree-li {item.hasSwitch ? 'has-switch' : ''}">
-      <div
-        class="open-close-icon"
-        class:hide={!item.hasChild}
-        on:click={() => toggleItem(item)}>
-        {item.isOpen ? '-' : '+'}
-      </div>
-
-      <a
-        data-mock-name-tree={item.nameTree}
-        href={getMockUrl(item)}
-        class="action"
-        class:executed={item.lastExecuted}
-        class:noLink={item.noLink}
-        on:click|preventDefault={() => onActionClick(item)}>
-        {item.name}
-      </a>
-
-      {#if item.hasSwitch}
-        <ul class="switch-ul">
-          {#each item.switchData as switchItem}
-            <li
-              class:selected={item.selected.name === switchItem.name}
-              on:click={() => onSwitch(item, switchItem)}>
-              {switchItem.name}
-            </li>
-          {/each}
-        </ul>
-      {/if}
-
-      <small>{item.description}</small>
-
-      {#if item.isOpen}
-        <div class="child">
-          <svelte:self
-            on:actionClick
-            on:changeOpenStatus
-            treeData={item.treeData} />
-        </div>
-      {/if}
-    </li>
-  {/each}
-</ul>

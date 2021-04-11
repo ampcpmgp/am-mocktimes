@@ -1,9 +1,9 @@
-import { addParameters } from '@storybook/svelte'
-import 'modern-css-reset'
+import { addParameters } from "@storybook/svelte";
+import "modern-css-reset";
 
 addParameters({
   backgrounds: [
-    { name: 'grey', value: '#ccc' },
-    { name: 'lightgreen', value: 'lightgreen' },
+    { name: "grey", value: "#ccc" },
+    { name: "lightgreen", value: "lightgreen" },
   ],
-})
+});

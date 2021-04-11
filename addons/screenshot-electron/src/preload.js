@@ -1,5 +1,5 @@
-const ipc = require('electron').ipcRenderer
+const ipc = require("electron").ipcRenderer;
 
 window.onerror = error => {
-  ipc.send('errorInWindow', error)
-}
+  ipc.send("errorInWindow", error);
+};
