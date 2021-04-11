@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>travel page</title>
     <style>
       body {
@@ -55,21 +55,27 @@
       }
 
       @keyframes spin {
-        0% {transform: rotate(0deg);}
-        100% {transform: rotate(360deg);}
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
     </style>
   </head>
   <body>
     <div id="planBox">
       Plan Name: <span id="planName">loading...</span>
-      <span id="viewStatistics" onclick="displayStatistics()">view statistics</span>
+      <span id="viewStatistics" onclick="displayStatistics()"
+        >view statistics</span
+      >
     </div>
     <div id="locationBox"></div>
     <div id="picture">
-      <img id="catSaysLocation"></img>
+      <img id="catSaysLocation" />
       <span id="say"></span>
     </div>
-    <script src="../mock-config.js"></script>
+    <script type="module" src="../mock-config.js"></script>
   </body>
 </html>

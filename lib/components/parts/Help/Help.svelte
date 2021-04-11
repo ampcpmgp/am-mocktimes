@@ -1,11 +1,11 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
-  import octocat from '../../../images/octocat.svg'
+  import { createEventDispatcher } from "svelte";
+  import octocat from "../../../images/octocat.svg";
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher();
 
   function onOverlayClick() {
-    dispatch('overlayclick')
+    dispatch("overlayclick");
   }
 </script>
 
@@ -54,7 +54,7 @@
   kbd {
     display: inline-block;
     padding: 3px 5px;
-    font: 11px 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
+    font: 11px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
       monospace;
     line-height: 10px;
     color: #444d56;

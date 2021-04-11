@@ -1,7 +1,7 @@
-const path = require('path')
+const path = require("path");
 
 module.exports = {
-  filePath: path.join(process.cwd(), 'mock/testbed/patterns.html'),
+  filePath: path.join(process.cwd(), "mock/testbed/index.html"),
   src: `<!doctype html>
 <html lang="en">
   <head>
@@ -11,8 +11,8 @@ module.exports = {
   </head>
   <body>
     <div id="app"></div>
-    <script src="patterns.js"></script>
+    <script type="module" src="./index.js"></script>
   </body>
 </html>
 `,
-}
+};

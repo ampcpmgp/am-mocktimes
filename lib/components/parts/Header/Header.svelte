@@ -1,10 +1,10 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher();
 
   function onHelpClick() {
-    dispatch('helpclick')
+    dispatch("helpclick");
   }
 </script>
 

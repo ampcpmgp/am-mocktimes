@@ -1,16 +1,16 @@
 <script>
-  import { onMount } from 'svelte'
-  export let target = 'browser'
-  export let src
-  let webview
+  import { onMount } from "svelte";
+  export let target = "browser";
+  export let src;
+  let webview;
 
   onMount(() => {
-    if (target === 'electron') {
-      webview.addEventListener('dom-ready', () => {
-        webview.openDevTools()
-      })
+    if (target === "electron") {
+      webview.addEventListener("dom-ready", () => {
+        webview.openDevTools();
+      });
     }
-  })
+  });
 </script>
 
 <style>

@@ -8,8 +8,8 @@ mock/
   testbed/
     mock.html # モック画面
     mock.js # モック画面js
-    patterns.html # パターン一覧画面
-    patterns.js # パターン一覧画面js
+    index.html # パターン一覧画面
+    index.js # パターン一覧画面js
 
 # アプリケーション本体
 src/
@@ -19,5 +19,5 @@ src/
 ## docs
 mock/mock-config.js:  https://github.com/ampcpmgp/am-mocktimes#config-mockmockconfigjs
 mock/patterns.yml:  https://github.com/ampcpmgp/am-mocktimes#config-mockpatternyml
-`)
-}
+`);
+};
