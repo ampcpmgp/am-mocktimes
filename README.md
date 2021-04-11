@@ -9,11 +9,6 @@
 * [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock/testbed/index.html)
 * [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
 
-## How to use
-
-上記のサンプルページを開き、特定のリンクをクリックすると、iframeでモックが表示されます。
-ブラウザの戻るボタンを押すと再度一覧ページに戻ります。
-
 ## Recommended environment
 
 | Node.js | npx | npm |
@@ -24,18 +19,9 @@
 
 TODO
 
-## Start with Parcel v1
+## API Document
 
-```shell
-# インストール
-npm init
-npm i am-mocktimes parcel-plugin-svelte parcel-bundler -D
-
-# テンプレート生成
-npx am-mocktimes template
-```
-
-以下のテンプレートファイルが出来上がります。
+テンプレートファイル生成後、以下のファイルが出来上がります。
 
 ```shell
 # モック
@@ -55,27 +41,7 @@ src/
   main.js
 ```
 
-※[こちらのIssue](https://github.com/DeMoorJasper/parcel-plugin-svelte/issues/44)が解消されるまでは、 `package.json` 内に 以下のような `browserlist` を追加してください。
-
-```json
-{
-  ...
-  "browserslist": [
-    "last 1 chrome versions"
-  ]
-}
-```
-
-テンプレート作成後、以下のコマンドでparcelサーバーが立ち上がります。
-
-```shell
-npx parcel mock/testbed/*.html
-```
-
-<http://localhost:1234/index.html> からアクセスできます。
-( `browserlist` を入れなかった場合、上記ページを開くとエラーが表示されます。 )
-
-## config mock/patterns.yml
+### config mock/patterns.yml
 
 モック一覧の表示・設定に利用します。
 
@@ -97,8 +63,6 @@ plan Z:
     - [setPlan, Z, DragonBall]
     - [dbz.open]
 ```
-
-### reserved property
 
 #### settings.url: String
 
@@ -133,11 +97,11 @@ switch配下の設定も、他と同様に　reserved propert を使えます。
 
 リンク機能をオフにします。子ページだけがアクションを持つときに利用します。
 
-### action property
+#### action property
 
-reserved property以外は全てaction propertyとなり、pattern list表示用に利用されます。
+reserved property 以外は全て action property となり、pattern list 表示用に利用されます。
 
-## config mock/mock-config.js
+### config mock/mock-config.js
 
 モックページで呼び出される、アクションを定義します。
 
@@ -170,18 +134,12 @@ mock(action)
 
 この関数を呼び出すことで、モック状態を生成します。
 
-#### MockAction
-
-`func`で定義した関数名を、keyで持つobjectとなります。
+`func` で定義した関数名を、keyで持つobjectとなります。
 objectは階層を持つことが出来ます。その場合の `func` の指定は、 `func: [dbz.start]` のように、 `.` でつなぎます。
 
 ## addons
 
 * [screenshot](./addons/screenshot/#readme) - 各モックページのスクリーンショットを保存します。
-
-## start with webpack
-
-PR Welcome!
 
 ## Development
 
