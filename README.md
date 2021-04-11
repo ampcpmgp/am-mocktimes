@@ -20,7 +20,11 @@
 | --- | --- | --- |
 | >= 10.15.3 | >= 6.4.1 | >= 6.4.1 |
 
-## Start with parcel
+## start with Vite
+
+TODO
+
+## Start with Parcel v1
 
 ```shell
 # インストール
@@ -42,8 +46,8 @@ mock/
   testbed/
     mock.html # モック画面
     mock.js # モック画面js
-    patterns.html # パターン一覧画面
-    patterns.js # パターン一覧画面js
+    index.html # パターン一覧画面
+    index.js # パターン一覧画面js
 
 # アプリケーション本体
 src/
@@ -68,7 +72,7 @@ src/
 npx parcel mock/testbed/*.html
 ```
 
-<http://localhost:1234/patterns.html> からアクセスできます。
+<http://localhost:1234/index.html> からアクセスできます。
 ( `browserlist` を入れなかった場合、上記ページを開くとエラーが表示されます。 )
 
 ## config mock/patterns.yml

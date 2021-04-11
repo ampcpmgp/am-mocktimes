@@ -4,6 +4,9 @@
   "description": "Let's enjoy mock creation / pattern management and increase break time.",
   "homepage": "https://github.com/ampcpmgp/am-mocktimes",
   "main": "lib/mock.js",
+  "bin": {
+    "am-mocktimes": "bin/index.js"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build --config=vite.build.config.js",
