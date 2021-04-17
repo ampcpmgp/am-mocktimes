@@ -31,6 +31,12 @@
   }
 </script>
 
+<style>
+  .content-wrapper {
+    margin: 4px 8px;
+  }
+</style>
+
 <Header on:helpclick={() => ($isOpen = true)} />
 {#if $isOpen}
   <Help on:overlayclick={() => ($isOpen = false)} />
@@ -40,12 +46,5 @@
   <MockTree
     treeData={$treeData}
     on:actionClick={showMock}
-    on:changeOpenStatus={saveOpenStatus}
-  />
+    on:changeOpenStatus={saveOpenStatus} />
 </div>
-
-<style>
-  .content-wrapper {
-    margin: 4px 8px;
-  }
-</style>
