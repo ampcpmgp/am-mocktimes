@@ -6,7 +6,7 @@
 
 ## Sample Page
 
-* [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/mock/testbed/index.html)
+* [サンプルページ](https://ampcpmgp.github.io/am-mocktimes/docs/patterns.html)
 * [ライツアウトのサンプルページ](https://ampcpmgp.gitlab.io/plane-puzzle/pattern.html)
 
 ## Recommended environment
